@@ -2,7 +2,14 @@ package ca.drusk.flightmanager.server;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import ca.drusk.flightmanager.client.table_field_constants.AirlinesFields;
+import ca.drusk.flightmanager.shared.DefaultRelation;
+import ca.drusk.flightmanager.shared.DefaultRow;
+import ca.drusk.flightmanager.shared.Relation;
+import ca.drusk.flightmanager.shared.Row;
 
 /**
  * Base class for classes which interact with the database.
@@ -15,7 +22,8 @@ import java.sql.SQLException;
  */
 public abstract class DatabaseAccessor {
 
-	protected Connection conn = DatabaseConnectionManager.getConnInstance();
+	protected Connection conn = DatabaseConnectionManager.getInstance()
+			.getConnection();
 
 	/**
 	 * 
@@ -32,6 +40,25 @@ public abstract class DatabaseAccessor {
 			System.err.println("SQLException: " + sqlExcept.getMessage());
 		}
 		return insertions;
+	}
+
+	protected Relation executeQuery(PreparedStatement stmt) {
+		// TODO DBFields interface -> getFields
+		// pass in DBFields
+		DefaultRelation relation = new DefaultRelation(
+				AirlinesFields.getFields());
+		try {
+			ResultSet resultSet = stmt.executeQuery();
+			while (resultSet.next()) {
+				Row row = new DefaultRow();
+				// TODO set values
+				relation.add(row);
+			}
+			resultSet.close();
+		} catch (SQLException sqlExcept) {
+			System.err.println("SQLException: " + sqlExcept.getMessage());
+		}
+		return relation;
 	}
 
 	/**

@@ -23,6 +23,15 @@
     <servlet-name>dataDeletionServlet</servlet-name>
     <url-pattern>/flightmanager/data-deletion</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>dataQueryServlet</servlet-name>
+    <servlet-class>ca.drusk.flightmanager.server.DataQueryServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dataQueryServlet</servlet-name>
+    <url-pattern>/flightmanager/data-query</url-pattern>
+  </servlet-mapping>
    
   <!-- Default page to serve -->
   <welcome-file-list>
