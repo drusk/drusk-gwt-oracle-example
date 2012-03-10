@@ -4,6 +4,8 @@ import ca.drusk.flightmanager.client.services.DataDeletionService;
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
 import ca.drusk.flightmanager.client.services.DataEntryService;
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
+import ca.drusk.flightmanager.client.services.DataQueryService;
+import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
 import ca.drusk.flightmanager.client.ui_components.MainTabPanel;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -37,6 +39,9 @@ public class FlightManager implements EntryPoint {
 	private final DataDeletionServiceAsync dataDeletionService = GWT
 			.create(DataDeletionService.class);
 
+	private final DataQueryServiceAsync dataQueryService = GWT
+			.create(DataQueryService.class);
+
 	/**
 	 * This is the entry point method.
 	 */
@@ -45,7 +50,8 @@ public class FlightManager implements EntryPoint {
 		HTML header = new HTML("Welcome to the Flight Management System");
 		header.addStyleName("mainPageHeader");
 		basePanel.addNorth(header, 80);
-		basePanel.add(new MainTabPanel(dataEntryService, dataDeletionService));
+		basePanel.add(new MainTabPanel(dataEntryService, dataDeletionService,
+				dataQueryService));
 
 		// DockLayoutPanel insertionsDockPanel = new DockLayoutPanel(Unit.PX);
 		// final DeckLayoutPanel insertionsDeckPanel = new DeckLayoutPanel();

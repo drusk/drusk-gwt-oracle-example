@@ -5,11 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import ca.drusk.flightmanager.client.table_field_constants.AirlinesFields;
-import ca.drusk.flightmanager.shared.DefaultRelation;
-import ca.drusk.flightmanager.shared.DefaultRow;
-import ca.drusk.flightmanager.shared.Relation;
-import ca.drusk.flightmanager.shared.Row;
+import ca.drusk.flightmanager.client.data.DefaultRelation;
+import ca.drusk.flightmanager.client.data.DefaultRow;
+import ca.drusk.flightmanager.client.data.Relation;
 
 /**
  * Base class for classes which interact with the database.
@@ -42,16 +40,28 @@ public abstract class DatabaseAccessor {
 		return insertions;
 	}
 
-	protected Relation executeQuery(PreparedStatement stmt) {
-		// TODO DBFields interface -> getFields
-		// pass in DBFields
-		DefaultRelation relation = new DefaultRelation(
-				AirlinesFields.getFields());
+	/**
+	 * 
+	 * @param stmt
+	 *            the <code>PreparedStatement</code> which will call
+	 *            executeQuery()
+	 * @param columnNames
+	 *            the columns expected in the {@link ResultSet} retrieved from
+	 *            the database
+	 * @return the relation (set of rows) for the query that has been loaded
+	 *         into the prepared statement
+	 */
+	protected Relation executeQuery(PreparedStatement stmt,
+			String... columnNames) {
+		DefaultRelation relation = new DefaultRelation(columnNames);
 		try {
 			ResultSet resultSet = stmt.executeQuery();
 			while (resultSet.next()) {
-				Row row = new DefaultRow();
-				// TODO set values
+				DefaultRow row = new DefaultRow();
+				for (String columnName : columnNames) {
+					row.addColumnValue(columnName,
+							resultSet.getString(columnName));
+				}
 				relation.add(row);
 			}
 			resultSet.close();

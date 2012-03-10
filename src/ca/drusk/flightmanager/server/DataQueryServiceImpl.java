@@ -1,7 +1,7 @@
 package ca.drusk.flightmanager.server;
 
+import ca.drusk.flightmanager.client.data.Relation;
 import ca.drusk.flightmanager.client.services.DataQueryService;
-import ca.drusk.flightmanager.shared.Relation;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -14,10 +14,11 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class DataQueryServiceImpl extends RemoteServiceServlet implements
 		DataQueryService {
 
+	private DataQuerier dataQuerier = new DataQuerier();
+
 	@Override
 	public Relation getAirlines() {
-		// TODO Auto-generated method stub
-		return null;
+		return dataQuerier.getAirlineFullRelation();
 	}
 
 }

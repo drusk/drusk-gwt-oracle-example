@@ -1,6 +1,6 @@
 package ca.drusk.flightmanager.client.services;
 
-import ca.drusk.flightmanager.shared.Relation;
+import ca.drusk.flightmanager.client.data.Relation;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

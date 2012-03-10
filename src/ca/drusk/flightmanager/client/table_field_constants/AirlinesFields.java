@@ -6,7 +6,7 @@ package ca.drusk.flightmanager.client.table_field_constants;
  * @author drusk
  * 
  */
-public class AirlinesFields {
+public class AirlinesFields implements TableFields {
 
 	public static final String WEBSITE = "Website";
 
@@ -14,7 +14,7 @@ public class AirlinesFields {
 
 	public static final String NAME = "Name";
 
-	public static String[] getFields() {
+	public String[] getFields() {
 		return new String[] { NAME, CODE, WEBSITE };
 	}
 }

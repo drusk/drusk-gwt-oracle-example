@@ -2,11 +2,14 @@ package ca.drusk.flightmanager.client.ui_components;
 
 import java.util.List;
 
-import ca.drusk.flightmanager.shared.Relation;
-import ca.drusk.flightmanager.shared.Row;
+import ca.drusk.flightmanager.client.data.Relation;
+import ca.drusk.flightmanager.client.data.Row;
 
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
@@ -22,10 +25,19 @@ public class RelationTable {
 
 	private CellTable<Row> table = new CellTable<Row>();
 
+	private SimplePager pager;
+
 	public RelationTable(Relation relation) {
+		assert relation != null;
 		this.relation = relation;
 		initTable();
 		initDataProvider();
+		initPager();
+	}
+
+	private void initPager() {
+		pager = new SimplePager();
+		pager.setDisplay(table);
 	}
 
 	private void initDataProvider() {
@@ -53,7 +65,7 @@ public class RelationTable {
 				}
 			};
 			column.setSortable(true);
-			table.addColumn(column);
+			table.addColumn(column, columnName);
 		}
 	}
 
@@ -62,7 +74,12 @@ public class RelationTable {
 	 * @return the table as a widget which can be added to the UI.
 	 */
 	public Widget asWidget() {
-		return table;
+		VerticalPanel vPanel = new VerticalPanel();
+		vPanel.add(table);
+		vPanel.add(pager);
+		vPanel.setCellHorizontalAlignment(pager,
+				HasHorizontalAlignment.ALIGN_CENTER);
+		return vPanel;
 	}
 
 }

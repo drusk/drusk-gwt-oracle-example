@@ -68,7 +68,7 @@ public class AirlineDataEntryForm extends VerticalPanel {
 	}
 
 	private void initEntryForm() {
-		for (String label : AirlinesFields.getFields()) {
+		for (String label : new AirlinesFields().getFields()) {
 			add(new Label(label));
 			TextBox textBox = new TextBox();
 			add(textBox);
