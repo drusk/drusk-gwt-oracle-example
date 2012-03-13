@@ -15,4 +15,6 @@ public interface DataEntryService extends RemoteService {
 
 	int addAirline(String name, String code, String website);
 
+	int addPlaneModel(String code, String capacity);
+
 }

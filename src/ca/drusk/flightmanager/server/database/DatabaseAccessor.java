@@ -90,6 +90,24 @@ public abstract class DatabaseAccessor {
 	}
 
 	/**
+	 * 
+	 * @param stmt
+	 *            the <code>PreparedStatement</code> whose parameters will be
+	 *            set
+	 * @param params
+	 *            SQL statement parameters
+	 */
+	protected <T> void setParameters(PreparedStatement stmt, T... params) {
+		try {
+			for (int i = 0; i < params.length; i++) {
+				stmt.setObject(i + 1, params[i]);
+			}
+		} catch (SQLException sqlExcept) {
+			System.err.println("SQLException: " + sqlExcept.getMessage());
+		}
+	}
+
+	/**
 	 * Checks if a PreparedStatement has been initialized. If it has, the
 	 * parameters are cleared. If it hasn't, it is created using the specified
 	 * sql

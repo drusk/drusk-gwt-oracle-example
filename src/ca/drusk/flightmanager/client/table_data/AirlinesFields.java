@@ -6,7 +6,7 @@ package ca.drusk.flightmanager.client.table_data;
  * @author drusk
  * 
  */
-public class AirlinesFields implements TableFields {
+public final class AirlinesFields implements TableFields {
 
 	public static final String WEBSITE = "Website";
 

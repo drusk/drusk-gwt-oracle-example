@@ -2,8 +2,11 @@ package ca.drusk.flightmanager.client.ui.main_pages;
 
 import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirlineResultsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.PlaneModelsDisplay;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DeckLayoutPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -38,9 +41,27 @@ public class DataViewerTabContents implements IsWidget {
 
 	private void initTableSelector() {
 		VerticalPanel buttonHolder = new VerticalPanel();
+
 		Button airlinesButton = new Button("Airlines");
+		airlinesButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				resultsDeckPanel.showWidget(0);
+			}
+
+		});
 		buttonHolder.add(airlinesButton);
-		// TODO onclick handler, show widget on
+
+		Button planeModelsButton = new Button("Plane Models");
+		planeModelsButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				resultsDeckPanel.showWidget(1);
+			}
+
+		});
+		buttonHolder.add(planeModelsButton);
+
 		buttonHolder.setWidth("100%");
 		buttonHolder.setHeight("100%");
 		buttonHolder.setBorderWidth(1);
@@ -51,6 +72,7 @@ public class DataViewerTabContents implements IsWidget {
 		resultsDeckPanel = new DeckLayoutPanel();
 
 		resultsDeckPanel.add(new AirlineResultsDisplay(dataQueryService));
+		resultsDeckPanel.add(new PlaneModelsDisplay(dataQueryService));
 
 		resultsDeckPanel.showWidget(0);
 		dockPanel.add(resultsDeckPanel);

@@ -13,4 +13,7 @@ public interface DataEntryServiceAsync {
 	void addAirline(String name, String code, String website,
 			AsyncCallback<Integer> callback);
 
+	void addPlaneModel(String code, String capacity,
+			AsyncCallback<Integer> callback);
+
 }

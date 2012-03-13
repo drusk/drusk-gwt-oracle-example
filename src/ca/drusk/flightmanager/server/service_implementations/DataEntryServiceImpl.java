@@ -28,4 +28,10 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 		return inserter.addAirline(name, code, website);
 	}
 
+	@Override
+	public int addPlaneModel(String code, String capacity) {
+		return inserter.addPlaneModel(Integer.parseInt(code),
+				Integer.parseInt(capacity));
+	}
+
 }

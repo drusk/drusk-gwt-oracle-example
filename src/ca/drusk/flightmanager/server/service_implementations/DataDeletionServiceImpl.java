@@ -18,13 +18,18 @@ public class DataDeletionServiceImpl extends RemoteServiceServlet implements
 
 	public static void main(String args[]) {
 		DataDeleter deleter = new DataDeleter();
-		int removeAirline = deleter.removeAirline("AC");
-		System.out.println(removeAirline);
+		int removePlane = deleter.removePlaneModel("450");
+		System.out.println(removePlane);
 	}
 
 	@Override
 	public int removeAirline(String code) {
 		return deleter.removeAirline(code);
+	}
+
+	@Override
+	public int removePlaneModel(String code) {
+		return deleter.removePlaneModel(code);
 	}
 
 }

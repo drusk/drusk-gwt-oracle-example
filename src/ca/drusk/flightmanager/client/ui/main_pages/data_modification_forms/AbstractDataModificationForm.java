@@ -77,7 +77,7 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 		return container;
 	}
 
-	protected final class LoggingCallback implements AsyncCallback<Integer> {
+	public final class LoggingCallback implements AsyncCallback<Integer> {
 		private String successMessage;
 
 		public LoggingCallback(String successMessage) {

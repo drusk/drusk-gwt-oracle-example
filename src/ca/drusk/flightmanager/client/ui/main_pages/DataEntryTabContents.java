@@ -1,9 +1,12 @@
 package ca.drusk.flightmanager.client.ui.main_pages;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AirlineDataEntryForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.AirlineDataEntryForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.PlaneModelsDataEntryForm;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DeckLayoutPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -41,9 +44,27 @@ public class DataEntryTabContents implements IsWidget {
 
 	private void initTableSelector() {
 		VerticalPanel buttonHolder = new VerticalPanel();
+
 		Button airlinesButton = new Button("Airlines");
+		airlinesButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				formPanel.showWidget(0);
+			}
+
+		});
 		buttonHolder.add(airlinesButton);
-		// TODO onclick handler, show widget on
+
+		Button planeModelsButton = new Button("Plane Models");
+		planeModelsButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				formPanel.showWidget(1);
+			}
+
+		});
+		buttonHolder.add(planeModelsButton);
+
 		buttonHolder.setWidth("100%");
 		buttonHolder.setHeight("100%");
 		buttonHolder.setBorderWidth(1);
@@ -53,6 +74,7 @@ public class DataEntryTabContents implements IsWidget {
 	private void initDataEntryForms() {
 		formPanel = new DeckLayoutPanel();
 		formPanel.add(new AirlineDataEntryForm(dataEntryService));
+		formPanel.add(new PlaneModelsDataEntryForm(dataEntryService));
 
 		formPanel.showWidget(0);
 		dockPanel.add(formPanel);

@@ -14,4 +14,6 @@ public interface DataQueryServiceAsync {
 
 	void getAirlines(AsyncCallback<Relation> callback);
 
+	void getPlaneModels(AsyncCallback<Relation> callback);
+
 }
