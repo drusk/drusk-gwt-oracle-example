@@ -10,11 +10,8 @@ import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
  */
 public class AirlineResultsDisplay extends AbstractDataDisplay {
 
-	private final DataQueryServiceAsync dataQueryService;
-
 	public AirlineResultsDisplay(DataQueryServiceAsync dataQueryService) {
-		super();
-		this.dataQueryService = dataQueryService;
+		super(dataQueryService);
 	}
 
 	@Override

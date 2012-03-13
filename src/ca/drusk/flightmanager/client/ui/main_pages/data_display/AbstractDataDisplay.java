@@ -1,6 +1,7 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_display;
 
 import ca.drusk.flightmanager.client.data.Relation;
+import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
 import ca.drusk.flightmanager.client.ui.custom_widgets.ResultsTable;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -29,7 +30,10 @@ public abstract class AbstractDataDisplay implements IsWidget {
 
 	private static int SPACING = 10;
 
-	protected AbstractDataDisplay() {
+	protected final DataQueryServiceAsync dataQueryService;
+
+	protected AbstractDataDisplay(DataQueryServiceAsync dataQueryService) {
+		this.dataQueryService = dataQueryService;
 		createRefreshButton();
 		retrieveResultsAndAddToDisplay();
 		display.setSpacing(SPACING);
