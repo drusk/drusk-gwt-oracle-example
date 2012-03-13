@@ -1,7 +1,7 @@
 package ca.drusk.flightmanager.client.ui.main_pages;
 
 import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
-import ca.drusk.flightmanager.client.ui.AirlineResultsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirlineResultsDisplay;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Button;

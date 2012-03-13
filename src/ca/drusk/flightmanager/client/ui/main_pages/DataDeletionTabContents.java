@@ -1,7 +1,7 @@
 package ca.drusk.flightmanager.client.ui.main_pages;
 
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
-import ca.drusk.flightmanager.client.ui.AirlineDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AirlineDataDeletionForm;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Button;
