@@ -6,6 +6,7 @@ import java.util.List;
 import ca.drusk.flightmanager.client.data.Relation;
 import ca.drusk.flightmanager.client.data.Row;
 import ca.drusk.flightmanager.client.table_data.AirlinesFields;
+import ca.drusk.flightmanager.client.table_data.CitizenshipsFields;
 import ca.drusk.flightmanager.client.table_data.PlaneModelsFields;
 
 /**
@@ -18,12 +19,21 @@ public class DataQuerier extends DatabaseAccessor {
 
 	private PreparedStatement airlineStmt = null;
 
+	private PreparedStatement citizenshipStmt = null;
+
 	private PreparedStatement planeModelStmt = null;
 
 	public Relation getAirlineFullRelation() {
 		airlineStmt = prepareStatement(airlineStmt,
 				"SELECT name, code, website FROM Airlines");
 		return executeQuery(airlineStmt, new AirlinesFields().getFields());
+	}
+
+	public Relation getCitizenshipsFullRelation() {
+		citizenshipStmt = prepareStatement(citizenshipStmt,
+				"SELECT citizenship FROM Citizenships");
+		return executeQuery(citizenshipStmt,
+				new CitizenshipsFields().getFields());
 	}
 
 	public Relation getPlaneModelsFullRelation() {

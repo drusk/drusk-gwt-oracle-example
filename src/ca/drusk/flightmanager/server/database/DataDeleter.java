@@ -12,6 +12,8 @@ public class DataDeleter extends DatabaseAccessor {
 
 	private PreparedStatement airlineStmt = null;
 
+	private PreparedStatement citizenshipStmt = null;
+
 	private PreparedStatement planeModelStmt = null;
 
 	public int removeAirline(String code) {
@@ -28,4 +30,10 @@ public class DataDeleter extends DatabaseAccessor {
 		return executeUpdate(planeModelStmt);
 	}
 
+	public int removeCitizenship(String citizenship) {
+		citizenshipStmt = prepareStatement(citizenshipStmt,
+				"DELETE FROM Citizenships WHERE citizenship=?");
+		setParameters(citizenshipStmt, citizenship);
+		return executeUpdate(citizenshipStmt);
+	}
 }

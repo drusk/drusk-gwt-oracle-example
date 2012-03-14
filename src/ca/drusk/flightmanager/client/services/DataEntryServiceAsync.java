@@ -16,4 +16,6 @@ public interface DataEntryServiceAsync {
 	void addPlaneModel(String code, String capacity,
 			AsyncCallback<Integer> callback);
 
+	void addCitizenship(String citizenship, AsyncCallback<Integer> callback);
+
 }

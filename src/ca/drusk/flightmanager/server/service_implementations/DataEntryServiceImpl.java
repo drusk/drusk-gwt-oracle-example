@@ -34,4 +34,9 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 				Integer.parseInt(capacity));
 	}
 
+	@Override
+	public int addCitizenship(String citizenship) {
+		return inserter.addCitizenship(citizenship);
+	}
+
 }

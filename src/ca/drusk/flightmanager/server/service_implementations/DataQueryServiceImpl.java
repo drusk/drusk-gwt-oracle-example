@@ -27,4 +27,9 @@ public class DataQueryServiceImpl extends RemoteServiceServlet implements
 		return dataQuerier.getPlaneModelsFullRelation();
 	}
 
+	@Override
+	public Relation getCitizenships() {
+		return dataQuerier.getCitizenshipsFullRelation();
+	}
+
 }

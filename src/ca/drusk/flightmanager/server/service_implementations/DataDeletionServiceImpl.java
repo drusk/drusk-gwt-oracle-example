@@ -32,4 +32,9 @@ public class DataDeletionServiceImpl extends RemoteServiceServlet implements
 		return deleter.removePlaneModel(code);
 	}
 
+	@Override
+	public int removeCitizenship(String citizenship) {
+		return deleter.removeCitizenship(citizenship);
+	}
+
 }

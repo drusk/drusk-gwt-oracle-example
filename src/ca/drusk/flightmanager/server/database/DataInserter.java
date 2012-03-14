@@ -12,6 +12,8 @@ public class DataInserter extends DatabaseAccessor {
 
 	private PreparedStatement airlineStmt = null;
 
+	private PreparedStatement citizenshipsStmt = null;
+
 	private PreparedStatement planeModelStmt = null;
 
 	public int addAirline(String name, String code, String website) {
@@ -26,6 +28,13 @@ public class DataInserter extends DatabaseAccessor {
 				"INSERT INTO PlaneModels(code, capacity) VALUES(?, ?)");
 		setParameters(planeModelStmt, code, capacity);
 		return executeUpdate(planeModelStmt);
+	}
+
+	public int addCitizenship(String citizenship) {
+		citizenshipsStmt = prepareStatement(citizenshipsStmt,
+				"INSERT INTO Citizenships(citizenship) VALUES(?)");
+		setParameters(citizenshipsStmt, citizenship);
+		return executeUpdate(citizenshipsStmt);
 	}
 
 }

@@ -12,8 +12,10 @@ public final class TableNames {
 
 	public static final String PLANE_MODELS = "Plane Models";
 
+	public static final String CITIZENSHIPS = "Citizenships";
+
 	public static final String[] getAll() {
-		return new String[] { AIRLINES, PLANE_MODELS };
+		return new String[] { AIRLINES, CITIZENSHIPS, PLANE_MODELS };
 	}
 
 }

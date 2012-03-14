@@ -17,4 +17,6 @@ public interface DataEntryService extends RemoteService {
 
 	int addPlaneModel(String code, String capacity);
 
+	int addCitizenship(String citizenship);
+
 }

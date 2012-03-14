@@ -3,6 +3,7 @@ package ca.drusk.flightmanager.client.ui.main_pages;
 import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirlineResultsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.CitizenshipsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.PlaneModelsDisplay;
 
 import com.google.gwt.user.client.ui.DeckLayoutPanel;
@@ -44,6 +45,12 @@ public class DataViewerTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.PLANE_MODELS,
 				planeModelDisplay, tabContents);
 		tabContents.add(planeModelDisplay);
+
+		CitizenshipsDisplay citizenshipDisplay = new CitizenshipsDisplay(
+				dataQueryService);
+		tableSelector.registerSwitchHandler(TableNames.CITIZENSHIPS,
+				citizenshipDisplay, tabContents);
+		tabContents.add(citizenshipDisplay);
 
 		tabContents.showWidget(0);
 		return tabContents;
