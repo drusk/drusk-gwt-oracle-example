@@ -44,4 +44,9 @@ public class PlaneModelsDataEntryForm extends AbstractDataModificationForm {
 		return submitButton;
 	}
 
+	@Override
+	protected String getTitle() {
+		return "Plane Models";
+	}
+
 }

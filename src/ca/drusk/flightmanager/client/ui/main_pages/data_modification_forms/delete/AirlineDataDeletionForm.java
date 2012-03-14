@@ -41,4 +41,9 @@ public class AirlineDataDeletionForm extends AbstractDataModificationForm {
 		return submitButton;
 	}
 
+	@Override
+	protected String getTitle() {
+		return "Airlines";
+	}
+
 }

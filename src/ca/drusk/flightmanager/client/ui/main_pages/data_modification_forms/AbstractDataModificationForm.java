@@ -5,6 +5,7 @@ import java.util.Map;
 
 import ca.drusk.flightmanager.client.ui.custom_widgets.LabeledTextBox;
 import ca.drusk.flightmanager.client.ui.custom_widgets.Log;
+import ca.drusk.flightmanager.shared.utils.HtmlBuilder;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -39,6 +40,8 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 	protected Map<String, LabeledTextBox> textBoxes = new HashMap<String, LabeledTextBox>();
 
 	protected AbstractDataModificationForm(String... fields) {
+		formDisplay
+				.add(new HtmlBuilder(getTitle()).bold().underline().asHtml());
 		initTextBoxes(fields);
 		formDisplay.add(createSubmissionButton());
 		formDisplay.setSpacing(TEXTBOX_SPACING);
@@ -46,6 +49,8 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 		container.add(log);
 		container.setSpacing(TEXT_BOXES_TO_LOG_SPACING);
 	}
+
+	protected abstract String getTitle();
 
 	protected abstract Button createSubmissionButton();
 

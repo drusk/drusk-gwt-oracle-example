@@ -41,4 +41,9 @@ public class PlaneModelsDataDeletionForm extends AbstractDataModificationForm {
 		return submitButton;
 	}
 
+	@Override
+	protected String getTitle() {
+		return "Plane Models";
+	}
+
 }

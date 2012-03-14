@@ -2,6 +2,7 @@ package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entr
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.AirlinesFields;
+import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -43,6 +44,11 @@ public class AirlineDataEntryForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String getTitle() {
+		return TableNames.AIRLINES;
 	}
 
 }
