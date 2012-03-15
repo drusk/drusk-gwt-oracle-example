@@ -23,6 +23,10 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public abstract class AbstractDataModificationForm implements IsWidget {
 
+	protected static final String DELETE = "Delete";
+
+	protected static final String SUBMIT = "Submit Data";
+
 	private static final int LOG_WIDTH = 300;
 
 	private static final int LOG_HEIGHT = 150;

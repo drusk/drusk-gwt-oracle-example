@@ -16,6 +16,8 @@ public class DataInserter extends DatabaseAccessor {
 
 	private PreparedStatement planeModelStmt = null;
 
+	private PreparedStatement locationStmt = null;
+
 	public int addAirline(String name, String code, String website) {
 		airlineStmt = prepareStatement(airlineStmt,
 				"INSERT INTO Airlines(name, code, website) VALUES (?, ?, ?)");
@@ -35,6 +37,16 @@ public class DataInserter extends DatabaseAccessor {
 				"INSERT INTO Citizenships(citizenship) VALUES(?)");
 		setParameters(citizenshipsStmt, citizenship);
 		return executeUpdate(citizenshipsStmt);
+	}
+
+	@SuppressWarnings("unchecked")
+	public int addLocation(String airportCode, String city, String country,
+			int utcOffset) {
+		locationStmt = prepareStatement(
+				locationStmt,
+				"INSERT INTO Locations(airportCode, city, country, utcOffset) VALUES(?, ?, ?, ?)");
+		setParameters(locationStmt, airportCode, city, country, utcOffset);
+		return executeUpdate(locationStmt);
 	}
 
 }

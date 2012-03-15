@@ -18,4 +18,6 @@ public interface DataQueryServiceAsync {
 
 	void getCitizenships(AsyncCallback<Relation> callback);
 
+	void getLocations(AsyncCallback<Relation> callback);
+
 }

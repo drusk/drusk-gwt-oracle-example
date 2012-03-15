@@ -1,7 +1,7 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete;
 
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
-import ca.drusk.flightmanager.client.table_data.CitizenshipsFields;
+import ca.drusk.flightmanager.client.table_data.Citizenships;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -21,7 +21,7 @@ public class CitizenshipsDataDeletionForm extends AbstractDataModificationForm {
 
 	public CitizenshipsDataDeletionForm(
 			DataDeletionServiceAsync dataDeletionService) {
-		super(new CitizenshipsFields().getPrimaryKey());
+		super(new Citizenships().getPrimaryKey());
 		this.dataDeletionService = dataDeletionService;
 	}
 
@@ -32,13 +32,13 @@ public class CitizenshipsDataDeletionForm extends AbstractDataModificationForm {
 
 	@Override
 	protected Button createSubmissionButton() {
-		Button submitButton = new Button("Delete");
+		Button submitButton = new Button(DELETE);
 		submitButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				String citizenship = textBoxes.get(
-						CitizenshipsFields.CITIZENSHIP).getText();
+						Citizenships.CITIZENSHIP).getText();
 				dataDeletionService.removeCitizenship(citizenship,
 						new LoggingCallback("Deletion sent to server"));
 			}

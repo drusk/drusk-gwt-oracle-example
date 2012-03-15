@@ -39,4 +39,10 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 		return inserter.addCitizenship(citizenship);
 	}
 
+	@Override
+	public int addLocation(String airportCode, String city, String country,
+			int utcOffset) {
+		return inserter.addLocation(airportCode, city, country, utcOffset);
+	}
+
 }

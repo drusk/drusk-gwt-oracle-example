@@ -18,4 +18,7 @@ public interface DataEntryServiceAsync {
 
 	void addCitizenship(String citizenship, AsyncCallback<Integer> callback);
 
+	void addLocation(String airportCode, String city, String country,
+			int utcOffset, AsyncCallback<Integer> callback);
+
 }

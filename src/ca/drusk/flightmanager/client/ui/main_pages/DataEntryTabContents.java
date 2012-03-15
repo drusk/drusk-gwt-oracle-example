@@ -4,6 +4,7 @@ import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.AirlineDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.CitizenshipsDataEntryForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.LocationsDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.PlaneModelsDataEntryForm;
 
 import com.google.gwt.user.client.ui.DeckLayoutPanel;
@@ -51,6 +52,12 @@ public class DataEntryTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.CITIZENSHIPS,
 				citizenshipForm, tabContents);
 		tabContents.add(citizenshipForm);
+
+		LocationsDataEntryForm locationsForm = new LocationsDataEntryForm(
+				dataEntryService);
+		tableSelector.registerSwitchHandler(TableNames.LOCATIONS,
+				locationsForm, tabContents);
+		tabContents.add(locationsForm);
 
 		tabContents.showWidget(0);
 

@@ -14,8 +14,13 @@ public final class TableNames {
 
 	public static final String CITIZENSHIPS = "Citizenships";
 
+	public static final String LOCATIONS = "Locations";
+
+	public static final String FLIGHTS = "Flights";
+
 	public static final String[] getAll() {
-		return new String[] { AIRLINES, CITIZENSHIPS, PLANE_MODELS };
+		return new String[] { AIRLINES, CITIZENSHIPS, FLIGHTS, LOCATIONS,
+				PLANE_MODELS };
 	}
 
 }

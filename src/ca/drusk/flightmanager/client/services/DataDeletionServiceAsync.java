@@ -16,4 +16,6 @@ public interface DataDeletionServiceAsync {
 
 	void removeCitizenship(String citizenship, AsyncCallback<Integer> callback);
 
+	void removeLocation(String airportCode, AsyncCallback<Integer> callback);
+
 }

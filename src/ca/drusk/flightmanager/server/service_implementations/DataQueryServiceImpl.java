@@ -32,4 +32,9 @@ public class DataQueryServiceImpl extends RemoteServiceServlet implements
 		return dataQuerier.getCitizenshipsFullRelation();
 	}
 
+	@Override
+	public Relation getLocations() {
+		return dataQuerier.getLocationsFullRelation();
+	}
+
 }

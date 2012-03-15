@@ -19,4 +19,7 @@ public interface DataEntryService extends RemoteService {
 
 	int addCitizenship(String citizenship);
 
+	int addLocation(String airportCode, String city, String country,
+			int utcOffset);
+
 }

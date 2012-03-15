@@ -1,7 +1,8 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.PlaneModelsFields;
+import ca.drusk.flightmanager.client.table_data.PlaneModels;
+import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -19,19 +20,19 @@ public class PlaneModelsDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public PlaneModelsDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new PlaneModelsFields().getFields());
+		super(new PlaneModels().getFields());
 		this.dataEntryService = dataEntryService;
 	}
 
 	@Override
 	protected Button createSubmissionButton() {
-		Button submitButton = new Button("Submit data");
+		Button submitButton = new Button(SUBMIT);
 		submitButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String code = textBoxes.get(PlaneModelsFields.CODE).getText();
-				String capacity = textBoxes.get(PlaneModelsFields.CAPACITY)
+				String code = textBoxes.get(PlaneModels.CODE).getText();
+				String capacity = textBoxes.get(PlaneModels.CAPACITY)
 						.getText();
 
 				dataEntryService.addPlaneModel(code, capacity,
@@ -46,7 +47,7 @@ public class PlaneModelsDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String getTitle() {
-		return "Plane Models";
+		return TableNames.PLANE_MODELS;
 	}
 
 }
