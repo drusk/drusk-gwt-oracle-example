@@ -22,4 +22,8 @@ public interface DataEntryService extends RemoteService {
 	int addLocation(String airportCode, String city, String country,
 			int utcOffset);
 
+	int addFlight(String flightNumber, String source, String destination,
+			String airlineCode, String planeCode, String plannedArrivalTime,
+			String plannedDepartureTime) throws Exception;
+
 }

@@ -4,6 +4,7 @@ import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirlineResultsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.CitizenshipsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.FlightsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.LocationsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.PlaneModelsDisplay;
 
@@ -58,6 +59,11 @@ public class DataViewerTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.LOCATIONS,
 				locationsDisplay, tabContents);
 		tabContents.add(locationsDisplay);
+
+		FlightsDisplay flightsDisplay = new FlightsDisplay(dataQueryService);
+		tableSelector.registerSwitchHandler(TableNames.FLIGHTS, flightsDisplay,
+				tabContents);
+		tabContents.add(flightsDisplay);
 
 		tabContents.showWidget(0);
 		return tabContents;

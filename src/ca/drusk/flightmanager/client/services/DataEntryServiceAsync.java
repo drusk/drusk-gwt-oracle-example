@@ -21,4 +21,8 @@ public interface DataEntryServiceAsync {
 	void addLocation(String airportCode, String city, String country,
 			int utcOffset, AsyncCallback<Integer> callback);
 
+	void addFlight(String flightNumber, String source, String destination,
+			String airlineCode, String planeCode, String plannedArrivalTime,
+			String plannedDepartureTime, AsyncCallback<Integer> callback);
+
 }

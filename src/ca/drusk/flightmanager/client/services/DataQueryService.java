@@ -22,4 +22,6 @@ public interface DataQueryService extends RemoteService {
 
 	Relation getLocations();
 
+	Relation getFlights();
+
 }

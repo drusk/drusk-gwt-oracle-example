@@ -1,0 +1,25 @@
+package ca.drusk.flightmanager.client.table_data;
+
+/**
+ * Returns fields for all the flights tables, that is, Flights, IncomingFlights,
+ * and OutgoingFlights.
+ * 
+ * @author drusk
+ * 
+ */
+public class AllFlights implements TableFields {
+
+	@Override
+	public String getPrimaryKey() {
+		return Flights.FLIGHT_NUMBER;
+	}
+
+	@Override
+	public String[] getFields() {
+		return new String[] { Flights.FLIGHT_NUMBER, Flights.SOURCE,
+				Flights.DESTINATION, Flights.AIRLINE_CODE, Flights.PLANE_CODE,
+				OutgoingFlights.PLANNED_DEPARTURE_TIME,
+				IncomingFlights.PLANNED_ARRIVAL_TIME };
+	}
+
+}

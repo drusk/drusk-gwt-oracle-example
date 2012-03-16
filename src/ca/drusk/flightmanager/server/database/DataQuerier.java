@@ -1,11 +1,10 @@
 package ca.drusk.flightmanager.server.database;
 
 import java.sql.PreparedStatement;
-import java.util.List;
 
 import ca.drusk.flightmanager.client.data.Relation;
-import ca.drusk.flightmanager.client.data.Row;
 import ca.drusk.flightmanager.client.table_data.Airlines;
+import ca.drusk.flightmanager.client.table_data.AllFlights;
 import ca.drusk.flightmanager.client.table_data.Citizenships;
 import ca.drusk.flightmanager.client.table_data.Locations;
 import ca.drusk.flightmanager.client.table_data.PlaneModels;
@@ -26,6 +25,8 @@ public class DataQuerier extends DatabaseAccessor {
 
 	private PreparedStatement locationsStmt = null;
 
+	private PreparedStatement flightsStmt = null;
+
 	public Relation getAirlineFullRelation() {
 		airlineStmt = prepareStatement(airlineStmt,
 				"SELECT name, code, website FROM Airlines");
@@ -44,23 +45,17 @@ public class DataQuerier extends DatabaseAccessor {
 		return executeQuery(planeModelStmt, new PlaneModels().getFields());
 	}
 
-	public static void main(String[] args) {
-		DataQuerier querier = new DataQuerier();
-		Relation result = querier.getAirlineFullRelation();
-		List<String> columnNames = result.getColumnNames();
-		for (Row row : result.getRows()) {
-			System.out.println("=============");
-			for (String columnName : columnNames) {
-				System.out
-						.println(columnName + ": " + row.getValue(columnName));
-			}
-		}
-	}
-
 	public Relation getLocationsFullRelation() {
 		locationsStmt = prepareStatement(locationsStmt,
 				"SELECT airportCode, city, country, utcOffset FROM Locations");
 		return executeQuery(locationsStmt, new Locations().getFields());
+	}
+
+	public Relation getFlightsIncomingOutgoingFullRelation() {
+		flightsStmt = prepareStatement(
+				flightsStmt,
+				"SELECT flightNumber, source, destination, airlineCode, planeCode, plannedDepartureTime, plannedArrivalTime FROM Flights JOIN IncomingFlights USING(flightNumber) JOIN OutgoingFlights USING(flightNumber)");
+		return executeQuery(flightsStmt, new AllFlights().getFields());
 	}
 
 }

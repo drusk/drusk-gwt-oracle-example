@@ -20,4 +20,6 @@ public interface DataQueryServiceAsync {
 
 	void getLocations(AsyncCallback<Relation> callback);
 
+	void getFlights(AsyncCallback<Relation> callback);
+
 }

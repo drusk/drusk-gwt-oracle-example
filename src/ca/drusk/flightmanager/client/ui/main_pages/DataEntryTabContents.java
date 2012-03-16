@@ -4,6 +4,7 @@ import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.AirlineDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.CitizenshipsDataEntryForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.FlightsDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.LocationsDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.PlaneModelsDataEntryForm;
 
@@ -58,6 +59,12 @@ public class DataEntryTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.LOCATIONS,
 				locationsForm, tabContents);
 		tabContents.add(locationsForm);
+
+		FlightsDataEntryForm flightsForm = new FlightsDataEntryForm(
+				dataEntryService);
+		tableSelector.registerSwitchHandler(TableNames.FLIGHTS, flightsForm,
+				tabContents);
+		tabContents.add(flightsForm);
 
 		tabContents.showWidget(0);
 

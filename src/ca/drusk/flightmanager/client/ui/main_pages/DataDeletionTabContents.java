@@ -4,6 +4,7 @@ import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.AirlineDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.CitizenshipsDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.FlightsDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.LocationsDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.PlaneModelsDataDeletionForm;
 
@@ -59,6 +60,12 @@ public class DataDeletionTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.LOCATIONS,
 				locationsForm, tabContents);
 		tabContents.add(locationsForm);
+
+		FlightsDataDeletionForm flightsForm = new FlightsDataDeletionForm(
+				dataDeletionService);
+		tableSelector.registerSwitchHandler(TableNames.FLIGHTS, flightsForm,
+				tabContents);
+		tabContents.add(flightsForm);
 
 		tabContents.showWidget(0);
 

@@ -86,6 +86,10 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 		return container;
 	}
 
+	protected String getEnteredText(String textbox) {
+		return textBoxes.get(textbox).getText();
+	}
+
 	public final class LoggingCallback implements AsyncCallback<Integer> {
 		private String successMessage;
 

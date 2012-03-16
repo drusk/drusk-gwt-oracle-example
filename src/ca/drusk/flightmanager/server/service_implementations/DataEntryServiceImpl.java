@@ -1,7 +1,10 @@
 package ca.drusk.flightmanager.server.service_implementations;
 
+import java.text.ParseException;
+
 import ca.drusk.flightmanager.client.services.DataEntryService;
 import ca.drusk.flightmanager.server.database.DataInserter;
+import ca.drusk.flightmanager.server.table_formatting.HourMinuteFormatter;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -45,4 +48,23 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 		return inserter.addLocation(airportCode, city, country, utcOffset);
 	}
 
+	@Override
+	public int addFlight(String flightNumber, String source,
+			String destination, String airlineCode, String planeCode,
+			String plannedArrivalTime, String plannedDepartureTime)
+			throws ParseException {
+		int inserted = 0;
+
+		int flightNumberInt = Integer.parseInt(flightNumber);
+		inserted += inserter.addFlight(flightNumberInt, source, destination,
+				airlineCode, Integer.parseInt(planeCode));
+
+		HourMinuteFormatter formatter = new HourMinuteFormatter();
+		inserted += inserter.addIncomingFlight(flightNumberInt,
+				formatter.parseTime(plannedArrivalTime));
+		inserted += inserter.addOutgoingFlight(flightNumberInt,
+				formatter.parseTime(plannedDepartureTime));
+
+		return inserted;
+	}
 }

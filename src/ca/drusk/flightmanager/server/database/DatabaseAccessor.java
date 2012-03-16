@@ -35,6 +35,7 @@ public abstract class DatabaseAccessor {
 		try {
 			insertions = stmt.executeUpdate();
 		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
 			System.err.println("SQLException: " + sqlExcept.getMessage());
 		}
 		return insertions;
