@@ -7,12 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Date formatter for dates that just represent the time in hours and minutes.
+ * Wraps a {@link SimpleDateFormat} which has been configured for the default
+ * time format in this project: HH:mm
  * 
  * @author drusk
  * 
  */
-public class HourMinuteFormatter {
+public class DefaultTimeFormatter {
 
 	private DateFormat formatter = new SimpleDateFormat("HH:mm");
 

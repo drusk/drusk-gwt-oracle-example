@@ -20,7 +20,7 @@ public class CitizenshipsDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public CitizenshipsDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Citizenships().getFields());
+		super(new Citizenships().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
@@ -36,8 +36,8 @@ public class CitizenshipsDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String citizenship = textBoxes.get(
-						Citizenships.CITIZENSHIP).getText();
+				String citizenship = textBoxes.get(Citizenships.CITIZENSHIP)
+						.getText();
 
 				dataEntryService.addCitizenship(citizenship,
 						new LoggingCallback(

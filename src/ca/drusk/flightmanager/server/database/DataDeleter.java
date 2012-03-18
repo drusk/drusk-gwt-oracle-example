@@ -1,6 +1,8 @@
 package ca.drusk.flightmanager.server.database;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Deletes data from the database.
@@ -23,6 +25,12 @@ public class DataDeleter extends DatabaseAccessor {
 	private PreparedStatement incomingFlightStmt = null;
 
 	private PreparedStatement outgoingFlightStmt = null;
+
+	private PreparedStatement gateStmt = null;
+
+	private PreparedStatement arrivalStmt = null;
+
+	private PreparedStatement departureStmt = null;
 
 	public int removeAirline(String code) {
 		airlineStmt = prepareStatement(airlineStmt,
@@ -71,5 +79,40 @@ public class DataDeleter extends DatabaseAccessor {
 				"DELETE FROM OutgoingFlights WHERE flightNumber=?");
 		setParameters(outgoingFlightStmt, flightNumber);
 		return executeUpdate(outgoingFlightStmt);
+	}
+
+	public int removeGate(String gate, String airportCode) {
+		// gateStmt = prepareStatement(gateStmt,
+		// "DELETE FROM Gates WHERE gate=? AND airportCode=?");
+		// setParameters(gateStmt, gate, airportCode);
+		// System.out.println("DELETE FROM Gates WHERE gate=" + gate
+		// + " AND airportCode=" + airportCode);
+		// return executeUpdate(gateStmt);
+
+		String query = "DELETE FROM Gates WHERE gate='" + gate
+				+ "' AND airportCode='" + airportCode + "'";
+		try {
+			Statement stmt = conn.createStatement();
+			int executeUpdate = stmt.executeUpdate(query);
+			System.out.println(executeUpdate);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int removeArrival(String id) {
+		arrivalStmt = prepareStatement(arrivalStmt,
+				"DELETE FROM Arrivals WHERE id=?");
+		setParameters(arrivalStmt, id);
+		return executeUpdate(arrivalStmt);
+	}
+
+	public int removeDeparture(String id) {
+		departureStmt = prepareStatement(departureStmt,
+				"DELETE FROM Departures WHERE id=?");
+		setParameters(departureStmt, id);
+		return executeUpdate(departureStmt);
 	}
 }

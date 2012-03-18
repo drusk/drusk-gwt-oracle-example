@@ -23,7 +23,7 @@ public class FlightsDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public FlightsDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new AllFlights().getFields());
+		super(new AllFlights().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 

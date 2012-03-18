@@ -20,4 +20,11 @@ public interface DataDeletionServiceAsync {
 
 	void removeFlight(String flightNumber, AsyncCallback<Integer> callback);
 
+	void removeGate(String gate, String airportCode,
+			AsyncCallback<Integer> callback);
+
+	void removeArrival(String id, AsyncCallback<Integer> callback);
+
+	void removeDeparture(String id, AsyncCallback<Integer> callback);
+
 }

@@ -31,14 +31,14 @@ public abstract class DatabaseAccessor {
 	 * @return the number of affected tuples, or -1 in case of error
 	 */
 	protected int executeUpdate(PreparedStatement stmt) {
-		int insertions = -1;
+		int modifications = -1;
 		try {
-			insertions = stmt.executeUpdate();
+			modifications = stmt.executeUpdate();
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
 			System.err.println("SQLException: " + sqlExcept.getMessage());
 		}
-		return insertions;
+		return modifications;
 	}
 
 	/**

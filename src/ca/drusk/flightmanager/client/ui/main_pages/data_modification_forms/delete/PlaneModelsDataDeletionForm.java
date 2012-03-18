@@ -21,7 +21,7 @@ public class PlaneModelsDataDeletionForm extends AbstractDataModificationForm {
 
 	public PlaneModelsDataDeletionForm(
 			DataDeletionServiceAsync dataDeletionService) {
-		super(new PlaneModels().getPrimaryKey());
+		super(new PlaneModels().getPrimaryKeys());
 		this.dataDeletionService = dataDeletionService;
 	}
 

@@ -3,8 +3,11 @@ package ca.drusk.flightmanager.client.ui.main_pages;
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.AirlineDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.ArrivalsDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.CitizenshipsDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.DeparturesDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.FlightsDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.GateDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.LocationsDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.PlaneModelsDataDeletionForm;
 
@@ -66,6 +69,24 @@ public class DataDeletionTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.FLIGHTS, flightsForm,
 				tabContents);
 		tabContents.add(flightsForm);
+
+		GateDataDeletionForm gatesForm = new GateDataDeletionForm(
+				dataDeletionService);
+		tableSelector.registerSwitchHandler(TableNames.GATES, gatesForm,
+				tabContents);
+		tabContents.add(gatesForm);
+
+		ArrivalsDataDeletionForm arrivalsForm = new ArrivalsDataDeletionForm(
+				dataDeletionService);
+		tableSelector.registerSwitchHandler(TableNames.ARRIVALS, arrivalsForm,
+				tabContents);
+		tabContents.add(arrivalsForm);
+
+		DeparturesDataDeletionForm departuresForm = new DeparturesDataDeletionForm(
+				dataDeletionService);
+		tableSelector.registerSwitchHandler(TableNames.DEPARTURES,
+				departuresForm, tabContents);
+		tabContents.add(departuresForm);
 
 		tabContents.showWidget(0);
 

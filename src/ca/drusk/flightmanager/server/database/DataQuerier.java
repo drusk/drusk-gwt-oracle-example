@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import ca.drusk.flightmanager.client.data.Relation;
 import ca.drusk.flightmanager.client.table_data.Airlines;
 import ca.drusk.flightmanager.client.table_data.AllFlights;
+import ca.drusk.flightmanager.client.table_data.Arrivals;
 import ca.drusk.flightmanager.client.table_data.Citizenships;
+import ca.drusk.flightmanager.client.table_data.Departures;
+import ca.drusk.flightmanager.client.table_data.Gates;
 import ca.drusk.flightmanager.client.table_data.Locations;
 import ca.drusk.flightmanager.client.table_data.PlaneModels;
 
@@ -26,6 +29,12 @@ public class DataQuerier extends DatabaseAccessor {
 	private PreparedStatement locationsStmt = null;
 
 	private PreparedStatement flightsStmt = null;
+
+	private PreparedStatement gateStmt = null;
+
+	private PreparedStatement arrivalStmt = null;
+
+	private PreparedStatement departureStmt = null;
 
 	public Relation getAirlineFullRelation() {
 		airlineStmt = prepareStatement(airlineStmt,
@@ -58,4 +67,22 @@ public class DataQuerier extends DatabaseAccessor {
 		return executeQuery(flightsStmt, new AllFlights().getFields());
 	}
 
+	public Relation getGatesFullRelation() {
+		gateStmt = prepareStatement(gateStmt,
+				"SELECT gate, airportCode FROM Gates");
+		return executeQuery(gateStmt, new Gates().getFields());
+	}
+
+	public Relation getArrivalsFullRelation() {
+		arrivalStmt = prepareStatement(arrivalStmt,
+				"SELECT id, gate, airportCode, arrivalDate, status, flightNumber FROM Arrivals");
+		return executeQuery(arrivalStmt, new Arrivals().getFields());
+	}
+
+	public Relation getDepartureFullRelation() {
+		departureStmt = prepareStatement(
+				departureStmt,
+				"SELECT id, gate, airportCode, departureDate, status, flightNumber FROM Departures");
+		return executeQuery(departureStmt, new Departures().getFields());
+	}
 }

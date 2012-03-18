@@ -19,14 +19,24 @@ public final class Flights implements TableFields {
 	public static final String PLANE_CODE = "planeCode";
 
 	@Override
-	public String getPrimaryKey() {
-		return FLIGHT_NUMBER;
+	public String[] getPrimaryKeys() {
+		return new String[] { FLIGHT_NUMBER };
 	}
 
 	@Override
 	public String[] getFields() {
 		return new String[] { FLIGHT_NUMBER, SOURCE, DESTINATION, AIRLINE_CODE,
 				PLANE_CODE };
+	}
+
+	@Override
+	public String[] getEntryFields() {
+		return getFields();
+	}
+
+	@Override
+	public String[] getDisplayFields() {
+		return getFields();
 	}
 
 }

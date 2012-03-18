@@ -2,6 +2,7 @@ package ca.drusk.flightmanager.server.database;
 
 import java.sql.PreparedStatement;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 /**
  * Inserts data into the database.
@@ -24,6 +25,12 @@ public class DataInserter extends DatabaseAccessor {
 	private PreparedStatement incomingFlightStmt = null;
 
 	private PreparedStatement outgoingFlightStmt = null;
+
+	private PreparedStatement gateStmt = null;
+
+	private PreparedStatement arrivalStmt = null;
+
+	private PreparedStatement departureStmt = null;
 
 	public int addAirline(String name, String code, String website) {
 		airlineStmt = prepareStatement(airlineStmt,
@@ -81,6 +88,36 @@ public class DataInserter extends DatabaseAccessor {
 				"INSERT INTO OutgoingFlights(flightNumber, plannedDepartureTime) VALUES(?, ?)");
 		setParameters(outgoingFlightStmt, flightNumber, plannedDepartureTime);
 		return executeUpdate(outgoingFlightStmt);
+	}
+
+	public int addGate(String gate, String airportCode) {
+		gateStmt = prepareStatement(gateStmt,
+				"INSERT INTO Gates(gate, airportCode) VALUES(?, ?)");
+		setParameters(gateStmt, gate, airportCode);
+		return executeUpdate(gateStmt);
+	}
+
+	@SuppressWarnings("unchecked")
+	public int addArrival(String gate, String airportCode,
+			Timestamp arrivalDate, String status, String flightNumber) {
+		arrivalStmt = prepareStatement(
+				arrivalStmt,
+				"INSERT INTO Arrivals(id, gate, airportCode, arrivalDate, status, flightNumber) VALUES(ArrivalIds.nextval, ?, ?, ?, ?, ?)");
+		setParameters(arrivalStmt, gate, airportCode, arrivalDate, status,
+				flightNumber);
+		System.out.println(status);
+		return executeUpdate(arrivalStmt);
+	}
+
+	@SuppressWarnings("unchecked")
+	public int addDeparture(String gate, String airportCode,
+			Timestamp departureDate, String status, String flightNumber) {
+		departureStmt = prepareStatement(
+				departureStmt,
+				"INSERT INTO Departures(id, gate, airportCode, departureDate, status, flightNumber) VALUES(DepartureIds.nextval, ?, ?, ?, ?, ?)");
+		setParameters(departureStmt, gate, airportCode, departureDate, status,
+				flightNumber);
+		return executeUpdate(departureStmt);
 	}
 
 }

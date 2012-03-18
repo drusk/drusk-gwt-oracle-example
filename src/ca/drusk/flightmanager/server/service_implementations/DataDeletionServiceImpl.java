@@ -16,12 +16,6 @@ public class DataDeletionServiceImpl extends RemoteServiceServlet implements
 
 	private DataDeleter deleter = new DataDeleter();
 
-	public static void main(String args[]) {
-		DataDeleter deleter = new DataDeleter();
-		int removePlane = deleter.removePlaneModel("450");
-		System.out.println(removePlane);
-	}
-
 	@Override
 	public int removeAirline(String code) {
 		return deleter.removeAirline(code);
@@ -50,6 +44,29 @@ public class DataDeletionServiceImpl extends RemoteServiceServlet implements
 		deleted += deleter.removeOutgoingFlight(flightNumberInt);
 		deleted += deleter.removeFlight(flightNumberInt);
 		return deleted;
+	}
+
+	@Override
+	public int removeGate(String gate, String airportCode) {
+		System.out.println("Gate='" + gate + "' airportCode='" + airportCode
+				+ "'");
+		return deleter.removeGate(gate, airportCode);
+	}
+
+	public static void main(String[] args) {
+		DataDeleter deleter = new DataDeleter();
+		int removeGate = deleter.removeGate("A10", "YYJ");
+		System.out.println(removeGate);
+	}
+
+	@Override
+	public int removeArrival(String id) {
+		return deleter.removeArrival(id);
+	}
+
+	@Override
+	public int removeDeparture(String id) {
+		return deleter.removeDeparture(id);
 	}
 
 }

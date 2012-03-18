@@ -20,7 +20,7 @@ public class AirlineDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public AirlineDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Airlines().getFields());
+		super(new Airlines().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
@@ -33,8 +33,7 @@ public class AirlineDataEntryForm extends AbstractDataModificationForm {
 			public void onClick(ClickEvent event) {
 				String name = textBoxes.get(Airlines.NAME).getText();
 				String code = textBoxes.get(Airlines.CODE).getText();
-				String website = textBoxes.get(Airlines.WEBSITE)
-						.getText();
+				String website = textBoxes.get(Airlines.WEBSITE).getText();
 
 				dataEntryService.addAirline(name, code, website,
 						new LoggingCallback(

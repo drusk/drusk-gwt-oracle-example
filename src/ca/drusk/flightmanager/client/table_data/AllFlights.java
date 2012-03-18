@@ -10,8 +10,8 @@ package ca.drusk.flightmanager.client.table_data;
 public class AllFlights implements TableFields {
 
 	@Override
-	public String getPrimaryKey() {
-		return Flights.FLIGHT_NUMBER;
+	public String[] getPrimaryKeys() {
+		return new String[] { Flights.FLIGHT_NUMBER };
 	}
 
 	@Override
@@ -20,6 +20,16 @@ public class AllFlights implements TableFields {
 				Flights.DESTINATION, Flights.AIRLINE_CODE, Flights.PLANE_CODE,
 				OutgoingFlights.PLANNED_DEPARTURE_TIME,
 				IncomingFlights.PLANNED_ARRIVAL_TIME };
+	}
+
+	@Override
+	public String[] getEntryFields() {
+		return getFields();
+	}
+
+	@Override
+	public String[] getDisplayFields() {
+		return getFields();
 	}
 
 }

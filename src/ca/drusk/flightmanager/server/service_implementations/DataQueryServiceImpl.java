@@ -42,4 +42,19 @@ public class DataQueryServiceImpl extends RemoteServiceServlet implements
 		return dataQuerier.getFlightsIncomingOutgoingFullRelation();
 	}
 
+	@Override
+	public Relation getGates() {
+		return dataQuerier.getGatesFullRelation();
+	}
+
+	@Override
+	public Relation getArrivals() {
+		return dataQuerier.getArrivalsFullRelation();
+	}
+
+	@Override
+	public Relation getDepartures() {
+		return dataQuerier.getDepartureFullRelation();
+	}
+
 }

@@ -21,7 +21,7 @@ public class FlightsDataDeletionForm extends AbstractDataModificationForm {
 	private final DataDeletionServiceAsync dataDeletionService;
 
 	public FlightsDataDeletionForm(DataDeletionServiceAsync dataDeletionService) {
-		super(new AllFlights().getPrimaryKey());
+		super(new AllFlights().getPrimaryKeys());
 		this.dataDeletionService = dataDeletionService;
 	}
 

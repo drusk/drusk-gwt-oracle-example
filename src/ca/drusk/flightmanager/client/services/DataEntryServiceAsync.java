@@ -25,4 +25,15 @@ public interface DataEntryServiceAsync {
 			String airlineCode, String planeCode, String plannedArrivalTime,
 			String plannedDepartureTime, AsyncCallback<Integer> callback);
 
+	void addGate(String gate, String airportCode,
+			AsyncCallback<Integer> callback);
+
+	void addArrival(String gate, String airportCode, String arrivalDay,
+			String arrivalTime, String status, String flightNumber,
+			AsyncCallback<Integer> callback);
+
+	void addDeparture(String gate, String airportCode, String departureDay,
+			String departureTime, String status, String flightNumber,
+			AsyncCallback<Integer> callback);
+
 }

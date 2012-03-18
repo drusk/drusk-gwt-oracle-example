@@ -3,8 +3,11 @@ package ca.drusk.flightmanager.client.ui.main_pages;
 import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirlineResultsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.ArrivalsDataDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.CitizenshipsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.DeparturesDataDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.FlightsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.GatesDataDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.LocationsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.PlaneModelsDisplay;
 
@@ -64,6 +67,23 @@ public class DataViewerTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.FLIGHTS, flightsDisplay,
 				tabContents);
 		tabContents.add(flightsDisplay);
+
+		GatesDataDisplay gatesDisplay = new GatesDataDisplay(dataQueryService);
+		tableSelector.registerSwitchHandler(TableNames.GATES, gatesDisplay,
+				tabContents);
+		tabContents.add(gatesDisplay);
+
+		ArrivalsDataDisplay arrivalsDisplay = new ArrivalsDataDisplay(
+				dataQueryService);
+		tableSelector.registerSwitchHandler(TableNames.ARRIVALS,
+				arrivalsDisplay, tabContents);
+		tabContents.add(arrivalsDisplay);
+
+		DeparturesDataDisplay departuresDisplay = new DeparturesDataDisplay(
+				dataQueryService);
+		tableSelector.registerSwitchHandler(TableNames.DEPARTURES,
+				departuresDisplay, tabContents);
+		tabContents.add(departuresDisplay);
 
 		tabContents.showWidget(0);
 		return tabContents;

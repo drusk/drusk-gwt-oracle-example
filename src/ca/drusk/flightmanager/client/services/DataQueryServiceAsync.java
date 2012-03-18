@@ -22,4 +22,10 @@ public interface DataQueryServiceAsync {
 
 	void getFlights(AsyncCallback<Relation> callback);
 
+	void getGates(AsyncCallback<Relation> callback);
+
+	void getArrivals(AsyncCallback<Relation> callback);
+
+	void getDepartures(AsyncCallback<Relation> callback);
+
 }

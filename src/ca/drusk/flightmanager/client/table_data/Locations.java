@@ -17,13 +17,23 @@ public final class Locations implements TableFields {
 	public static final String UTC_OFFSET = "utcOffset";
 
 	@Override
-	public String getPrimaryKey() {
-		return AIRPORT_CODE;
+	public String[] getPrimaryKeys() {
+		return new String[] { AIRPORT_CODE };
 	}
 
 	@Override
 	public String[] getFields() {
 		return new String[] { AIRPORT_CODE, CITY, COUNTRY, UTC_OFFSET };
+	}
+
+	@Override
+	public String[] getEntryFields() {
+		return getFields();
+	}
+
+	@Override
+	public String[] getDisplayFields() {
+		return getFields();
 	}
 
 }

@@ -9,8 +9,12 @@ package ca.drusk.flightmanager.client.table_data;
  */
 public interface TableFields {
 
-	String getPrimaryKey();
+	String[] getPrimaryKeys();
 
 	String[] getFields();
+
+	String[] getEntryFields();
+
+	String[] getDisplayFields();
 
 }
