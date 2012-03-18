@@ -63,7 +63,7 @@ public class DataQuerier extends DatabaseAccessor {
 	public Relation getFlightsIncomingOutgoingFullRelation() {
 		flightsStmt = prepareStatement(
 				flightsStmt,
-				"SELECT flightNumber, source, destination, airlineCode, planeCode, plannedDepartureTime, plannedArrivalTime FROM Flights JOIN IncomingFlights USING(flightNumber) JOIN OutgoingFlights USING(flightNumber)");
+				"SELECT flightNumber, source, destination, airlineCode, planeCode, TO_CHAR(plannedDepartureTime, 'HH24:MI') AS plannedDepartureTime, TO_CHAR(plannedArrivalTime, 'HH24:MI') AS plannedArrivalTime FROM Flights JOIN IncomingFlights USING(flightNumber) JOIN OutgoingFlights USING(flightNumber)");
 		return executeQuery(flightsStmt, new AllFlights().getFields());
 	}
 

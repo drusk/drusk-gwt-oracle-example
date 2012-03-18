@@ -103,9 +103,9 @@ public class DataInserter extends DatabaseAccessor {
 		arrivalStmt = prepareStatement(
 				arrivalStmt,
 				"INSERT INTO Arrivals(id, gate, airportCode, arrivalDate, status, flightNumber) VALUES(ArrivalIds.nextval, ?, ?, ?, ?, ?)");
+		System.out.println("Arrival date" + arrivalDate);
 		setParameters(arrivalStmt, gate, airportCode, arrivalDate, status,
 				flightNumber);
-		System.out.println(status);
 		return executeUpdate(arrivalStmt);
 	}
 

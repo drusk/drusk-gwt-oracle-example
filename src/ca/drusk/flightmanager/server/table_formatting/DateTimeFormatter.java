@@ -20,7 +20,13 @@ public class DateTimeFormatter {
 	public Timestamp parseDateTime(String dayString, String timeString)
 			throws ParseException {
 		Date day = dayFormatter.parseDate(dayString);
+		System.out.println("Day: " + day);
 		Date time = timeFormatter.parseTime(timeString);
+		System.out.println("Time: " + time);
+		Timestamp dayTs = new Timestamp(day.getTime());
+		Timestamp timeTs = new Timestamp(time.getTime());
+		System.out.println("TS day: " + dayTs);
+		System.out.println("TS time: " + timeTs);
 		return new Timestamp(day.getTime() + time.getTime());
 	}
 
