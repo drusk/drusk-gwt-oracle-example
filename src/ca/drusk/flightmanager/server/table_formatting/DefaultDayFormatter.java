@@ -20,4 +20,8 @@ public class DefaultDayFormatter {
 		return formatter.parse(dateString);
 	}
 
+	public java.sql.Date parseDay(String dateString) throws ParseException {
+		return new java.sql.Date(parseDate(dateString).getTime());
+	}
+
 }

@@ -3,12 +3,14 @@ package ca.drusk.flightmanager.client.ui.main_pages;
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.AirlineDataEntryForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.AirportsDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.ArrivalsDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.CitizenshipsDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.DeparturesDataEntryForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.FlightInstancesDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.FlightsDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.GateDataEntryForm;
-import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.LocationsDataEntryForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.PassengersDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.PlaneModelsDataEntryForm;
 
 import com.google.gwt.user.client.ui.DeckLayoutPanel;
@@ -57,10 +59,10 @@ public class DataEntryTabContents extends AbstractTabContents {
 				citizenshipForm, tabContents);
 		tabContents.add(citizenshipForm);
 
-		LocationsDataEntryForm locationsForm = new LocationsDataEntryForm(
+		AirportsDataEntryForm locationsForm = new AirportsDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.LOCATIONS,
-				locationsForm, tabContents);
+		tableSelector.registerSwitchHandler(TableNames.AIRPORTS, locationsForm,
+				tabContents);
 		tabContents.add(locationsForm);
 
 		FlightsDataEntryForm flightsForm = new FlightsDataEntryForm(
@@ -85,6 +87,18 @@ public class DataEntryTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.DEPARTURES,
 				departuresForm, tabContents);
 		tabContents.add(departuresForm);
+
+		PassengersDataEntryForm passengersForm = new PassengersDataEntryForm(
+				dataEntryService);
+		tableSelector.registerSwitchHandler(TableNames.PASSENGERS,
+				passengersForm, tabContents);
+		tabContents.add(passengersForm);
+
+		FlightInstancesDataEntryForm flightInstancesForm = new FlightInstancesDataEntryForm(
+				dataEntryService);
+		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
+				flightInstancesForm, tabContents);
+		tabContents.add(flightInstancesForm);
 
 		tabContents.showWidget(0);
 

@@ -34,7 +34,7 @@ public class DataQueryServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Relation getLocations() {
-		return dataQuerier.getLocationsFullRelation();
+		return dataQuerier.getAirportsFullRelation();
 	}
 
 	@Override
@@ -55,6 +55,16 @@ public class DataQueryServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public Relation getDepartures() {
 		return dataQuerier.getDepartureFullRelation();
+	}
+
+	@Override
+	public Relation getPassengers() {
+		return dataQuerier.getPassengersFullRelation();
+	}
+
+	@Override
+	public Relation getFlightInstances() {
+		return dataQuerier.getFlightInstances();
 	}
 
 }

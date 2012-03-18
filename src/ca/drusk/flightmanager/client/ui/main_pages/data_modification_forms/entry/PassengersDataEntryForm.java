@@ -1,8 +1,8 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Gates;
-import ca.drusk.flightmanager.client.table_data.Airports;
+import ca.drusk.flightmanager.client.table_data.Citizenships;
+import ca.drusk.flightmanager.client.table_data.Passengers;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -11,23 +11,23 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 
 /**
- * UI elements for entering gate data.
+ * UI elements for entering passenger data.
  * 
  * @author drusk
  * 
  */
-public class GateDataEntryForm extends AbstractDataModificationForm {
+public class PassengersDataEntryForm extends AbstractDataModificationForm {
 
 	private final DataEntryServiceAsync dataEntryService;
 
-	public GateDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Gates().getEntryFields());
+	public PassengersDataEntryForm(DataEntryServiceAsync dataEntryService) {
+		super(new Passengers().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
 	@Override
 	protected String getTitle() {
-		return TableNames.GATES;
+		return TableNames.PASSENGERS;
 	}
 
 	@Override
@@ -37,10 +37,14 @@ public class GateDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String gate = getEnteredText(Gates.GATE);
-				String airportCode = getEnteredText(Airports.AIRPORT_CODE);
-				dataEntryService.addGate(gate, airportCode,
-						new LoggingCallback(
+				String firstName = getEnteredText(Passengers.FIRST_NAME);
+				String lastName = getEnteredText(Passengers.LAST_NAME);
+				String citizenship = getEnteredText(Citizenships.CITIZENSHIP);
+				String placeOfBirth = getEnteredText(Passengers.PLACE_OF_BIRTH);
+				String dateOfBirth = getEnteredText(Passengers.DATE_OF_BIRTH);
+
+				dataEntryService.addPassenger(firstName, lastName, citizenship,
+						placeOfBirth, dateOfBirth, new LoggingCallback(
 								"Data received successfully by server"));
 			}
 

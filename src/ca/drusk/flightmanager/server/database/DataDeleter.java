@@ -18,7 +18,7 @@ public class DataDeleter extends DatabaseAccessor {
 
 	private PreparedStatement planeModelStmt = null;
 
-	private PreparedStatement locationsStmt = null;
+	private PreparedStatement airportsStmt = null;
 
 	private PreparedStatement flightsStmt = null;
 
@@ -31,6 +31,10 @@ public class DataDeleter extends DatabaseAccessor {
 	private PreparedStatement arrivalStmt = null;
 
 	private PreparedStatement departureStmt = null;
+
+	private PreparedStatement passengerStmt = null;
+
+	private PreparedStatement flightInstanceStmt = null;
 
 	public int removeAirline(String code) {
 		airlineStmt = prepareStatement(airlineStmt,
@@ -53,11 +57,11 @@ public class DataDeleter extends DatabaseAccessor {
 		return executeUpdate(citizenshipStmt);
 	}
 
-	public int removeLocation(String airportCode) {
-		locationsStmt = prepareStatement(locationsStmt,
-				"DELETE FROM Locations WHERE airportCode=?");
-		setParameters(locationsStmt, airportCode);
-		return executeUpdate(locationsStmt);
+	public int removeAirport(String airportCode) {
+		airportsStmt = prepareStatement(airportsStmt,
+				"DELETE FROM Airports WHERE airportCode=?");
+		setParameters(airportsStmt, airportCode);
+		return executeUpdate(airportsStmt);
 	}
 
 	public int removeFlight(int flightNumber) {
@@ -114,5 +118,19 @@ public class DataDeleter extends DatabaseAccessor {
 				"DELETE FROM Departures WHERE id=?");
 		setParameters(departureStmt, id);
 		return executeUpdate(departureStmt);
+	}
+
+	public int removePassenger(String id) {
+		passengerStmt = prepareStatement(passengerStmt,
+				"DELETE FROM Passengers WHERE id=?");
+		setParameters(passengerStmt, id);
+		return executeUpdate(passengerStmt);
+	}
+
+	public int removeFlightInstance(String id) {
+		flightInstanceStmt = prepareStatement(flightInstanceStmt,
+				"DELETE FROM FlightInstances WHERE id=?");
+		setParameters(flightInstanceStmt, id);
+		return executeUpdate(flightInstanceStmt);
 	}
 }

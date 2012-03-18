@@ -1,9 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Departures;
-import ca.drusk.flightmanager.client.table_data.Flights;
-import ca.drusk.flightmanager.client.table_data.Gates;
 import ca.drusk.flightmanager.client.table_data.Airports;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
@@ -13,23 +10,23 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 
 /**
- * UI elements for entering flight departure data.
+ * UI elements for entering location data.
  * 
  * @author drusk
  * 
  */
-public class DeparturesDataEntryForm extends AbstractDataModificationForm {
+public class AirportsDataEntryForm extends AbstractDataModificationForm {
 
 	private final DataEntryServiceAsync dataEntryService;
 
-	public DeparturesDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Departures().getEntryFields());
+	public AirportsDataEntryForm(DataEntryServiceAsync dataEntryService) {
+		super(new Airports().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
 	@Override
 	protected String getTitle() {
-		return TableNames.DEPARTURES;
+		return TableNames.AIRPORTS;
 	}
 
 	@Override
@@ -39,16 +36,14 @@ public class DeparturesDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String gate = getEnteredText(Gates.GATE);
-				String airportCode = getEnteredText(Airports.AIRPORT_CODE);
-				String departureDay = getEnteredText(Departures.DEPARTURE_DAY);
-				String departureTime = getEnteredText(Departures.DEPARTURE_TIME);
-				String status = getEnteredText(Departures.STATUS);
-				String flightNumber = getEnteredText(Flights.FLIGHT_NUMBER);
-
-				dataEntryService.addDeparture(gate, airportCode, departureDay,
-						departureTime, status, flightNumber,
-						new LoggingCallback(
+				String airportCode = textBoxes.get(Airports.AIRPORT_CODE)
+						.getText();
+				String city = textBoxes.get(Airports.CITY).getText();
+				String country = textBoxes.get(Airports.COUNTRY).getText();
+				int utcOffset = Integer.parseInt(textBoxes.get(
+						Airports.UTC_OFFSET).getText());
+				dataEntryService.addAirport(airportCode, city, country,
+						utcOffset, new LoggingCallback(
 								"Data received successfully by server"));
 			}
 

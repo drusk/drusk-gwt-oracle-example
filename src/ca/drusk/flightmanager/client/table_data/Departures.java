@@ -25,13 +25,13 @@ public class Departures implements TableFields {
 
 	@Override
 	public String[] getFields() {
-		return new String[] { ID, Gates.GATE, Locations.AIRPORT_CODE,
-				DEPARTURE_DATE, STATUS, Flights.FLIGHT_NUMBER };
+		return new String[] { ID, Gates.GATE, Airports.AIRPORT_CODE,
+				DEPARTURE_DATE, STATUS };
 	}
 
 	@Override
 	public String[] getEntryFields() {
-		return new String[] { Gates.GATE, Locations.AIRPORT_CODE,
+		return new String[] { ID, Gates.GATE, Airports.AIRPORT_CODE,
 				DEPARTURE_DAY, DEPARTURE_TIME, STATUS, Flights.FLIGHT_NUMBER };
 	}
 

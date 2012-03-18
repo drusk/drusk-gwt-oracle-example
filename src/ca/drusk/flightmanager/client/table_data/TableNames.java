@@ -14,7 +14,7 @@ public final class TableNames {
 
 	public static final String CITIZENSHIPS = "Citizenships";
 
-	public static final String LOCATIONS = "Locations";
+	public static final String AIRPORTS = "Airports";
 
 	public static final String FLIGHTS = "Flights";
 
@@ -24,9 +24,14 @@ public final class TableNames {
 
 	public static final String DEPARTURES = "Departures";
 
+	public static final String PASSENGERS = "Passengers";
+
+	public static final String FLIGHT_INSTANCES = "Flight Instances";
+
 	public static final String[] getAll() {
-		return new String[] { AIRLINES, ARRIVALS, CITIZENSHIPS, DEPARTURES,
-				FLIGHTS, GATES, LOCATIONS, PLANE_MODELS };
+		return new String[] { AIRLINES, AIRPORTS, ARRIVALS, CITIZENSHIPS,
+				DEPARTURES, FLIGHTS, FLIGHT_INSTANCES, GATES, PASSENGERS,
+				PLANE_MODELS };
 	}
 
 }

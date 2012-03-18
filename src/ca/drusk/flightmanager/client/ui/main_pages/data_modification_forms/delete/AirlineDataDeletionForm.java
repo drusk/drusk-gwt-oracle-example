@@ -10,7 +10,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 
 /**
- * UI elements for deleting airlines from the database
+ * UI elements for deleting airlines from the database.
  * 
  * @author drusk
  * 

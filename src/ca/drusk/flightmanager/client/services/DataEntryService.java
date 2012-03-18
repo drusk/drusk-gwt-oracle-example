@@ -19,7 +19,7 @@ public interface DataEntryService extends RemoteService {
 
 	int addCitizenship(String citizenship);
 
-	int addLocation(String airportCode, String city, String country,
+	int addAirport(String airportCode, String city, String country,
 			int utcOffset);
 
 	int addFlight(String flightNumber, String source, String destination,
@@ -28,12 +28,17 @@ public interface DataEntryService extends RemoteService {
 
 	int addGate(String gate, String airportCode);
 
-	int addArrival(String gate, String airportCode, String arrivalDay,
-			String arrivalTime, String status, String flightNumber)
+	int addArrival(String id, String gate, String airportCode,
+			String arrivalDay, String arrivalTime, String status)
 			throws Exception;
 
-	int addDeparture(String gate, String airportCode, String departureDay,
-			String departureTime, String status, String flightNumber)
+	int addDeparture(String id, String gate, String airportCode,
+			String departureDay, String departureTime, String status)
 			throws Exception;
+
+	int addPassenger(String firstName, String lastName, String citizenship,
+			String placeOfBirth, String dateOfBirth) throws Exception;
+
+	int addFlightInstance(String flightNumber);
 
 }

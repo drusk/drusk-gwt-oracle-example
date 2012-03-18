@@ -33,7 +33,7 @@ public class DataDeletionServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public int removeLocation(String airportCode) {
-		return deleter.removeLocation(airportCode);
+		return deleter.removeAirport(airportCode);
 	}
 
 	@Override
@@ -67,6 +67,16 @@ public class DataDeletionServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public int removeDeparture(String id) {
 		return deleter.removeDeparture(id);
+	}
+
+	@Override
+	public int removePassenger(String id) {
+		return deleter.removePassenger(id);
+	}
+
+	@Override
+	public int removeFlightInstance(String id) {
+		return deleter.removeFlightInstance(id);
 	}
 
 }

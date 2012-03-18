@@ -29,4 +29,8 @@ public interface DataDeletionService extends RemoteService {
 
 	int removeDeparture(String id);
 
+	int removePassenger(String id);
+
+	int removeFlightInstance(String id);
+
 }

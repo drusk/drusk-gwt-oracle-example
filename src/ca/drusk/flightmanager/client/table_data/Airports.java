@@ -1,12 +1,12 @@
 package ca.drusk.flightmanager.client.table_data;
 
 /**
- * Constants for the fields in the Locations table.
+ * Constants for the fields in the Airports table.
  * 
  * @author drusk
  * 
  */
-public final class Locations implements TableFields {
+public final class Airports implements TableFields {
 
 	public static final String AIRPORT_CODE = "airportCode";
 

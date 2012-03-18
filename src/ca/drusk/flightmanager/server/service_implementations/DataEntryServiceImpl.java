@@ -5,6 +5,7 @@ import java.text.ParseException;
 import ca.drusk.flightmanager.client.services.DataEntryService;
 import ca.drusk.flightmanager.server.database.DataInserter;
 import ca.drusk.flightmanager.server.table_formatting.DateTimeFormatter;
+import ca.drusk.flightmanager.server.table_formatting.DefaultDayFormatter;
 import ca.drusk.flightmanager.server.table_formatting.DefaultTimeFormatter;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -21,6 +22,8 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 	private DataInserter inserter = new DataInserter();
 
 	private DefaultTimeFormatter timeFormatter = new DefaultTimeFormatter();
+
+	private DefaultDayFormatter dayFormatter = new DefaultDayFormatter();
 
 	private DateTimeFormatter dateTimeFormatter = new DateTimeFormatter();
 
@@ -48,9 +51,9 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public int addLocation(String airportCode, String city, String country,
+	public int addAirport(String airportCode, String city, String country,
 			int utcOffset) {
-		return inserter.addLocation(airportCode, city, country, utcOffset);
+		return inserter.addAirport(airportCode, city, country, utcOffset);
 	}
 
 	@Override
@@ -77,20 +80,33 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public int addArrival(String gate, String airportCode, String arrivalDay,
-			String arrivalTime, String status, String flightNumber)
+	public int addArrival(String id, String gate, String airportCode,
+			String arrivalDay, String arrivalTime, String status)
 			throws ParseException {
-		return inserter.addArrival(gate, airportCode,
+		return inserter.addArrival(Integer.parseInt(id), gate, airportCode,
 				dateTimeFormatter.parseDateTime(arrivalDay, arrivalTime),
-				status, flightNumber);
+				status);
 	}
 
 	@Override
-	public int addDeparture(String gate, String airportCode,
-			String departureDay, String departureTime, String status,
-			String flightNumber) throws ParseException {
-		return inserter.addDeparture(gate, airportCode,
+	public int addDeparture(String id, String gate, String airportCode,
+			String departureDay, String departureTime, String status)
+			throws ParseException {
+		return inserter.addDeparture(Integer.parseInt(id), gate, airportCode,
 				dateTimeFormatter.parseDateTime(departureDay, departureTime),
-				status, flightNumber);
+				status);
+	}
+
+	@Override
+	public int addPassenger(String firstName, String lastName,
+			String citizenship, String placeOfBirth, String dateOfBirth)
+			throws ParseException {
+		return inserter.addPassenger(firstName, lastName, citizenship,
+				placeOfBirth, dayFormatter.parseDay(dateOfBirth));
+	}
+
+	@Override
+	public int addFlightInstance(String flightNumber) {
+		return inserter.addFlightInstance(Integer.parseInt(flightNumber));
 	}
 }

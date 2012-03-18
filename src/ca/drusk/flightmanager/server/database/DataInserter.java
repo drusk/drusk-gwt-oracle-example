@@ -1,5 +1,6 @@
 package ca.drusk.flightmanager.server.database;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -18,7 +19,7 @@ public class DataInserter extends DatabaseAccessor {
 
 	private PreparedStatement planeModelStmt = null;
 
-	private PreparedStatement locationStmt = null;
+	private PreparedStatement airportsStmt = null;
 
 	private PreparedStatement flightsStmt = null;
 
@@ -31,6 +32,10 @@ public class DataInserter extends DatabaseAccessor {
 	private PreparedStatement arrivalStmt = null;
 
 	private PreparedStatement departureStmt = null;
+
+	private PreparedStatement passengerStmt = null;
+
+	private PreparedStatement flightInstanceStmt = null;
 
 	public int addAirline(String name, String code, String website) {
 		airlineStmt = prepareStatement(airlineStmt,
@@ -54,13 +59,13 @@ public class DataInserter extends DatabaseAccessor {
 	}
 
 	@SuppressWarnings("unchecked")
-	public int addLocation(String airportCode, String city, String country,
+	public int addAirport(String airportCode, String city, String country,
 			int utcOffset) {
-		locationStmt = prepareStatement(
-				locationStmt,
-				"INSERT INTO Locations(airportCode, city, country, utcOffset) VALUES(?, ?, ?, ?)");
-		setParameters(locationStmt, airportCode, city, country, utcOffset);
-		return executeUpdate(locationStmt);
+		airportsStmt = prepareStatement(
+				airportsStmt,
+				"INSERT INTO Airports(airportCode, city, country, utcOffset) VALUES(?, ?, ?, ?)");
+		setParameters(airportsStmt, airportCode, city, country, utcOffset);
+		return executeUpdate(airportsStmt);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -98,26 +103,43 @@ public class DataInserter extends DatabaseAccessor {
 	}
 
 	@SuppressWarnings("unchecked")
-	public int addArrival(String gate, String airportCode,
-			Timestamp arrivalDate, String status, String flightNumber) {
+	public int addArrival(int id, String gate, String airportCode,
+			Timestamp arrivalDate, String status) {
 		arrivalStmt = prepareStatement(
 				arrivalStmt,
-				"INSERT INTO Arrivals(id, gate, airportCode, arrivalDate, status, flightNumber) VALUES(ArrivalIds.nextval, ?, ?, ?, ?, ?)");
+				"INSERT INTO Arrivals(id, gate, airportCode, arrivalDate, status) VALUES(?, ?, ?, ?, ?)");
 		System.out.println("Arrival date" + arrivalDate);
-		setParameters(arrivalStmt, gate, airportCode, arrivalDate, status,
-				flightNumber);
+		setParameters(arrivalStmt, id, gate, airportCode, arrivalDate, status);
 		return executeUpdate(arrivalStmt);
 	}
 
 	@SuppressWarnings("unchecked")
-	public int addDeparture(String gate, String airportCode,
-			Timestamp departureDate, String status, String flightNumber) {
+	public int addDeparture(int id, String gate, String airportCode,
+			Timestamp departureDate, String status) {
 		departureStmt = prepareStatement(
 				departureStmt,
-				"INSERT INTO Departures(id, gate, airportCode, departureDate, status, flightNumber) VALUES(DepartureIds.nextval, ?, ?, ?, ?, ?)");
-		setParameters(departureStmt, gate, airportCode, departureDate, status,
-				flightNumber);
+				"INSERT INTO Departures(id, gate, airportCode, departureDate, status) VALUES(?, ?, ?, ?, ?)");
+		setParameters(departureStmt, id, gate, airportCode, departureDate,
+				status);
 		return executeUpdate(departureStmt);
 	}
 
+	@SuppressWarnings("unchecked")
+	public int addPassenger(String firstName, String lastName,
+			String citizenship, String placeOfBirth, Date dateOfBirth) {
+		passengerStmt = prepareStatement(
+				passengerStmt,
+				"INSERT INTO Passengers(id, firstName, lastName, citizenship, placeOfBirth, dateOfBirth) VALUES(PassengerIds.nextval, ?, ?, ?, ?, ?)");
+		setParameters(passengerStmt, firstName, lastName, citizenship,
+				placeOfBirth, dateOfBirth);
+		return executeUpdate(passengerStmt);
+	}
+
+	public int addFlightInstance(int flightNumber) {
+		flightInstanceStmt = prepareStatement(
+				flightInstanceStmt,
+				"INSERT INTO FlightInstances(id, flightNumber) VALUES(FlightInstanceIds.nextval, ?)");
+		setParameters(flightInstanceStmt, flightNumber);
+		return executeUpdate(flightInstanceStmt);
+	}
 }

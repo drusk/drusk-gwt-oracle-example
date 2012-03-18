@@ -3,12 +3,14 @@ package ca.drusk.flightmanager.client.ui.main_pages;
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.AirlineDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.AirportsDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.ArrivalsDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.CitizenshipsDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.DeparturesDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.FlightInstancesDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.FlightsDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.GateDataDeletionForm;
-import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.LocationsDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.PassengersDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.PlaneModelsDataDeletionForm;
 
 import com.google.gwt.user.client.ui.DeckLayoutPanel;
@@ -58,10 +60,10 @@ public class DataDeletionTabContents extends AbstractTabContents {
 				citizenshipForm, tabContents);
 		tabContents.add(citizenshipForm);
 
-		LocationsDataDeletionForm locationsForm = new LocationsDataDeletionForm(
+		AirportsDataDeletionForm locationsForm = new AirportsDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.LOCATIONS,
-				locationsForm, tabContents);
+		tableSelector.registerSwitchHandler(TableNames.AIRPORTS, locationsForm,
+				tabContents);
 		tabContents.add(locationsForm);
 
 		FlightsDataDeletionForm flightsForm = new FlightsDataDeletionForm(
@@ -87,6 +89,18 @@ public class DataDeletionTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.DEPARTURES,
 				departuresForm, tabContents);
 		tabContents.add(departuresForm);
+
+		PassengersDataDeletionForm passengersForm = new PassengersDataDeletionForm(
+				dataDeletionService);
+		tableSelector.registerSwitchHandler(TableNames.PASSENGERS,
+				passengersForm, tabContents);
+		tabContents.add(passengersForm);
+
+		FlightInstancesDataDeletionForm flightInstancesForm = new FlightInstancesDataDeletionForm(
+				dataDeletionService);
+		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
+				flightInstancesForm, tabContents);
+		tabContents.add(flightInstancesForm);
 
 		tabContents.showWidget(0);
 

@@ -3,12 +3,14 @@ package ca.drusk.flightmanager.client.ui.main_pages;
 import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirlineResultsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirportsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.ArrivalsDataDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.CitizenshipsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.DeparturesDataDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.FlightInstancesDataDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.FlightsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.GatesDataDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.LocationsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.PassengersDataDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.PlaneModelsDisplay;
 
 import com.google.gwt.user.client.ui.DeckLayoutPanel;
@@ -57,9 +59,8 @@ public class DataViewerTabContents extends AbstractTabContents {
 				citizenshipDisplay, tabContents);
 		tabContents.add(citizenshipDisplay);
 
-		LocationsDisplay locationsDisplay = new LocationsDisplay(
-				dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.LOCATIONS,
+		AirportsDisplay locationsDisplay = new AirportsDisplay(dataQueryService);
+		tableSelector.registerSwitchHandler(TableNames.AIRPORTS,
 				locationsDisplay, tabContents);
 		tabContents.add(locationsDisplay);
 
@@ -84,6 +85,18 @@ public class DataViewerTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.DEPARTURES,
 				departuresDisplay, tabContents);
 		tabContents.add(departuresDisplay);
+
+		PassengersDataDisplay passengersDisplay = new PassengersDataDisplay(
+				dataQueryService);
+		tableSelector.registerSwitchHandler(TableNames.PASSENGERS,
+				passengersDisplay, tabContents);
+		tabContents.add(passengersDisplay);
+
+		FlightInstancesDataDisplay flightInstancesDisplay = new FlightInstancesDataDisplay(
+				dataQueryService);
+		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
+				flightInstancesDisplay, tabContents);
+		tabContents.add(flightInstancesDisplay);
 
 		tabContents.showWidget(0);
 		return tabContents;

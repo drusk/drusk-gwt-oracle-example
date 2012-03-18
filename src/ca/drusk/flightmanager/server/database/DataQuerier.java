@@ -4,12 +4,14 @@ import java.sql.PreparedStatement;
 
 import ca.drusk.flightmanager.client.data.Relation;
 import ca.drusk.flightmanager.client.table_data.Airlines;
+import ca.drusk.flightmanager.client.table_data.Airports;
 import ca.drusk.flightmanager.client.table_data.AllFlights;
 import ca.drusk.flightmanager.client.table_data.Arrivals;
 import ca.drusk.flightmanager.client.table_data.Citizenships;
 import ca.drusk.flightmanager.client.table_data.Departures;
+import ca.drusk.flightmanager.client.table_data.FlightInstances;
 import ca.drusk.flightmanager.client.table_data.Gates;
-import ca.drusk.flightmanager.client.table_data.Locations;
+import ca.drusk.flightmanager.client.table_data.Passengers;
 import ca.drusk.flightmanager.client.table_data.PlaneModels;
 
 /**
@@ -26,7 +28,7 @@ public class DataQuerier extends DatabaseAccessor {
 
 	private PreparedStatement planeModelStmt = null;
 
-	private PreparedStatement locationsStmt = null;
+	private PreparedStatement airportsStmt = null;
 
 	private PreparedStatement flightsStmt = null;
 
@@ -35,6 +37,10 @@ public class DataQuerier extends DatabaseAccessor {
 	private PreparedStatement arrivalStmt = null;
 
 	private PreparedStatement departureStmt = null;
+
+	private PreparedStatement passengerStmt = null;
+
+	private PreparedStatement flightInstancesStmt = null;
 
 	public Relation getAirlineFullRelation() {
 		airlineStmt = prepareStatement(airlineStmt,
@@ -54,10 +60,10 @@ public class DataQuerier extends DatabaseAccessor {
 		return executeQuery(planeModelStmt, new PlaneModels().getFields());
 	}
 
-	public Relation getLocationsFullRelation() {
-		locationsStmt = prepareStatement(locationsStmt,
-				"SELECT airportCode, city, country, utcOffset FROM Locations");
-		return executeQuery(locationsStmt, new Locations().getFields());
+	public Relation getAirportsFullRelation() {
+		airportsStmt = prepareStatement(airportsStmt,
+				"SELECT airportCode, city, country, utcOffset FROM Airports");
+		return executeQuery(airportsStmt, new Airports().getFields());
 	}
 
 	public Relation getFlightsIncomingOutgoingFullRelation() {
@@ -75,14 +81,27 @@ public class DataQuerier extends DatabaseAccessor {
 
 	public Relation getArrivalsFullRelation() {
 		arrivalStmt = prepareStatement(arrivalStmt,
-				"SELECT id, gate, airportCode, arrivalDate, status, flightNumber FROM Arrivals");
+				"SELECT id, gate, airportCode, arrivalDate, status FROM Arrivals");
 		return executeQuery(arrivalStmt, new Arrivals().getFields());
 	}
 
 	public Relation getDepartureFullRelation() {
-		departureStmt = prepareStatement(
-				departureStmt,
-				"SELECT id, gate, airportCode, departureDate, status, flightNumber FROM Departures");
+		departureStmt = prepareStatement(departureStmt,
+				"SELECT id, gate, airportCode, departureDate, status FROM Departures");
 		return executeQuery(departureStmt, new Departures().getFields());
+	}
+
+	public Relation getPassengersFullRelation() {
+		passengerStmt = prepareStatement(
+				passengerStmt,
+				"SELECT id, firstName, lastName, citizenship, placeOfBirth, TO_CHAR(dateOfBirth, 'MON DD, YYYY') AS dateOfBirth FROM Passengers");
+		return executeQuery(passengerStmt, new Passengers().getFields());
+	}
+
+	public Relation getFlightInstances() {
+		flightInstancesStmt = prepareStatement(flightInstancesStmt,
+				"SELECT id, flightNumber FROM FlightInstances");
+		return executeQuery(flightInstancesStmt,
+				new FlightInstances().getFields());
 	}
 }
