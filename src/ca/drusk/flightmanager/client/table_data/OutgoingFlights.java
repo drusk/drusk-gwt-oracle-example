@@ -11,7 +11,7 @@ public class OutgoingFlights implements TableFields {
 	public static final String PLANNED_DEPARTURE_TIME = "plannedDepartureTime";
 
 	@Override
-	public String[] getPrimaryKeys() {
+	public String[] getPrimaryKeyAttributes() {
 		return new String[] { Flights.FLIGHT_NUMBER };
 	}
 

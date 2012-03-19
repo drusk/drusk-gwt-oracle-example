@@ -1,9 +1,7 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Airports;
-import ca.drusk.flightmanager.client.table_data.Departures;
-import ca.drusk.flightmanager.client.table_data.Gates;
+import ca.drusk.flightmanager.client.table_data.Guardians;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -12,23 +10,23 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 
 /**
- * UI elements for entering flight departure data.
+ * UI elements for entering guardians for infant passengers
  * 
  * @author drusk
  * 
  */
-public class DeparturesDataEntryForm extends AbstractDataModificationForm {
+public class GuardiansDataEntryForm extends AbstractDataModificationForm {
 
 	private final DataEntryServiceAsync dataEntryService;
 
-	public DeparturesDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Departures().getEntryFields());
+	public GuardiansDataEntryForm(DataEntryServiceAsync dataEntryService) {
+		super(new Guardians().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
 	@Override
 	protected String getTitle() {
-		return TableNames.DEPARTURES;
+		return TableNames.GUARDIANS;
 	}
 
 	@Override
@@ -38,15 +36,9 @@ public class DeparturesDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String id = getEnteredText(Departures.ID);
-				String gate = getEnteredText(Gates.GATE);
-				String airportCode = getEnteredText(Airports.AIRPORT_CODE);
-				String departureDay = getEnteredText(Departures.DEPARTURE_DAY);
-				String departureTime = getEnteredText(Departures.DEPARTURE_TIME);
-				String status = getEnteredText(Departures.STATUS);
-
-				dataEntryService.addDeparture(id, gate, airportCode,
-						departureDay, departureTime, status,
+				String guardianId = getEnteredText(Guardians.GUARDIAN_ID);
+				String infantId = getEnteredText(Guardians.INFANT_ID);
+				dataEntryService.addGuardian(guardianId, infantId,
 						new LoggingCallback(
 								"Data received successfully by server"));
 			}

@@ -1,7 +1,7 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete;
 
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Citizenships;
+import ca.drusk.flightmanager.client.table_data.FlightAttendance;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -10,24 +10,25 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 
 /**
- * UI elements for deleting citizenships from the database.
+ * UI elements for deleting flight attendance entries from the database.
  * 
  * @author drusk
  * 
  */
-public class CitizenshipsDataDeletionForm extends AbstractDataModificationForm {
+public class FlightAttendanceDataDeletionForm extends
+		AbstractDataModificationForm {
 
 	private final DataDeletionServiceAsync dataDeletionService;
 
-	public CitizenshipsDataDeletionForm(
+	public FlightAttendanceDataDeletionForm(
 			DataDeletionServiceAsync dataDeletionService) {
-		super(new Citizenships().getPrimaryKeyAttributes());
+		super(new FlightAttendance().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 
 	@Override
 	protected String getTitle() {
-		return TableNames.CITIZENSHIPS;
+		return TableNames.FLIGHT_ATTENDANCE;
 	}
 
 	@Override
@@ -37,9 +38,11 @@ public class CitizenshipsDataDeletionForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String citizenship = textBoxes.get(
-						Citizenships.CITIZENSHIP).getText();
-				dataDeletionService.removeCitizenship(citizenship,
+				String passengerId = getEnteredText(FlightAttendance.PASSENGER_ID);
+				String flightId = getEnteredText(FlightAttendance.FLIGHT_ID);
+
+				dataDeletionService.removePassengerFromFlight(passengerId,
+						flightId,
 						new LoggingCallback("Deletion sent to server"));
 			}
 

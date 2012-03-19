@@ -11,7 +11,7 @@ public final class Citizenships implements TableFields {
 	public static final String CITIZENSHIP = "Citizenship";
 
 	@Override
-	public String[] getPrimaryKeys() {
+	public String[] getPrimaryKeyAttributes() {
 		return new String[] { CITIZENSHIP };
 	}
 

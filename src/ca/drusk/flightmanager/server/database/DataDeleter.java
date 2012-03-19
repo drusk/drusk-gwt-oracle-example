@@ -1,8 +1,6 @@
 package ca.drusk.flightmanager.server.database;
 
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Deletes data from the database.
@@ -35,6 +33,14 @@ public class DataDeleter extends DatabaseAccessor {
 	private PreparedStatement passengerStmt = null;
 
 	private PreparedStatement flightInstanceStmt = null;
+
+	private PreparedStatement flightAttendanceStmt = null;
+
+	private PreparedStatement baggageStmt = null;
+
+	private PreparedStatement flightInventoryStmt = null;
+
+	private PreparedStatement guardiansStmt = null;
 
 	public int removeAirline(String code) {
 		airlineStmt = prepareStatement(airlineStmt,
@@ -86,24 +92,10 @@ public class DataDeleter extends DatabaseAccessor {
 	}
 
 	public int removeGate(String gate, String airportCode) {
-		// gateStmt = prepareStatement(gateStmt,
-		// "DELETE FROM Gates WHERE gate=? AND airportCode=?");
-		// setParameters(gateStmt, gate, airportCode);
-		// System.out.println("DELETE FROM Gates WHERE gate=" + gate
-		// + " AND airportCode=" + airportCode);
-		// return executeUpdate(gateStmt);
-
-		String query = "DELETE FROM Gates WHERE gate='" + gate
-				+ "' AND airportCode='" + airportCode + "'";
-		try {
-			Statement stmt = conn.createStatement();
-			int executeUpdate = stmt.executeUpdate(query);
-			System.out.println(executeUpdate);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
+		gateStmt = prepareStatement(gateStmt,
+				"DELETE FROM Gates WHERE gate=? AND airportCode=?");
+		setParameters(gateStmt, gate, airportCode);
+		return executeUpdate(gateStmt);
 	}
 
 	public int removeArrival(String id) {
@@ -132,5 +124,35 @@ public class DataDeleter extends DatabaseAccessor {
 				"DELETE FROM FlightInstances WHERE id=?");
 		setParameters(flightInstanceStmt, id);
 		return executeUpdate(flightInstanceStmt);
+	}
+
+	public int removePassengerFromFlight(int passengerId, int flightId) {
+		flightAttendanceStmt = prepareStatement(flightAttendanceStmt,
+				"DELETE FROM FlightAttendance WHERE passengerId=? AND flightId=?");
+		setParameters(flightAttendanceStmt, passengerId, flightId);
+		return executeUpdate(flightAttendanceStmt);
+	}
+
+	public int removeBaggage(String id) {
+		baggageStmt = prepareStatement(baggageStmt,
+				"DELETE FROM Baggage WHERE id=?");
+		setParameters(baggageStmt, id);
+		return executeUpdate(baggageStmt);
+	}
+
+	public int removeBaggageForFlight(int passengerId, int flightId,
+			int baggageId) {
+		flightInventoryStmt = prepareStatement(
+				flightInventoryStmt,
+				"DELETE FROM FlightInventory WHERE passengerId=? AND flightId=? AND baggageId=?");
+		setParameters(flightInventoryStmt, passengerId, flightId, baggageId);
+		return executeUpdate(flightInventoryStmt);
+	}
+
+	public int removeGuardian(int guardianId, int infantId) {
+		guardiansStmt = prepareStatement(guardiansStmt,
+				"DELETE FROM Guardians WHERE guardianId=? AND infantId=?");
+		setParameters(guardiansStmt, guardianId, infantId);
+		return executeUpdate(guardiansStmt);
 	}
 }

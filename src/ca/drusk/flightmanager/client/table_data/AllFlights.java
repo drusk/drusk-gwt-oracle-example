@@ -10,7 +10,7 @@ package ca.drusk.flightmanager.client.table_data;
 public class AllFlights implements TableFields {
 
 	@Override
-	public String[] getPrimaryKeys() {
+	public String[] getPrimaryKeyAttributes() {
 		return new String[] { Flights.FLIGHT_NUMBER };
 	}
 

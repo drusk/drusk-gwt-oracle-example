@@ -17,7 +17,7 @@ public class Arrivals implements TableFields {
 	public static final String STATUS = "status";
 
 	@Override
-	public String[] getPrimaryKeys() {
+	public String[] getPrimaryKeyAttributes() {
 		return new String[] { FlightInstances.ID };
 	}
 

@@ -7,10 +7,14 @@ import ca.drusk.flightmanager.client.table_data.Airlines;
 import ca.drusk.flightmanager.client.table_data.Airports;
 import ca.drusk.flightmanager.client.table_data.AllFlights;
 import ca.drusk.flightmanager.client.table_data.Arrivals;
+import ca.drusk.flightmanager.client.table_data.Baggage;
 import ca.drusk.flightmanager.client.table_data.Citizenships;
 import ca.drusk.flightmanager.client.table_data.Departures;
+import ca.drusk.flightmanager.client.table_data.FlightAttendance;
 import ca.drusk.flightmanager.client.table_data.FlightInstances;
+import ca.drusk.flightmanager.client.table_data.FlightInventory;
 import ca.drusk.flightmanager.client.table_data.Gates;
+import ca.drusk.flightmanager.client.table_data.Guardians;
 import ca.drusk.flightmanager.client.table_data.Passengers;
 import ca.drusk.flightmanager.client.table_data.PlaneModels;
 
@@ -20,7 +24,7 @@ import ca.drusk.flightmanager.client.table_data.PlaneModels;
  * @author drusk
  * 
  */
-public class DataQuerier extends DatabaseAccessor {
+public class FullRelationDataQuerier extends DatabaseAccessor {
 
 	private PreparedStatement airlineStmt = null;
 
@@ -41,6 +45,14 @@ public class DataQuerier extends DatabaseAccessor {
 	private PreparedStatement passengerStmt = null;
 
 	private PreparedStatement flightInstancesStmt = null;
+
+	private PreparedStatement flightAttendanceStmt = null;
+
+	private PreparedStatement baggageStmt = null;
+
+	private PreparedStatement flightInventoryStmt = null;
+
+	private PreparedStatement guardiansStmt = null;
 
 	public Relation getAirlineFullRelation() {
 		airlineStmt = prepareStatement(airlineStmt,
@@ -103,5 +115,31 @@ public class DataQuerier extends DatabaseAccessor {
 				"SELECT id, flightNumber FROM FlightInstances");
 		return executeQuery(flightInstancesStmt,
 				new FlightInstances().getFields());
+	}
+
+	public Relation getFlightAttendanceFullRelation() {
+		flightAttendanceStmt = prepareStatement(flightAttendanceStmt,
+				"SELECT passengerId, flightId, travelClass FROM FlightAttendance");
+		return executeQuery(flightAttendanceStmt,
+				new FlightAttendance().getFields());
+	}
+
+	public Relation getBaggageFullRelation() {
+		baggageStmt = prepareStatement(baggageStmt,
+				"SELECT id, weight FROM Baggage");
+		return executeQuery(baggageStmt, new Baggage().getFields());
+	}
+
+	public Relation getFlightInventoryFullRelation() {
+		flightInventoryStmt = prepareStatement(flightInventoryStmt,
+				"SELECT passengerId, flightId, baggageId FROM FlightInventory");
+		return executeQuery(flightInventoryStmt,
+				new FlightInventory().getFields());
+	}
+
+	public Relation getGuardiansFullRelation() {
+		guardiansStmt = prepareStatement(guardiansStmt,
+				"SELECT guardianId, infantId FROM Guardians");
+		return executeQuery(guardiansStmt, new Guardians().getFields());
 	}
 }

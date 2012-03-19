@@ -31,4 +31,15 @@ public interface DataDeletionServiceAsync {
 
 	void removeFlightInstance(String id, AsyncCallback<Integer> callback);
 
+	void removePassengerFromFlight(String passengerId, String flightId,
+			AsyncCallback<Integer> callback);
+
+	void removeBaggage(String id, AsyncCallback<Integer> callback);
+
+	void removeBaggageForFlight(String passengerId, String flightId,
+			String baggageId, AsyncCallback<Integer> callback);
+
+	void removeGuardian(String guardianId, String infantId,
+			AsyncCallback<Integer> callback);
+
 }

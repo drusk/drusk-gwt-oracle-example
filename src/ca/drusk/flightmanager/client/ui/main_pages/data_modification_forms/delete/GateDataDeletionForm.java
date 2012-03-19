@@ -21,7 +21,7 @@ public class GateDataDeletionForm extends AbstractDataModificationForm {
 	private final DataDeletionServiceAsync dataDeletionService;
 
 	public GateDataDeletionForm(DataDeletionServiceAsync dataDeletionService) {
-		super(new Gates().getPrimaryKeys());
+		super(new Gates().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 

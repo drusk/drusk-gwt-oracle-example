@@ -17,7 +17,7 @@ public final class Airports implements TableFields {
 	public static final String UTC_OFFSET = "utcOffset";
 
 	@Override
-	public String[] getPrimaryKeys() {
+	public String[] getPrimaryKeyAttributes() {
 		return new String[] { AIRPORT_CODE };
 	}
 

@@ -41,4 +41,14 @@ public interface DataEntryService extends RemoteService {
 
 	int addFlightInstance(String flightNumber);
 
+	int addPassengerToFlight(String passengerId, String flightId,
+			String travelClass);
+
+	int addBaggage(String weight);
+
+	int addBaggageForFlight(String passengerId, String flightId,
+			String baggageId);
+
+	int addGuardian(String guardianId, String infantId);
+
 }

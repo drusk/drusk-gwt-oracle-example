@@ -18,21 +18,26 @@ public class Passengers implements TableFields {
 
 	public static final String DATE_OF_BIRTH = "dateOfBirth";
 
+	public static final String SPECIAL_NEEDS = "specialNeeds";
+
+	public static final String INFANT = "Infant";
+
 	@Override
-	public String[] getPrimaryKeys() {
+	public String[] getPrimaryKeyAttributes() {
 		return new String[] { ID };
 	}
 
 	@Override
 	public String[] getFields() {
 		return new String[] { ID, FIRST_NAME, LAST_NAME,
-				Citizenships.CITIZENSHIP, PLACE_OF_BIRTH, DATE_OF_BIRTH };
+				Citizenships.CITIZENSHIP, PLACE_OF_BIRTH, DATE_OF_BIRTH,
+				SPECIAL_NEEDS };
 	}
 
 	@Override
 	public String[] getEntryFields() {
 		return new String[] { FIRST_NAME, LAST_NAME, Citizenships.CITIZENSHIP,
-				PLACE_OF_BIRTH, DATE_OF_BIRTH };
+				PLACE_OF_BIRTH, DATE_OF_BIRTH, SPECIAL_NEEDS };
 	}
 
 	@Override

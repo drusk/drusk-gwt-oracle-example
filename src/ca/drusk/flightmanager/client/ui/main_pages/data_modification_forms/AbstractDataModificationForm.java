@@ -9,6 +9,7 @@ import ca.drusk.flightmanager.shared.utils.HtmlBuilder;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -52,6 +53,19 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 		container.add(formDisplay);
 		container.add(log);
 		container.setSpacing(TEXT_BOXES_TO_LOG_SPACING);
+	}
+
+	/**
+	 * Adds a checkbox, defaults to false.
+	 * 
+	 * @param caption
+	 *            the text to be display with the checkbox
+	 */
+	protected CheckBox addCheckbox(String caption) {
+		CheckBox checkbox = new CheckBox(caption);
+		checkbox.setValue(false);
+		container.add(checkbox);
+		return checkbox;
 	}
 
 	protected abstract String getTitle();

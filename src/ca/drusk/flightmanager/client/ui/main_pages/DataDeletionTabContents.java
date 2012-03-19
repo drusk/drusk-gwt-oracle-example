@@ -5,11 +5,15 @@ import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.AirlineDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.AirportsDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.ArrivalsDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.BaggageDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.CitizenshipsDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.DeparturesDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.FlightAttendanceDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.FlightInstancesDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.FlightInventoryDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.FlightsDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.GateDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.GuardiansDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.PassengersDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.PlaneModelsDataDeletionForm;
 
@@ -101,6 +105,30 @@ public class DataDeletionTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
 				flightInstancesForm, tabContents);
 		tabContents.add(flightInstancesForm);
+
+		FlightAttendanceDataDeletionForm flightAttendanceForm = new FlightAttendanceDataDeletionForm(
+				dataDeletionService);
+		tableSelector.registerSwitchHandler(TableNames.FLIGHT_ATTENDANCE,
+				flightAttendanceForm, tabContents);
+		tabContents.add(flightAttendanceForm);
+
+		BaggageDataDeletionForm baggageForm = new BaggageDataDeletionForm(
+				dataDeletionService);
+		tableSelector.registerSwitchHandler(TableNames.BAGGAGE, baggageForm,
+				tabContents);
+		tabContents.add(baggageForm);
+
+		FlightInventoryDataDeletionForm flightInventoryForm = new FlightInventoryDataDeletionForm(
+				dataDeletionService);
+		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INVENTORY,
+				flightInventoryForm, tabContents);
+		tabContents.add(flightInventoryForm);
+
+		GuardiansDataDeletionForm guardiansForm = new GuardiansDataDeletionForm(
+				dataDeletionService);
+		tableSelector.registerSwitchHandler(TableNames.GUARDIANS,
+				guardiansForm, tabContents);
+		tabContents.add(guardiansForm);
 
 		tabContents.showWidget(0);
 

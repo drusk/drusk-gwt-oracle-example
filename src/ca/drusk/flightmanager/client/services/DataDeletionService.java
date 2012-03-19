@@ -33,4 +33,13 @@ public interface DataDeletionService extends RemoteService {
 
 	int removeFlightInstance(String id);
 
+	int removePassengerFromFlight(String passengerId, String flightId);
+
+	int removeBaggage(String id);
+
+	int removeBaggageForFlight(String passengerId, String flightId,
+			String baggageId);
+
+	int removeGuardian(String guardianId, String infantId);
+
 }

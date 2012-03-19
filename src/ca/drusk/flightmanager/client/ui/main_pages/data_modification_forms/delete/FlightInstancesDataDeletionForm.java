@@ -22,7 +22,7 @@ public class FlightInstancesDataDeletionForm extends
 
 	public FlightInstancesDataDeletionForm(
 			DataDeletionServiceAsync dataDeletionService) {
-		super(new FlightInstances().getPrimaryKeys());
+		super(new FlightInstances().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 

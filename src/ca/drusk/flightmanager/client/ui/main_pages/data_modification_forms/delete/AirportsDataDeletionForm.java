@@ -21,7 +21,7 @@ public class AirportsDataDeletionForm extends AbstractDataModificationForm {
 
 	public AirportsDataDeletionForm(
 			DataDeletionServiceAsync dataDeletionService) {
-		super(new Airports().getPrimaryKeys());
+		super(new Airports().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 

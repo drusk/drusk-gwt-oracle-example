@@ -11,7 +11,7 @@ public class FlightInstances implements TableFields {
 	public static final String ID = "id";
 
 	@Override
-	public String[] getPrimaryKeys() {
+	public String[] getPrimaryKeyAttributes() {
 		return new String[] { ID };
 	}
 

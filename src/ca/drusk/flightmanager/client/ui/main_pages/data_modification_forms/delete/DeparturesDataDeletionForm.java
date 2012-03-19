@@ -21,7 +21,7 @@ public class DeparturesDataDeletionForm extends AbstractDataModificationForm {
 
 	public DeparturesDataDeletionForm(
 			DataDeletionServiceAsync dataDeletionService) {
-		super(new Departures().getPrimaryKeys());
+		super(new Departures().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 
@@ -38,7 +38,7 @@ public class DeparturesDataDeletionForm extends AbstractDataModificationForm {
 			@Override
 			public void onClick(ClickEvent event) {
 				String id = getEnteredText(Departures.ID);
-				dataDeletionService.removeAirline(id, new LoggingCallback(
+				dataDeletionService.removeDeparture(id, new LoggingCallback(
 						"Deletion sent to server"));
 			}
 

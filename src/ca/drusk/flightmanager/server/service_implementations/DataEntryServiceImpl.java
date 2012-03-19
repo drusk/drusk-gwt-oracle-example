@@ -27,13 +27,6 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 
 	private DateTimeFormatter dateTimeFormatter = new DateTimeFormatter();
 
-	public static void main(String args[]) {
-		DataInserter inserter = new DataInserter();
-		int addAirline = inserter.addAirline("AirCanada", "AC",
-				"www.aircanada.ca");
-		System.out.println(addAirline);
-	}
-
 	@Override
 	public int addAirline(String name, String code, String website) {
 		return inserter.addAirline(name, code, website);
@@ -108,5 +101,30 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public int addFlightInstance(String flightNumber) {
 		return inserter.addFlightInstance(Integer.parseInt(flightNumber));
+	}
+
+	@Override
+	public int addPassengerToFlight(String passengerId, String flightId,
+			String travelClass) {
+		return inserter.addPassengerToFlight(Integer.parseInt(passengerId),
+				Integer.parseInt(flightId), travelClass);
+	}
+
+	@Override
+	public int addBaggage(String weight) {
+		return inserter.addBaggage(Double.parseDouble(weight));
+	}
+
+	@Override
+	public int addBaggageForFlight(String passengerId, String flightId,
+			String baggageId) {
+		return inserter.addBaggageForFlight(Integer.parseInt(passengerId),
+				Integer.parseInt(flightId), Integer.parseInt(baggageId));
+	}
+
+	@Override
+	public int addGuardian(String guardianId, String infantId) {
+		return inserter.addGuardian(Integer.parseInt(guardianId),
+				Integer.parseInt(infantId));
 	}
 }

@@ -20,8 +20,11 @@ public class PassengersDataEntryForm extends AbstractDataModificationForm {
 
 	private final DataEntryServiceAsync dataEntryService;
 
+	// private CheckBox infantCheckbox;
+
 	public PassengersDataEntryForm(DataEntryServiceAsync dataEntryService) {
 		super(new Passengers().getEntryFields());
+		// infantCheckbox = addCheckbox(Passengers.INFANT);
 		this.dataEntryService = dataEntryService;
 	}
 
@@ -42,6 +45,8 @@ public class PassengersDataEntryForm extends AbstractDataModificationForm {
 				String citizenship = getEnteredText(Citizenships.CITIZENSHIP);
 				String placeOfBirth = getEnteredText(Passengers.PLACE_OF_BIRTH);
 				String dateOfBirth = getEnteredText(Passengers.DATE_OF_BIRTH);
+
+				// boolean isInfant = infantCheckbox.getValue();
 
 				dataEntryService.addPassenger(firstName, lastName, citizenship,
 						placeOfBirth, dateOfBirth, new LoggingCallback(

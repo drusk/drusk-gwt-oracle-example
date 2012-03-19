@@ -1,9 +1,7 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Airports;
-import ca.drusk.flightmanager.client.table_data.Departures;
-import ca.drusk.flightmanager.client.table_data.Gates;
+import ca.drusk.flightmanager.client.table_data.FlightInventory;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -12,23 +10,24 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 
 /**
- * UI elements for entering flight departure data.
+ * UI elements for entering the baggage taken by a passenger on a specific
+ * flight.
  * 
  * @author drusk
  * 
  */
-public class DeparturesDataEntryForm extends AbstractDataModificationForm {
+public class FlightInventoryDataEntryForm extends AbstractDataModificationForm {
 
 	private final DataEntryServiceAsync dataEntryService;
 
-	public DeparturesDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Departures().getEntryFields());
+	public FlightInventoryDataEntryForm(DataEntryServiceAsync dataEntryService) {
+		super(new FlightInventory().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
 	@Override
 	protected String getTitle() {
-		return TableNames.DEPARTURES;
+		return TableNames.FLIGHT_INVENTORY;
 	}
 
 	@Override
@@ -38,16 +37,12 @@ public class DeparturesDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String id = getEnteredText(Departures.ID);
-				String gate = getEnteredText(Gates.GATE);
-				String airportCode = getEnteredText(Airports.AIRPORT_CODE);
-				String departureDay = getEnteredText(Departures.DEPARTURE_DAY);
-				String departureTime = getEnteredText(Departures.DEPARTURE_TIME);
-				String status = getEnteredText(Departures.STATUS);
+				String passengerId = getEnteredText(FlightInventory.PASSENGER_ID);
+				String flightId = getEnteredText(FlightInventory.FLIGHT_ID);
+				String baggageId = getEnteredText(FlightInventory.BAGGAGE_ID);
 
-				dataEntryService.addDeparture(id, gate, airportCode,
-						departureDay, departureTime, status,
-						new LoggingCallback(
+				dataEntryService.addBaggageForFlight(passengerId, flightId,
+						baggageId, new LoggingCallback(
 								"Data received successfully by server"));
 			}
 

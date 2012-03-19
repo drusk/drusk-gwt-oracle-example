@@ -20,7 +20,7 @@ public final class Airlines implements TableFields {
 	}
 
 	@Override
-	public String[] getPrimaryKeys() {
+	public String[] getPrimaryKeyAttributes() {
 		return new String[] { CODE };
 	}
 

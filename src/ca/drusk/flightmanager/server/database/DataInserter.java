@@ -37,6 +37,14 @@ public class DataInserter extends DatabaseAccessor {
 
 	private PreparedStatement flightInstanceStmt = null;
 
+	private PreparedStatement flightAttendanceStmt = null;
+
+	private PreparedStatement baggageStmt = null;
+
+	private PreparedStatement flightInventoryStmt = null;
+
+	private PreparedStatement guardiansStmt = null;
+
 	public int addAirline(String name, String code, String website) {
 		airlineStmt = prepareStatement(airlineStmt,
 				"INSERT INTO Airlines(name, code, website) VALUES (?, ?, ?)");
@@ -141,5 +149,36 @@ public class DataInserter extends DatabaseAccessor {
 				"INSERT INTO FlightInstances(id, flightNumber) VALUES(FlightInstanceIds.nextval, ?)");
 		setParameters(flightInstanceStmt, flightNumber);
 		return executeUpdate(flightInstanceStmt);
+	}
+
+	@SuppressWarnings("unchecked")
+	public int addPassengerToFlight(int passengerId, int flightId,
+			String travelClass) {
+		flightAttendanceStmt = prepareStatement(
+				flightAttendanceStmt,
+				"INSERT INTO FlightAttendance(passengerId, flightId, travelClass) VALUES(?, ?, ?)");
+		setParameters(flightAttendanceStmt, passengerId, flightId, travelClass);
+		return executeUpdate(flightAttendanceStmt);
+	}
+
+	public int addBaggage(double weight) {
+		baggageStmt = prepareStatement(baggageStmt,
+				"INSERT INTO Baggage(id, weight) VALUES(BaggageIds.nextval, ?)");
+		setParameters(baggageStmt, weight);
+		return executeUpdate(baggageStmt);
+	}
+
+	public int addBaggageForFlight(int passengerId, int flightId, int baggageId) {
+		flightInventoryStmt = prepareStatement(flightInventoryStmt,
+				"INSERT INTO FlightInventory(passengerId, flightId, baggageId) VALUES(?, ?, ?)");
+		setParameters(flightInventoryStmt, passengerId, flightId, baggageId);
+		return executeUpdate(flightInventoryStmt);
+	}
+
+	public int addGuardian(int guardianId, int infantId) {
+		guardiansStmt = prepareStatement(guardiansStmt,
+				"INSERT INTO Guardians(guardianId, infantId) VALUES(?, ?)");
+		setParameters(guardiansStmt, guardianId, infantId);
+		return executeUpdate(guardiansStmt);
 	}
 }

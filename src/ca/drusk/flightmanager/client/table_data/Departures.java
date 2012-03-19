@@ -19,7 +19,7 @@ public class Departures implements TableFields {
 	public static final String STATUS = "status";
 
 	@Override
-	public String[] getPrimaryKeys() {
+	public String[] getPrimaryKeyAttributes() {
 		return new String[] { ID };
 	}
 
@@ -32,7 +32,7 @@ public class Departures implements TableFields {
 	@Override
 	public String[] getEntryFields() {
 		return new String[] { ID, Gates.GATE, Airports.AIRPORT_CODE,
-				DEPARTURE_DAY, DEPARTURE_TIME, STATUS, Flights.FLIGHT_NUMBER };
+				DEPARTURE_DAY, DEPARTURE_TIME, STATUS };
 	}
 
 	@Override

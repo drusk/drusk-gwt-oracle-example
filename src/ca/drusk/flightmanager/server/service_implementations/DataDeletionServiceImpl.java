@@ -48,8 +48,6 @@ public class DataDeletionServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public int removeGate(String gate, String airportCode) {
-		System.out.println("Gate='" + gate + "' airportCode='" + airportCode
-				+ "'");
 		return deleter.removeGate(gate, airportCode);
 	}
 
@@ -79,4 +77,27 @@ public class DataDeletionServiceImpl extends RemoteServiceServlet implements
 		return deleter.removeFlightInstance(id);
 	}
 
+	@Override
+	public int removePassengerFromFlight(String passengerId, String flightId) {
+		return deleter.removePassengerFromFlight(Integer.parseInt(passengerId),
+				Integer.parseInt(flightId));
+	}
+
+	@Override
+	public int removeBaggage(String id) {
+		return deleter.removeBaggage(id);
+	}
+
+	@Override
+	public int removeBaggageForFlight(String passengerId, String flightId,
+			String baggageId) {
+		return deleter.removeBaggageForFlight(Integer.parseInt(passengerId),
+				Integer.parseInt(flightId), Integer.parseInt(baggageId));
+	}
+
+	@Override
+	public int removeGuardian(String guardianId, String infantId) {
+		return deleter.removeGuardian(Integer.parseInt(guardianId),
+				Integer.parseInt(infantId));
+	}
 }

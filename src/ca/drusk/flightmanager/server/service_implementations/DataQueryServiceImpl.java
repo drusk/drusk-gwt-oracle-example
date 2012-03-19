@@ -2,7 +2,7 @@ package ca.drusk.flightmanager.server.service_implementations;
 
 import ca.drusk.flightmanager.client.data.Relation;
 import ca.drusk.flightmanager.client.services.DataQueryService;
-import ca.drusk.flightmanager.server.database.DataQuerier;
+import ca.drusk.flightmanager.server.database.FullRelationDataQuerier;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -15,7 +15,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class DataQueryServiceImpl extends RemoteServiceServlet implements
 		DataQueryService {
 
-	private DataQuerier dataQuerier = new DataQuerier();
+	private FullRelationDataQuerier dataQuerier = new FullRelationDataQuerier();
 
 	@Override
 	public Relation getAirlines() {
@@ -65,6 +65,26 @@ public class DataQueryServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public Relation getFlightInstances() {
 		return dataQuerier.getFlightInstances();
+	}
+
+	@Override
+	public Relation getFlightAttendance() {
+		return dataQuerier.getFlightAttendanceFullRelation();
+	}
+
+	@Override
+	public Relation getBaggage() {
+		return dataQuerier.getBaggageFullRelation();
+	}
+
+	@Override
+	public Relation getFlightInventory() {
+		return dataQuerier.getFlightInventoryFullRelation();
+	}
+
+	@Override
+	public Relation getGuardians() {
+		return dataQuerier.getGuardiansFullRelation();
 	}
 
 }

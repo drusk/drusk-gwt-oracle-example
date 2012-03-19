@@ -28,10 +28,19 @@ public final class TableNames {
 
 	public static final String FLIGHT_INSTANCES = "Flight Instances";
 
+	public static final String FLIGHT_ATTENDANCE = "Flight Attendance";
+
+	public static final String BAGGAGE = "Baggage";
+
+	public static final String FLIGHT_INVENTORY = "Flight Inventory";
+
+	public static final String GUARDIANS = "Guardians";
+
 	public static final String[] getAll() {
-		return new String[] { AIRLINES, AIRPORTS, ARRIVALS, CITIZENSHIPS,
-				DEPARTURES, FLIGHTS, FLIGHT_INSTANCES, GATES, PASSENGERS,
-				PLANE_MODELS };
+		return new String[] { AIRLINES, AIRPORTS, ARRIVALS, BAGGAGE,
+				CITIZENSHIPS, DEPARTURES, FLIGHTS, FLIGHT_ATTENDANCE,
+				FLIGHT_INSTANCES, FLIGHT_INVENTORY, GATES, GUARDIANS,
+				PASSENGERS, PLANE_MODELS };
 	}
 
 }

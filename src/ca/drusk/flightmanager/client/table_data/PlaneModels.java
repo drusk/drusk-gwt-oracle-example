@@ -13,7 +13,7 @@ public final class PlaneModels implements TableFields {
 	public static final String CAPACITY = "Capacity";
 
 	@Override
-	public String[] getPrimaryKeys() {
+	public String[] getPrimaryKeyAttributes() {
 		return new String[] { CODE };
 	}
 

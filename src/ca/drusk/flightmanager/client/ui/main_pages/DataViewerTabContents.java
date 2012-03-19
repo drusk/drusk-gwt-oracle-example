@@ -5,11 +5,15 @@ import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirlineResultsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirportsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.ArrivalsDataDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.BaggageDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.CitizenshipsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.DeparturesDataDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.FlightAttendanceDataDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.FlightInstancesDataDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.FlightInventoryDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.FlightsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.GatesDataDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.GuardiansDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.PassengersDataDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.PlaneModelsDisplay;
 
@@ -97,6 +101,29 @@ public class DataViewerTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
 				flightInstancesDisplay, tabContents);
 		tabContents.add(flightInstancesDisplay);
+
+		FlightAttendanceDataDisplay flightAttendanceDisplay = new FlightAttendanceDataDisplay(
+				dataQueryService);
+		tableSelector.registerSwitchHandler(TableNames.FLIGHT_ATTENDANCE,
+				flightAttendanceDisplay, tabContents);
+		tabContents.add(flightAttendanceDisplay);
+
+		BaggageDisplay baggageDisplay = new BaggageDisplay(dataQueryService);
+		tableSelector.registerSwitchHandler(TableNames.BAGGAGE, baggageDisplay,
+				tabContents);
+		tabContents.add(baggageDisplay);
+
+		FlightInventoryDisplay flightInventoryDisplay = new FlightInventoryDisplay(
+				dataQueryService);
+		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INVENTORY,
+				flightInventoryDisplay, tabContents);
+		tabContents.add(flightInventoryDisplay);
+
+		GuardiansDisplay guardiansDisplay = new GuardiansDisplay(
+				dataQueryService);
+		tableSelector.registerSwitchHandler(TableNames.GUARDIANS,
+				guardiansDisplay, tabContents);
+		tabContents.add(guardiansDisplay);
 
 		tabContents.showWidget(0);
 		return tabContents;

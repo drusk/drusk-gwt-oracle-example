@@ -5,11 +5,15 @@ import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.AirlineDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.AirportsDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.ArrivalsDataEntryForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.BaggageDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.CitizenshipsDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.DeparturesDataEntryForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.FlightAttendanceDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.FlightInstancesDataEntryForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.FlightInventoryDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.FlightsDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.GateDataEntryForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.GuardiansDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.PassengersDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.PlaneModelsDataEntryForm;
 
@@ -99,6 +103,30 @@ public class DataEntryTabContents extends AbstractTabContents {
 		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
 				flightInstancesForm, tabContents);
 		tabContents.add(flightInstancesForm);
+
+		FlightAttendanceDataEntryForm flightAttendanceForm = new FlightAttendanceDataEntryForm(
+				dataEntryService);
+		tableSelector.registerSwitchHandler(TableNames.FLIGHT_ATTENDANCE,
+				flightAttendanceForm, tabContents);
+		tabContents.add(flightAttendanceForm);
+
+		BaggageDataEntryForm baggageForm = new BaggageDataEntryForm(
+				dataEntryService);
+		tableSelector.registerSwitchHandler(TableNames.BAGGAGE, baggageForm,
+				tabContents);
+		tabContents.add(baggageForm);
+
+		FlightInventoryDataEntryForm flightInventoryForm = new FlightInventoryDataEntryForm(
+				dataEntryService);
+		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INVENTORY,
+				flightInventoryForm, tabContents);
+		tabContents.add(flightInventoryForm);
+
+		GuardiansDataEntryForm guardiansForm = new GuardiansDataEntryForm(
+				dataEntryService);
+		tableSelector.registerSwitchHandler(TableNames.GUARDIANS,
+				guardiansForm, tabContents);
+		tabContents.add(guardiansForm);
 
 		tabContents.showWidget(0);
 
