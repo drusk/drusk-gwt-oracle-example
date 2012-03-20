@@ -19,7 +19,8 @@ import ca.drusk.flightmanager.client.table_data.Passengers;
 import ca.drusk.flightmanager.client.table_data.PlaneModels;
 
 /**
- * Returns data from the database after running queries.
+ * Returns data from the database after running queries. These queries are for
+ * returning the full relations, ie all rows and columns in a table.
  * 
  * @author drusk
  * 

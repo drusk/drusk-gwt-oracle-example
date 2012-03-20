@@ -33,6 +33,15 @@
     <url-pattern>/flightmanager/full-relation-query</url-pattern>
   </servlet-mapping>
    
+  <servlet>
+    <servlet-name>flightQueryServlet</servlet-name>
+    <servlet-class>ca.drusk.flightmanager.server.service_implementations.FlightQueryServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>flightQueryServlet</servlet-name>
+    <url-pattern>/flightmanager/flight-query</url-pattern>
+  </servlet-mapping>
+   
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>FlightManager.html</welcome-file>
