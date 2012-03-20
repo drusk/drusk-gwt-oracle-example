@@ -1,6 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_display;
 
-import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
+import ca.drusk.flightmanager.client.services.FullRelationQueryServiceAsync;
 
 /**
  * Display for data from the Locations table.
@@ -10,7 +10,7 @@ import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
  */
 public class AirportsDisplay extends AbstractDataDisplay {
 
-	public AirportsDisplay(DataQueryServiceAsync dataQueryService) {
+	public AirportsDisplay(FullRelationQueryServiceAsync dataQueryService) {
 		super(dataQueryService);
 	}
 

@@ -25,12 +25,12 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>dataQueryServlet</servlet-name>
-    <servlet-class>ca.drusk.flightmanager.server.service_implementations.DataQueryServiceImpl</servlet-class>
+    <servlet-name>fullRelationQueryServlet</servlet-name>
+    <servlet-class>ca.drusk.flightmanager.server.service_implementations.FullRelationQueryServiceImpl</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>dataQueryServlet</servlet-name>
-    <url-pattern>/flightmanager/data-query</url-pattern>
+    <servlet-name>fullRelationQueryServlet</servlet-name>
+    <url-pattern>/flightmanager/full-relation-query</url-pattern>
   </servlet-mapping>
    
   <!-- Default page to serve -->

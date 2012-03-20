@@ -1,7 +1,7 @@
 package ca.drusk.flightmanager.server.service_implementations;
 
 import ca.drusk.flightmanager.client.data.Relation;
-import ca.drusk.flightmanager.client.services.DataQueryService;
+import ca.drusk.flightmanager.client.services.FullRelationQueryService;
 import ca.drusk.flightmanager.server.database.FullRelationDataQuerier;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -12,8 +12,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author drusk
  * 
  */
-public class DataQueryServiceImpl extends RemoteServiceServlet implements
-		DataQueryService {
+public class FullRelationQueryServiceImpl extends RemoteServiceServlet implements
+		FullRelationQueryService {
 
 	private FullRelationDataQuerier dataQuerier = new FullRelationDataQuerier();
 

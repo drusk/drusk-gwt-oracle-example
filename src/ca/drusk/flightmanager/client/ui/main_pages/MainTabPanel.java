@@ -2,7 +2,7 @@ package ca.drusk.flightmanager.client.ui.main_pages;
 
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
+import ca.drusk.flightmanager.client.services.FullRelationQueryServiceAsync;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -33,11 +33,11 @@ public class MainTabPanel implements IsWidget {
 
 	private final DataDeletionServiceAsync dataDeletionService;
 
-	private final DataQueryServiceAsync dataQueryService;
+	private final FullRelationQueryServiceAsync dataQueryService;
 
 	public MainTabPanel(DataEntryServiceAsync dataEntryService,
 			DataDeletionServiceAsync dataDeletionService,
-			DataQueryServiceAsync dataQueryService) {
+			FullRelationQueryServiceAsync dataQueryService) {
 		this.dataEntryService = dataEntryService;
 		this.dataDeletionService = dataDeletionService;
 		this.dataQueryService = dataQueryService;

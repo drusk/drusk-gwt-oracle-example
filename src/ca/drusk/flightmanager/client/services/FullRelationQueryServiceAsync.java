@@ -5,12 +5,12 @@ import ca.drusk.flightmanager.client.data.Relation;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
- * The asynchronous counterpart of {@link DataQueryService}.
+ * The asynchronous counterpart of {@link FullRelationQueryService}.
  * 
  * @author drusk
  * 
  */
-public interface DataQueryServiceAsync {
+public interface FullRelationQueryServiceAsync {
 
 	void getAirlines(AsyncCallback<Relation> callback);
 

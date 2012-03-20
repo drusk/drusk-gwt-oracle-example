@@ -6,13 +6,14 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
- * The client side stub for the service which handles querying the database
+ * The client side stub for the service which retrieves full relations (tables)
+ * from the database
  * 
  * @author drusk
  * 
  */
-@RemoteServiceRelativePath("data-query")
-public interface DataQueryService extends RemoteService {
+@RemoteServiceRelativePath("full-relation-query")
+public interface FullRelationQueryService extends RemoteService {
 
 	Relation getAirlines();
 

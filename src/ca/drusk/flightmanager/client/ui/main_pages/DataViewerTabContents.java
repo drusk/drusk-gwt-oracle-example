@@ -1,6 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages;
 
-import ca.drusk.flightmanager.client.services.DataQueryServiceAsync;
+import ca.drusk.flightmanager.client.services.FullRelationQueryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirlineResultsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirportsDisplay;
@@ -27,9 +27,9 @@ import com.google.gwt.user.client.ui.DeckLayoutPanel;
  */
 public class DataViewerTabContents extends AbstractTabContents {
 
-	private final DataQueryServiceAsync dataQueryService;
+	private final FullRelationQueryServiceAsync dataQueryService;
 
-	public DataViewerTabContents(DataQueryServiceAsync dataQueryService) {
+	public DataViewerTabContents(FullRelationQueryServiceAsync dataQueryService) {
 		super();
 		this.dataQueryService = dataQueryService;
 		tabContents = initTabContents();
