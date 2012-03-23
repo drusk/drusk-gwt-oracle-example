@@ -34,7 +34,6 @@ public class PassengerBaggageDisplay extends AbstractQueryInterface {
 		String flightId = inputForm.getEnteredText(FlightInstances.ID);
 		flightQueryService.getBaggage(passengerId, flightId,
 				new TableGeneratingCallback());
-
 	}
 
 }
