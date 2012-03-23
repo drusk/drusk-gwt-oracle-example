@@ -38,7 +38,7 @@ public class DataDeletionTabContents extends AbstractTabContents {
 	}
 
 	@Override
-	protected String[] getTablesToShow() {
+	protected String[] getButtonNamesForContents() {
 		return TableNames.getAll();
 	}
 
@@ -48,85 +48,85 @@ public class DataDeletionTabContents extends AbstractTabContents {
 
 		AirlineDataDeletionForm airlineForm = new AirlineDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.AIRLINES, airlineForm,
+		contentSelector.registerSwitchHandler(TableNames.AIRLINES, airlineForm,
 				tabContents);
 		tabContents.add(airlineForm);
 
 		PlaneModelsDataDeletionForm planeModelForm = new PlaneModelsDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.PLANE_MODELS,
+		contentSelector.registerSwitchHandler(TableNames.PLANE_MODELS,
 				planeModelForm, tabContents);
 		tabContents.add(planeModelForm);
 
 		CitizenshipsDataDeletionForm citizenshipForm = new CitizenshipsDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.CITIZENSHIPS,
+		contentSelector.registerSwitchHandler(TableNames.CITIZENSHIPS,
 				citizenshipForm, tabContents);
 		tabContents.add(citizenshipForm);
 
 		AirportsDataDeletionForm locationsForm = new AirportsDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.AIRPORTS, locationsForm,
+		contentSelector.registerSwitchHandler(TableNames.AIRPORTS, locationsForm,
 				tabContents);
 		tabContents.add(locationsForm);
 
 		FlightsDataDeletionForm flightsForm = new FlightsDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.FLIGHTS, flightsForm,
+		contentSelector.registerSwitchHandler(TableNames.FLIGHTS, flightsForm,
 				tabContents);
 		tabContents.add(flightsForm);
 
 		GateDataDeletionForm gatesForm = new GateDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.GATES, gatesForm,
+		contentSelector.registerSwitchHandler(TableNames.GATES, gatesForm,
 				tabContents);
 		tabContents.add(gatesForm);
 
 		ArrivalsDataDeletionForm arrivalsForm = new ArrivalsDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.ARRIVALS, arrivalsForm,
+		contentSelector.registerSwitchHandler(TableNames.ARRIVALS, arrivalsForm,
 				tabContents);
 		tabContents.add(arrivalsForm);
 
 		DeparturesDataDeletionForm departuresForm = new DeparturesDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.DEPARTURES,
+		contentSelector.registerSwitchHandler(TableNames.DEPARTURES,
 				departuresForm, tabContents);
 		tabContents.add(departuresForm);
 
 		PassengersDataDeletionForm passengersForm = new PassengersDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.PASSENGERS,
+		contentSelector.registerSwitchHandler(TableNames.PASSENGERS,
 				passengersForm, tabContents);
 		tabContents.add(passengersForm);
 
 		FlightInstancesDataDeletionForm flightInstancesForm = new FlightInstancesDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
+		contentSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
 				flightInstancesForm, tabContents);
 		tabContents.add(flightInstancesForm);
 
 		FlightAttendanceDataDeletionForm flightAttendanceForm = new FlightAttendanceDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.FLIGHT_ATTENDANCE,
+		contentSelector.registerSwitchHandler(TableNames.FLIGHT_ATTENDANCE,
 				flightAttendanceForm, tabContents);
 		tabContents.add(flightAttendanceForm);
 
 		BaggageDataDeletionForm baggageForm = new BaggageDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.BAGGAGE, baggageForm,
+		contentSelector.registerSwitchHandler(TableNames.BAGGAGE, baggageForm,
 				tabContents);
 		tabContents.add(baggageForm);
 
 		FlightInventoryDataDeletionForm flightInventoryForm = new FlightInventoryDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INVENTORY,
+		contentSelector.registerSwitchHandler(TableNames.FLIGHT_INVENTORY,
 				flightInventoryForm, tabContents);
 		tabContents.add(flightInventoryForm);
 
 		GuardiansDataDeletionForm guardiansForm = new GuardiansDataDeletionForm(
 				dataDeletionService);
-		tableSelector.registerSwitchHandler(TableNames.GUARDIANS,
+		contentSelector.registerSwitchHandler(TableNames.GUARDIANS,
 				guardiansForm, tabContents);
 		tabContents.add(guardiansForm);
 

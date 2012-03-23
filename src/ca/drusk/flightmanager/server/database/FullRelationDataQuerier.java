@@ -107,7 +107,7 @@ public class FullRelationDataQuerier extends DatabaseAccessor {
 	public Relation getPassengersFullRelation() {
 		passengerStmt = prepareStatement(
 				passengerStmt,
-				"SELECT id, firstName, lastName, citizenship, placeOfBirth, TO_CHAR(dateOfBirth, 'MON DD, YYYY') AS dateOfBirth FROM Passengers");
+				"SELECT id, firstName, lastName, citizenship, placeOfBirth, TO_CHAR(dateOfBirth, 'MON DD, YYYY') AS dateOfBirth, specialNeeds FROM Passengers");
 		return executeQuery(passengerStmt, new Passengers().getFields());
 	}
 

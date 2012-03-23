@@ -4,9 +4,9 @@ import java.text.ParseException;
 
 import ca.drusk.flightmanager.client.services.DataEntryService;
 import ca.drusk.flightmanager.server.database.DataInserter;
-import ca.drusk.flightmanager.server.table_formatting.DateTimeFormatter;
-import ca.drusk.flightmanager.server.table_formatting.DefaultDayFormatter;
-import ca.drusk.flightmanager.server.table_formatting.DefaultTimeFormatter;
+import ca.drusk.flightmanager.server.util.datetime.DateTimeFormatter;
+import ca.drusk.flightmanager.server.util.datetime.DefaultDayFormatter;
+import ca.drusk.flightmanager.server.util.datetime.DefaultTimeFormatter;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

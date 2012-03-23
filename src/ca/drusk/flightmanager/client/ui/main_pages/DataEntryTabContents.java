@@ -37,7 +37,7 @@ public class DataEntryTabContents extends AbstractTabContents {
 	}
 
 	@Override
-	protected String[] getTablesToShow() {
+	protected String[] getButtonNamesForContents() {
 		return TableNames.getAll();
 	}
 
@@ -47,84 +47,84 @@ public class DataEntryTabContents extends AbstractTabContents {
 
 		AirlineDataEntryForm airlineForm = new AirlineDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.AIRLINES, airlineForm,
+		contentSelector.registerSwitchHandler(TableNames.AIRLINES, airlineForm,
 				tabContents);
 		tabContents.add(airlineForm);
 
 		PlaneModelsDataEntryForm planeModelForm = new PlaneModelsDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.PLANE_MODELS,
+		contentSelector.registerSwitchHandler(TableNames.PLANE_MODELS,
 				planeModelForm, tabContents);
 		tabContents.add(planeModelForm);
 
 		CitizenshipsDataEntryForm citizenshipForm = new CitizenshipsDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.CITIZENSHIPS,
+		contentSelector.registerSwitchHandler(TableNames.CITIZENSHIPS,
 				citizenshipForm, tabContents);
 		tabContents.add(citizenshipForm);
 
 		AirportsDataEntryForm locationsForm = new AirportsDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.AIRPORTS, locationsForm,
+		contentSelector.registerSwitchHandler(TableNames.AIRPORTS, locationsForm,
 				tabContents);
 		tabContents.add(locationsForm);
 
 		FlightsDataEntryForm flightsForm = new FlightsDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.FLIGHTS, flightsForm,
+		contentSelector.registerSwitchHandler(TableNames.FLIGHTS, flightsForm,
 				tabContents);
 		tabContents.add(flightsForm);
 
 		GateDataEntryForm gatesForm = new GateDataEntryForm(dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.GATES, gatesForm,
+		contentSelector.registerSwitchHandler(TableNames.GATES, gatesForm,
 				tabContents);
 		tabContents.add(gatesForm);
 
 		ArrivalsDataEntryForm arrivalsForm = new ArrivalsDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.ARRIVALS, arrivalsForm,
+		contentSelector.registerSwitchHandler(TableNames.ARRIVALS, arrivalsForm,
 				tabContents);
 		tabContents.add(arrivalsForm);
 
 		DeparturesDataEntryForm departuresForm = new DeparturesDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.DEPARTURES,
+		contentSelector.registerSwitchHandler(TableNames.DEPARTURES,
 				departuresForm, tabContents);
 		tabContents.add(departuresForm);
 
 		PassengersDataEntryForm passengersForm = new PassengersDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.PASSENGERS,
+		contentSelector.registerSwitchHandler(TableNames.PASSENGERS,
 				passengersForm, tabContents);
 		tabContents.add(passengersForm);
 
 		FlightInstancesDataEntryForm flightInstancesForm = new FlightInstancesDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
+		contentSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
 				flightInstancesForm, tabContents);
 		tabContents.add(flightInstancesForm);
 
 		FlightAttendanceDataEntryForm flightAttendanceForm = new FlightAttendanceDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.FLIGHT_ATTENDANCE,
+		contentSelector.registerSwitchHandler(TableNames.FLIGHT_ATTENDANCE,
 				flightAttendanceForm, tabContents);
 		tabContents.add(flightAttendanceForm);
 
 		BaggageDataEntryForm baggageForm = new BaggageDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.BAGGAGE, baggageForm,
+		contentSelector.registerSwitchHandler(TableNames.BAGGAGE, baggageForm,
 				tabContents);
 		tabContents.add(baggageForm);
 
 		FlightInventoryDataEntryForm flightInventoryForm = new FlightInventoryDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INVENTORY,
+		contentSelector.registerSwitchHandler(TableNames.FLIGHT_INVENTORY,
 				flightInventoryForm, tabContents);
 		tabContents.add(flightInventoryForm);
 
 		GuardiansDataEntryForm guardiansForm = new GuardiansDataEntryForm(
 				dataEntryService);
-		tableSelector.registerSwitchHandler(TableNames.GUARDIANS,
+		contentSelector.registerSwitchHandler(TableNames.GUARDIANS,
 				guardiansForm, tabContents);
 		tabContents.add(guardiansForm);
 

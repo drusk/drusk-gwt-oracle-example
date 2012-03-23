@@ -1,4 +1,4 @@
-package ca.drusk.flightmanager.client.ui.main_pages.data_display;
+package ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations;
 
 import ca.drusk.flightmanager.client.services.FullRelationQueryServiceAsync;
 
@@ -9,7 +9,7 @@ import ca.drusk.flightmanager.client.services.FullRelationQueryServiceAsync;
  * @author drusk
  * 
  */
-public class FlightsDisplay extends AbstractDataDisplay {
+public class FlightsDisplay extends AbstractFullRelationDisplay {
 
 	public FlightsDisplay(FullRelationQueryServiceAsync dataQueryService) {
 		super(dataQueryService);

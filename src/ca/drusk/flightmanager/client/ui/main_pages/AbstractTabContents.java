@@ -17,18 +17,20 @@ public abstract class AbstractTabContents implements IsWidget {
 
 	protected DockLayoutPanel dockPanel = new DockLayoutPanel(Unit.PX);
 
-	private double tableSelectorWidth = 100;
-
-	protected TableSelector tableSelector;
+	protected ContentSelector contentSelector;
 
 	protected DeckLayoutPanel tabContents;
 
 	protected AbstractTabContents() {
-		tableSelector = new TableSelector(getTablesToShow());
-		dockPanel.addWest(tableSelector, tableSelectorWidth);
+		this(100);
 	}
 
-	protected abstract String[] getTablesToShow();
+	protected AbstractTabContents(double contentSelectorWidth) {
+		contentSelector = new ContentSelector(getButtonNamesForContents());
+		dockPanel.addWest(contentSelector, contentSelectorWidth);
+	}
+
+	protected abstract String[] getButtonNamesForContents();
 
 	protected abstract DeckLayoutPanel initTabContents();
 

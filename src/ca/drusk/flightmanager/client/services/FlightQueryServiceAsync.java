@@ -24,4 +24,11 @@ public interface FlightQueryServiceAsync {
 
 	void getConnectingFlights(String maxWait, AsyncCallback<Relation> callback);
 
+	void getMostFrequentPassengers(String topN, AsyncCallback<Relation> callback);
+
+	void getPassengersInTransit(AsyncCallback<Relation> callback);
+
+	void getFlightsAroundTime(String targetTime, String bufferTime,
+			AsyncCallback<Relation> callback);
+
 }

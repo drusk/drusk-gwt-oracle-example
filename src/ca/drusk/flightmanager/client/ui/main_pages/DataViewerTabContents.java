@@ -2,20 +2,20 @@ package ca.drusk.flightmanager.client.ui.main_pages;
 
 import ca.drusk.flightmanager.client.services.FullRelationQueryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirlineResultsDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.AirportsDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.ArrivalsDataDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.BaggageDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.CitizenshipsDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.DeparturesDataDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.FlightAttendanceDataDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.FlightInstancesDataDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.FlightInventoryDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.FlightsDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.GatesDataDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.GuardiansDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.PassengersDataDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.PlaneModelsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.AirlineResultsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.AirportsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.ArrivalsDataDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.BaggageDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.CitizenshipsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.DeparturesDataDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.FlightAttendanceDataDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.FlightInstancesDataDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.FlightInventoryDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.FlightsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.GatesDataDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.GuardiansDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.PassengersDataDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.PlaneModelsDisplay;
 
 import com.google.gwt.user.client.ui.DeckLayoutPanel;
 
@@ -37,7 +37,7 @@ public class DataViewerTabContents extends AbstractTabContents {
 	}
 
 	@Override
-	protected String[] getTablesToShow() {
+	protected String[] getButtonNamesForContents() {
 		return TableNames.getAll();
 	}
 
@@ -47,81 +47,81 @@ public class DataViewerTabContents extends AbstractTabContents {
 
 		AirlineResultsDisplay airlineDisplay = new AirlineResultsDisplay(
 				dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.AIRLINES,
+		contentSelector.registerSwitchHandler(TableNames.AIRLINES,
 				airlineDisplay, tabContents);
 		tabContents.add(airlineDisplay);
 
 		PlaneModelsDisplay planeModelDisplay = new PlaneModelsDisplay(
 				dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.PLANE_MODELS,
+		contentSelector.registerSwitchHandler(TableNames.PLANE_MODELS,
 				planeModelDisplay, tabContents);
 		tabContents.add(planeModelDisplay);
 
 		CitizenshipsDisplay citizenshipDisplay = new CitizenshipsDisplay(
 				dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.CITIZENSHIPS,
+		contentSelector.registerSwitchHandler(TableNames.CITIZENSHIPS,
 				citizenshipDisplay, tabContents);
 		tabContents.add(citizenshipDisplay);
 
 		AirportsDisplay locationsDisplay = new AirportsDisplay(dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.AIRPORTS,
+		contentSelector.registerSwitchHandler(TableNames.AIRPORTS,
 				locationsDisplay, tabContents);
 		tabContents.add(locationsDisplay);
 
 		FlightsDisplay flightsDisplay = new FlightsDisplay(dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.FLIGHTS, flightsDisplay,
-				tabContents);
+		contentSelector.registerSwitchHandler(TableNames.FLIGHTS,
+				flightsDisplay, tabContents);
 		tabContents.add(flightsDisplay);
 
 		GatesDataDisplay gatesDisplay = new GatesDataDisplay(dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.GATES, gatesDisplay,
+		contentSelector.registerSwitchHandler(TableNames.GATES, gatesDisplay,
 				tabContents);
 		tabContents.add(gatesDisplay);
 
 		ArrivalsDataDisplay arrivalsDisplay = new ArrivalsDataDisplay(
 				dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.ARRIVALS,
+		contentSelector.registerSwitchHandler(TableNames.ARRIVALS,
 				arrivalsDisplay, tabContents);
 		tabContents.add(arrivalsDisplay);
 
 		DeparturesDataDisplay departuresDisplay = new DeparturesDataDisplay(
 				dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.DEPARTURES,
+		contentSelector.registerSwitchHandler(TableNames.DEPARTURES,
 				departuresDisplay, tabContents);
 		tabContents.add(departuresDisplay);
 
 		PassengersDataDisplay passengersDisplay = new PassengersDataDisplay(
 				dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.PASSENGERS,
+		contentSelector.registerSwitchHandler(TableNames.PASSENGERS,
 				passengersDisplay, tabContents);
 		tabContents.add(passengersDisplay);
 
 		FlightInstancesDataDisplay flightInstancesDisplay = new FlightInstancesDataDisplay(
 				dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
+		contentSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
 				flightInstancesDisplay, tabContents);
 		tabContents.add(flightInstancesDisplay);
 
 		FlightAttendanceDataDisplay flightAttendanceDisplay = new FlightAttendanceDataDisplay(
 				dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.FLIGHT_ATTENDANCE,
+		contentSelector.registerSwitchHandler(TableNames.FLIGHT_ATTENDANCE,
 				flightAttendanceDisplay, tabContents);
 		tabContents.add(flightAttendanceDisplay);
 
 		BaggageDisplay baggageDisplay = new BaggageDisplay(dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.BAGGAGE, baggageDisplay,
-				tabContents);
+		contentSelector.registerSwitchHandler(TableNames.BAGGAGE,
+				baggageDisplay, tabContents);
 		tabContents.add(baggageDisplay);
 
 		FlightInventoryDisplay flightInventoryDisplay = new FlightInventoryDisplay(
 				dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.FLIGHT_INVENTORY,
+		contentSelector.registerSwitchHandler(TableNames.FLIGHT_INVENTORY,
 				flightInventoryDisplay, tabContents);
 		tabContents.add(flightInventoryDisplay);
 
 		GuardiansDisplay guardiansDisplay = new GuardiansDisplay(
 				dataQueryService);
-		tableSelector.registerSwitchHandler(TableNames.GUARDIANS,
+		contentSelector.registerSwitchHandler(TableNames.GUARDIANS,
 				guardiansDisplay, tabContents);
 		tabContents.add(guardiansDisplay);
 

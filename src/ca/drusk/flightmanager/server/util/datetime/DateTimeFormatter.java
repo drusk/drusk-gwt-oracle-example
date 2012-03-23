@@ -1,4 +1,4 @@
-package ca.drusk.flightmanager.server.table_formatting;
+package ca.drusk.flightmanager.server.util.datetime;
 
 import java.sql.Timestamp;
 import java.text.ParseException;

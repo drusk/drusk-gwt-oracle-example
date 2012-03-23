@@ -19,10 +19,17 @@ public interface FlightQueryService extends RemoteService {
 
 	Relation getIncomingAndOutgoingFlights(String airportCode);
 
+	Relation getFlightsAroundTime(String targetTime, String bufferTime)
+			throws Exception;
+
 	Relation getPassengers(String flightInstanceId);
 
 	Relation getBaggage(String passengerId, String flightId);
 
 	Relation getConnectingFlights(String maxWait) throws Exception;
+
+	Relation getMostFrequentPassengers(String topN);
+
+	Relation getPassengersInTransit();
 
 }

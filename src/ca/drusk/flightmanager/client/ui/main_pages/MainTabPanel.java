@@ -2,6 +2,7 @@ package ca.drusk.flightmanager.client.ui.main_pages;
 
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
+import ca.drusk.flightmanager.client.services.FlightQueryServiceAsync;
 import ca.drusk.flightmanager.client.services.FullRelationQueryServiceAsync;
 
 import com.google.gwt.dom.client.Style.Unit;
@@ -27,7 +28,7 @@ public class MainTabPanel implements IsWidget {
 
 	private static String VIEW_DATA = "View Data";
 
-	private static String QUERY_DATA = "Query Data";
+	private static String QUERIES = "Queries";
 
 	private final DataEntryServiceAsync dataEntryService;
 
@@ -35,12 +36,16 @@ public class MainTabPanel implements IsWidget {
 
 	private final FullRelationQueryServiceAsync dataQueryService;
 
+	private final FlightQueryServiceAsync flightQueryService;
+
 	public MainTabPanel(DataEntryServiceAsync dataEntryService,
 			DataDeletionServiceAsync dataDeletionService,
-			FullRelationQueryServiceAsync dataQueryService) {
+			FullRelationQueryServiceAsync dataQueryService,
+			FlightQueryServiceAsync flightQueryService) {
 		this.dataEntryService = dataEntryService;
 		this.dataDeletionService = dataDeletionService;
 		this.dataQueryService = dataQueryService;
+		this.flightQueryService = flightQueryService;
 		initTabContents();
 	}
 
@@ -49,6 +54,7 @@ public class MainTabPanel implements IsWidget {
 		tabPanel.add(new DataDeletionTabContents(dataDeletionService),
 				DELETE_DATA);
 		tabPanel.add(new DataViewerTabContents(dataQueryService), VIEW_DATA);
+		tabPanel.add(new QueryTabContents(flightQueryService), QUERIES);
 		// default to first tab
 		tabPanel.selectTab(0);
 	}

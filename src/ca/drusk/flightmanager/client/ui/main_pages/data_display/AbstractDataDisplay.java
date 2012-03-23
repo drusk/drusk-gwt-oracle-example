@@ -1,7 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_display;
 
 import ca.drusk.flightmanager.client.data.Relation;
-import ca.drusk.flightmanager.client.services.FullRelationQueryServiceAsync;
 import ca.drusk.flightmanager.client.ui.custom_widgets.ResultsTable;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -14,32 +13,30 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Provides common functionality for all data result displays. Holds a
- * {@link ResultsTable} and a button to refresh its contents.
+ * Provides common functionality for all data results displays. Holds a
+ * {@link ResultsTable} and a button to refresh its contents;
  * 
  * @author drusk
  * 
  */
 public abstract class AbstractDataDisplay implements IsWidget {
 
-	private VerticalPanel display = new VerticalPanel();
+	protected VerticalPanel display = new VerticalPanel();
 
 	private ResultsTable results;
 
 	private Label errorLabel;
 
-	private static int SPACING = 10;
+	protected static int SPACING = 10;
 
-	protected final FullRelationQueryServiceAsync dataQueryService;
+	protected abstract void retrieveResultsAndAddToDisplay();
 
-	protected AbstractDataDisplay(FullRelationQueryServiceAsync dataQueryService) {
-		this.dataQueryService = dataQueryService;
-		createRefreshButton();
-		retrieveResultsAndAddToDisplay();
-		display.setSpacing(SPACING);
+	protected void generateResultsTable(Relation result) {
+		results = new ResultsTable(result);
+		display.add(results);
 	}
 
-	private void createRefreshButton() {
+	protected void createRefreshButton() {
 		Button refreshButton = new Button("Refresh");
 		refreshButton.addClickHandler(new ClickHandler() {
 
@@ -55,8 +52,6 @@ public abstract class AbstractDataDisplay implements IsWidget {
 
 		display.add(refreshButton);
 	}
-
-	protected abstract void retrieveResultsAndAddToDisplay();
 
 	private void removeFromDisplayIfNotNull(IsWidget isWidget) {
 		if (isWidget != null) {
@@ -76,12 +71,7 @@ public abstract class AbstractDataDisplay implements IsWidget {
 		return display;
 	}
 
-	protected void generateResultsTable(Relation result) {
-		results = new ResultsTable(result);
-		display.add(results);
-	}
-
-	protected final class TableGeneratingCallback implements
+	public final class TableGeneratingCallback implements
 			AsyncCallback<Relation> {
 		@Override
 		public void onFailure(Throwable caught) {
@@ -93,4 +83,5 @@ public abstract class AbstractDataDisplay implements IsWidget {
 			generateResultsTable(result);
 		}
 	}
+
 }

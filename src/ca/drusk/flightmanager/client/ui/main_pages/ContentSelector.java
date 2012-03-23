@@ -12,19 +12,20 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Widget for selecting database tables.
+ * Widget for holding buttons which can be registered to show different widgets
+ * in a {@link DeckLayoutPanel}.
  * 
  * @author drusk
  * 
  */
-public class TableSelector implements IsWidget {
+public class ContentSelector implements IsWidget {
 
 	private VerticalPanel buttonHolder = new VerticalPanel();
 
-	private Map<String, Button> buttonsByTableName = new HashMap<String, Button>();
+	private Map<String, Button> buttonsByName = new HashMap<String, Button>();
 
-	public TableSelector(String... tables) {
-		generateButtons(tables);
+	public ContentSelector(String... buttonNames) {
+		generateButtons(buttonNames);
 		formatButtonHolder();
 	}
 
@@ -34,11 +35,11 @@ public class TableSelector implements IsWidget {
 		buttonHolder.setBorderWidth(1);
 	}
 
-	private void generateButtons(String[] tables) {
-		for (String table : tables) {
+	private void generateButtons(String[] buttonNames) {
+		for (String table : buttonNames) {
 			Button button = new Button(table);
 			buttonHolder.add(button);
-			buttonsByTableName.put(table, button);
+			buttonsByName.put(table, button);
 		}
 	}
 
@@ -47,9 +48,9 @@ public class TableSelector implements IsWidget {
 	 * <code>tableName</code>.
 	 * 
 	 */
-	public void registerSwitchHandler(String tableName,
+	public void registerSwitchHandler(String buttonName,
 			final IsWidget widgetToShow, final DeckLayoutPanel deckPanel) {
-		buttonsByTableName.get(tableName).addClickHandler(new ClickHandler() {
+		buttonsByName.get(buttonName).addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
