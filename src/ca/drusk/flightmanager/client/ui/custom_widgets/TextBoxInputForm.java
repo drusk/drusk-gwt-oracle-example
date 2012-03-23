@@ -3,10 +3,6 @@ package ca.drusk.flightmanager.client.ui.custom_widgets;
 import java.util.HashMap;
 import java.util.Map;
 
-import ca.drusk.flightmanager.shared.utils.HtmlBuilder;
-
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -37,23 +33,9 @@ public class TextBoxInputForm implements IsWidget {
 	 * @param inputFields
 	 *            the names of the input fields to display
 	 */
-	public TextBoxInputForm(String title, String buttonLabel,
-			ClickHandler clickHandler, String... inputFields) {
-		addTitle(title);
+	public TextBoxInputForm(String... inputFields) {
 		initTextBoxes(inputFields);
-		initSubmissionButton(buttonLabel, clickHandler);
 		setSpacing(DEFAULT_TEXTBOX_SPACING);
-	}
-
-	private void addTitle(String title) {
-		inputForm.add(new HtmlBuilder(title).bold().underline().asHtml());
-	}
-
-	private void initSubmissionButton(String buttonLabel,
-			ClickHandler clickHandler) {
-		Button submitButton = new Button(buttonLabel);
-		submitButton.addClickHandler(clickHandler);
-		inputForm.add(submitButton);
 	}
 
 	private void initTextBoxes(String[] inputFields) {

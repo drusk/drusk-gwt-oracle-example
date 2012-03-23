@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.Time;
 
 import ca.drusk.flightmanager.client.data.Relation;
-import ca.drusk.flightmanager.client.table_data.Arrivals;
 import ca.drusk.flightmanager.client.table_data.Baggage;
 import ca.drusk.flightmanager.client.table_data.Citizenships;
 import ca.drusk.flightmanager.client.table_data.FlightAttendance;
@@ -58,9 +57,11 @@ public class FlightDataQuerier extends DatabaseAccessor {
 	public Relation getArrivalsAndDeparturesAround(Time time, int minutes) {
 		arrDepStmt = prepareStatement(
 				arrDepStmt,
-				"SELECT flightNumber, status FROM ((SELECT flightNumber FROM IncomingFlights WHERE ? < ABS(plannedArrivalTime-?)*1440) UNION (SELECT flightNumber FROM OutgoingFlights WHERE ? < ABS(plannedDepartureTime-?)*1440))");
+				"SELECT flightNumber, plannedDepartureTime, OutgoingFlights.status AS departureStatus, plannedArrivalTime, IncomingFlights.status AS arrivalStatus FROM IncomingFlights JOIN OutgoingFlights USING(flightId) WHERE ? < ABS(plannedDepartureTime-?)*1440 OR ? < ABS(plannedArrivalTime-?)*1440");
 		setParameters(arrDepStmt, minutes, time, minutes, time);
-		return executeQuery(arrDepStmt, Flights.FLIGHT_NUMBER, Arrivals.STATUS);
+		// return executeQuery(arrDepStmt, Flights.FLIGHT_NUMBER,
+		// AArrivals.STATUS);
+		return null;
 	}
 
 	public Relation getPassengers(String flightInstanceId) {

@@ -7,6 +7,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -29,6 +30,10 @@ public abstract class AbstractDataDisplay implements IsWidget {
 
 	protected static int SPACING = 10;
 
+	public AbstractDataDisplay() {
+		display.setSpacing(SPACING);
+	}
+
 	protected abstract void retrieveResultsAndAddToDisplay();
 
 	protected void generateResultsTable(Relation result) {
@@ -36,8 +41,12 @@ public abstract class AbstractDataDisplay implements IsWidget {
 		display.add(results);
 	}
 
-	protected void createRefreshButton() {
-		Button refreshButton = new Button("Refresh");
+	protected void addInstructions(String instructions) {
+		display.add(new HTML(instructions));
+	}
+
+	protected void createSubmitButton() {
+		Button refreshButton = new Button("Submit");
 		refreshButton.addClickHandler(new ClickHandler() {
 
 			@Override

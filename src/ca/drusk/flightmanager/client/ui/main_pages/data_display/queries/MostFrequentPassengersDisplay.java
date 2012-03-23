@@ -2,9 +2,6 @@ package ca.drusk.flightmanager.client.ui.main_pages.data_display.queries;
 
 import ca.drusk.flightmanager.client.services.FlightQueryServiceAsync;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-
 /**
  * Displays the top passengers in terms of number of flights taken.
  * 
@@ -23,32 +20,20 @@ public class MostFrequentPassengersDisplay extends AbstractQueryInterface {
 	}
 
 	@Override
-	public String getDescription() {
+	public String getShortDescription() {
 		return DESC;
 	}
 
 	@Override
-	protected ClickHandler getInputSubmissionClickHandler() {
-		return new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				String topN = inputForm.getEnteredText(TOP);
-				flightQueryService.getMostFrequentPassengers(topN,
-						new TableGeneratingCallback());
-			}
-		};
-	}
-
-	@Override
-	protected String getTitle() {
+	protected String getInstructions() {
 		return "Displays top passengers in terms of number of flights taken.  Enter a number to limit the number of results.";
 	}
 
 	@Override
 	protected void retrieveResultsAndAddToDisplay() {
-		// TODO Auto-generated method stub
-
+		String topN = inputForm.getEnteredText(TOP);
+		flightQueryService.getMostFrequentPassengers(topN,
+				new TableGeneratingCallback());
 	}
 
 }

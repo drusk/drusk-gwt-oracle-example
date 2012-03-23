@@ -4,9 +4,6 @@ import ca.drusk.flightmanager.client.services.FlightQueryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.FlightInstances;
 import ca.drusk.flightmanager.client.table_data.Passengers;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-
 /**
  * Displays the baggage for a passenger on a specific flight.
  * 
@@ -22,32 +19,21 @@ public class PassengerBaggageDisplay extends AbstractQueryInterface {
 	}
 
 	@Override
-	public String getDescription() {
+	public String getShortDescription() {
 		return DESC;
 	}
 
 	@Override
-	protected ClickHandler getInputSubmissionClickHandler() {
-		return new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				String passengerId = inputForm.getEnteredText(Passengers.ID);
-				String flightId = inputForm.getEnteredText(FlightInstances.ID);
-				flightQueryService.getBaggage(passengerId, flightId,
-						new TableGeneratingCallback());
-			}
-		};
-	}
-
-	@Override
-	protected String getTitle() {
+	protected String getInstructions() {
 		return "Enter a passenger id and specific flight id to see their baggage";
 	}
 
 	@Override
 	protected void retrieveResultsAndAddToDisplay() {
-		// TODO Auto-generated method stub
+		String passengerId = inputForm.getEnteredText(Passengers.ID);
+		String flightId = inputForm.getEnteredText(FlightInstances.ID);
+		flightQueryService.getBaggage(passengerId, flightId,
+				new TableGeneratingCallback());
 
 	}
 

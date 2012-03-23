@@ -13,16 +13,16 @@ public abstract class AbstractFullRelationDisplay extends AbstractDataDisplay {
 
 	protected FullRelationQueryServiceAsync dataQueryService;
 
-	protected AbstractFullRelationDisplay(
+	protected AbstractFullRelationDisplay(String tableName,
 			FullRelationQueryServiceAsync dataQueryService) {
 		this.dataQueryService = dataQueryService;
-		init();
+		init(tableName);
 	}
 
-	private void init() {
-		createRefreshButton();
-		retrieveResultsAndAddToDisplay();
-		display.setSpacing(SPACING);
+	private void init(String tableName) {
+		addInstructions("Press 'Submit' to retrieve/refresh <b><u>" + tableName
+				+ "</u></b> records");
+		createSubmitButton();
 	}
 
 }

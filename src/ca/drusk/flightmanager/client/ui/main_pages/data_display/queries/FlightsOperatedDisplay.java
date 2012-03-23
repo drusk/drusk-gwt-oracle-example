@@ -3,9 +3,6 @@ package ca.drusk.flightmanager.client.ui.main_pages.data_display.queries;
 import ca.drusk.flightmanager.client.services.FlightQueryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.Airlines;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-
 /**
  * Display the results of the queries for the flights operated by an airline.
  * 
@@ -21,31 +18,19 @@ public class FlightsOperatedDisplay extends AbstractQueryInterface {
 	}
 
 	@Override
-	protected ClickHandler getInputSubmissionClickHandler() {
-		return new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				String airlineCode = inputForm.getEnteredText(Airlines.CODE);
-				flightQueryService.getOperatedFlights(airlineCode,
-						new TableGeneratingCallback());
-			}
-		};
-	}
-
-	@Override
-	protected String getTitle() {
+	protected String getInstructions() {
 		return "Enter an airline code to see what flights that airline operates";
 	}
 
 	@Override
 	protected void retrieveResultsAndAddToDisplay() {
-		// TODO Auto-generated method stub
-
+		String airlineCode = inputForm.getEnteredText(Airlines.CODE);
+		flightQueryService.getOperatedFlights(airlineCode,
+				new TableGeneratingCallback());
 	}
 
 	@Override
-	public String getDescription() {
+	public String getShortDescription() {
 		return DESC;
 	}
 
