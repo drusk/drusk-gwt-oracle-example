@@ -32,7 +32,7 @@ public class PlaneModelsDataDeletionForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String code = textBoxes.get(PlaneModels.CODE).getText();
+				String code = inputForm.getEnteredText(PlaneModels.CODE);
 				dataDeletionService.removePlaneModel(code, new LoggingCallback(
 						"Deletion sent to server"));
 			}

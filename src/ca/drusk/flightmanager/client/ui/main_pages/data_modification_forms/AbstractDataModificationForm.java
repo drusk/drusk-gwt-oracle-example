@@ -1,10 +1,7 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import ca.drusk.flightmanager.client.ui.custom_widgets.LabeledTextBox;
 import ca.drusk.flightmanager.client.ui.custom_widgets.Log;
+import ca.drusk.flightmanager.client.ui.custom_widgets.VerticalTextBoxInputForm;
 import ca.drusk.flightmanager.shared.utils.HtmlBuilder;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -42,12 +39,13 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 
 	private Log log = new Log("Log", LOG_WIDTH, LOG_HEIGHT);
 
-	protected Map<String, LabeledTextBox> textBoxes = new HashMap<String, LabeledTextBox>();
+	protected VerticalTextBoxInputForm inputForm;
 
 	protected AbstractDataModificationForm(String... fields) {
 		formDisplay
 				.add(new HtmlBuilder(getTitle()).bold().underline().asHtml());
-		initTextBoxes(fields);
+		inputForm = new VerticalTextBoxInputForm(fields);
+		formDisplay.add(inputForm);
 		formDisplay.add(createSubmissionButton());
 		formDisplay.setSpacing(TEXTBOX_SPACING);
 		container.add(formDisplay);
@@ -72,20 +70,6 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 
 	protected abstract Button createSubmissionButton();
 
-	private void initTextBoxes(String[] fields) {
-		for (String field : fields) {
-			LabeledTextBox labeledTextBox = new LabeledTextBox(field);
-			textBoxes.put(field, labeledTextBox);
-			formDisplay.add(labeledTextBox);
-		}
-	}
-
-	protected void clearTextBoxes() {
-		for (LabeledTextBox textBox : textBoxes.values()) {
-			textBox.clearText();
-		}
-	}
-
 	protected void logMessage(String message) {
 		log.addMessage(message);
 	}
@@ -98,10 +82,6 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 	@Override
 	public Widget asWidget() {
 		return container;
-	}
-
-	protected String getEnteredText(String textbox) {
-		return textBoxes.get(textbox).getText();
 	}
 
 	public final class LoggingCallback implements AsyncCallback<Integer> {
@@ -118,7 +98,7 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 
 		@Override
 		public void onSuccess(Integer result) {
-			clearTextBoxes();
+			inputForm.clearTextBoxes();
 			logMessage(successMessage);
 		}
 	}

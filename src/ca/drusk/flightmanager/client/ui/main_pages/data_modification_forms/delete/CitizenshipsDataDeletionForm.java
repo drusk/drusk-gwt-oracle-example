@@ -37,8 +37,8 @@ public class CitizenshipsDataDeletionForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String citizenship = textBoxes.get(
-						Citizenships.CITIZENSHIP).getText();
+				String citizenship = inputForm
+						.getEnteredText(Citizenships.CITIZENSHIP);
 				dataDeletionService.removeCitizenship(citizenship,
 						new LoggingCallback("Deletion sent to server"));
 			}

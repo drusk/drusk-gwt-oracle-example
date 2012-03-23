@@ -37,7 +37,8 @@ public class FlightInstancesDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String flightNumber = getEnteredText(Flights.FLIGHT_NUMBER);
+				String flightNumber = inputForm
+						.getEnteredText(Flights.FLIGHT_NUMBER);
 				dataEntryService.addFlightInstance(flightNumber,
 						new LoggingCallback(
 								"Data received successfully by server"));

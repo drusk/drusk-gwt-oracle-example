@@ -37,7 +37,8 @@ public class FlightsDataDeletionForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String flightNumber = getEnteredText(Flights.FLIGHT_NUMBER);
+				String flightNumber = inputForm
+						.getEnteredText(Flights.FLIGHT_NUMBER);
 				dataDeletionService.removeFlight(flightNumber,
 						new LoggingCallback("Deleted flight (" + flightNumber
 								+ ")"));

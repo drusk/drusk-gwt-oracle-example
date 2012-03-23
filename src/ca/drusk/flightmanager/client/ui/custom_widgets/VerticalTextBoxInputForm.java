@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @author drusk
  * 
  */
-public class TextBoxInputForm implements IsWidget {
+public class VerticalTextBoxInputForm implements IsWidget {
 
 	private int DEFAULT_TEXTBOX_SPACING = 15;
 
@@ -33,7 +33,7 @@ public class TextBoxInputForm implements IsWidget {
 	 * @param inputFields
 	 *            the names of the input fields to display
 	 */
-	public TextBoxInputForm(String... inputFields) {
+	public VerticalTextBoxInputForm(String... inputFields) {
 		initTextBoxes(inputFields);
 		setSpacing(DEFAULT_TEXTBOX_SPACING);
 	}

@@ -38,7 +38,7 @@ public class FlightInstancesDataDeletionForm extends
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String id = getEnteredText(FlightInstances.ID);
+				String id = inputForm.getEnteredText(FlightInstances.ID);
 				dataDeletionService.removeFlightInstance(id,
 						new LoggingCallback("Deletion sent to server"));
 			}

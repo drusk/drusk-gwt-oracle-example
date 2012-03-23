@@ -31,8 +31,7 @@ public class AirlineDataDeletionForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String code = textBoxes.get(Airlines.CODE).getText();
-
+				String code = inputForm.getEnteredText(Airlines.CODE);
 				dataDeletionService.removeAirline(code, new LoggingCallback(
 						"Deletion sent to server"));
 			}

@@ -36,9 +36,12 @@ public class FlightAttendanceDataEntryForm extends AbstractDataModificationForm 
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String passengerId = getEnteredText(FlightAttendance.PASSENGER_ID);
-				String flightId = getEnteredText(FlightAttendance.FLIGHT_ID);
-				String travelClass = getEnteredText(FlightAttendance.TRAVEL_CLASS);
+				String passengerId = inputForm
+						.getEnteredText(FlightAttendance.PASSENGER_ID);
+				String flightId = inputForm
+						.getEnteredText(FlightAttendance.FLIGHT_ID);
+				String travelClass = inputForm
+						.getEnteredText(FlightAttendance.TRAVEL_CLASS);
 				dataEntryService.addPassengerToFlight(passengerId, flightId,
 						travelClass, new LoggingCallback(
 								"Data received successfully by server"));

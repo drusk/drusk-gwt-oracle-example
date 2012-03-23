@@ -31,8 +31,9 @@ public class PlaneModelsDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String code = textBoxes.get(PlaneModels.CODE).getText();
-				String capacity = textBoxes.get(PlaneModels.CAPACITY).getText();
+				String code = inputForm.getEnteredText(PlaneModels.CODE);
+				String capacity = inputForm
+						.getEnteredText(PlaneModels.CAPACITY);
 
 				dataEntryService.addPlaneModel(code, capacity,
 						new LoggingCallback(

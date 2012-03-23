@@ -19,8 +19,7 @@ public class AirportsDataDeletionForm extends AbstractDataModificationForm {
 
 	private final DataDeletionServiceAsync dataDeletionService;
 
-	public AirportsDataDeletionForm(
-			DataDeletionServiceAsync dataDeletionService) {
+	public AirportsDataDeletionForm(DataDeletionServiceAsync dataDeletionService) {
 		super(new Airports().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
@@ -37,8 +36,8 @@ public class AirportsDataDeletionForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String airportCode = textBoxes.get(Airports.AIRPORT_CODE)
-						.getText();
+				String airportCode = inputForm
+						.getEnteredText(Airports.AIRPORT_CODE);
 				dataDeletionService.removeLocation(airportCode,
 						new LoggingCallback("Deletion sent to server"));
 			}

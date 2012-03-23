@@ -38,12 +38,15 @@ public class DeparturesDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String id = getEnteredText(Departures.ID);
-				String gate = getEnteredText(Gates.GATE);
-				String airportCode = getEnteredText(Airports.AIRPORT_CODE);
-				String departureDay = getEnteredText(Departures.DEPARTURE_DAY);
-				String departureTime = getEnteredText(Departures.DEPARTURE_TIME);
-				String status = getEnteredText(Departures.STATUS);
+				String id = inputForm.getEnteredText(Departures.ID);
+				String gate = inputForm.getEnteredText(Gates.GATE);
+				String airportCode = inputForm
+						.getEnteredText(Airports.AIRPORT_CODE);
+				String departureDay = inputForm
+						.getEnteredText(Departures.DEPARTURE_DAY);
+				String departureTime = inputForm
+						.getEnteredText(Departures.DEPARTURE_TIME);
+				String status = inputForm.getEnteredText(Departures.STATUS);
 
 				dataEntryService.addDeparture(id, gate, airportCode,
 						departureDay, departureTime, status,

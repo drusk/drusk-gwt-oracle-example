@@ -36,9 +36,8 @@ public class CitizenshipsDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String citizenship = textBoxes.get(Citizenships.CITIZENSHIP)
-						.getText();
-
+				String citizenship = inputForm
+						.getEnteredText(Citizenships.CITIZENSHIP);
 				dataEntryService.addCitizenship(citizenship,
 						new LoggingCallback(
 								"Data received successfully by server"));

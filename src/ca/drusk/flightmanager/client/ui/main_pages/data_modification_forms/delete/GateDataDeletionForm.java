@@ -1,8 +1,8 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete;
 
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Gates;
 import ca.drusk.flightmanager.client.table_data.Airports;
+import ca.drusk.flightmanager.client.table_data.Gates;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -37,8 +37,9 @@ public class GateDataDeletionForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String gate = getEnteredText(Gates.GATE);
-				String airportCode = getEnteredText(Airports.AIRPORT_CODE);
+				String gate = inputForm.getEnteredText(Gates.GATE);
+				String airportCode = inputForm
+						.getEnteredText(Airports.AIRPORT_CODE);
 				dataDeletionService.removeGate(gate, airportCode,
 						new LoggingCallback("Deletion sent to server"));
 			}

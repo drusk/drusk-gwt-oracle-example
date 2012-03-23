@@ -37,7 +37,7 @@ public class PassengersDataDeletionForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String id = getEnteredText(Passengers.ID);
+				String id = inputForm.getEnteredText(Passengers.ID);
 				dataDeletionService.removePassenger(id, new LoggingCallback(
 						"Deletion sent to server"));
 			}

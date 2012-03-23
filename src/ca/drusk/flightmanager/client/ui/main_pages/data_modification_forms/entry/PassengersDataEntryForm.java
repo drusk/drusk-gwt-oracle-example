@@ -40,11 +40,16 @@ public class PassengersDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String firstName = getEnteredText(Passengers.FIRST_NAME);
-				String lastName = getEnteredText(Passengers.LAST_NAME);
-				String citizenship = getEnteredText(Citizenships.CITIZENSHIP);
-				String placeOfBirth = getEnteredText(Passengers.PLACE_OF_BIRTH);
-				String dateOfBirth = getEnteredText(Passengers.DATE_OF_BIRTH);
+				String firstName = inputForm
+						.getEnteredText(Passengers.FIRST_NAME);
+				String lastName = inputForm
+						.getEnteredText(Passengers.LAST_NAME);
+				String citizenship = inputForm
+						.getEnteredText(Citizenships.CITIZENSHIP);
+				String placeOfBirth = inputForm
+						.getEnteredText(Passengers.PLACE_OF_BIRTH);
+				String dateOfBirth = inputForm
+						.getEnteredText(Passengers.DATE_OF_BIRTH);
 
 				// boolean isInfant = infantCheckbox.getValue();
 

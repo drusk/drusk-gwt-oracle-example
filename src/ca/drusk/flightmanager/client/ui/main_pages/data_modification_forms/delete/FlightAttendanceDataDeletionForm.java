@@ -38,8 +38,10 @@ public class FlightAttendanceDataDeletionForm extends
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String passengerId = getEnteredText(FlightAttendance.PASSENGER_ID);
-				String flightId = getEnteredText(FlightAttendance.FLIGHT_ID);
+				String passengerId = inputForm
+						.getEnteredText(FlightAttendance.PASSENGER_ID);
+				String flightId = inputForm
+						.getEnteredText(FlightAttendance.FLIGHT_ID);
 
 				dataDeletionService.removePassengerFromFlight(passengerId,
 						flightId,

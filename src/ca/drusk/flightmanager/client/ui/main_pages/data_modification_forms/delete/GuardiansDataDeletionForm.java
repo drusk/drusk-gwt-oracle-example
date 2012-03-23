@@ -37,8 +37,9 @@ public class GuardiansDataDeletionForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String guardianId = getEnteredText(Guardians.GUARDIAN_ID);
-				String infantId = getEnteredText(Guardians.INFANT_ID);
+				String guardianId = inputForm
+						.getEnteredText(Guardians.GUARDIAN_ID);
+				String infantId = inputForm.getEnteredText(Guardians.INFANT_ID);
 				dataDeletionService.removeGuardian(guardianId, infantId,
 						new LoggingCallback("Deletion sent to server"));
 			}

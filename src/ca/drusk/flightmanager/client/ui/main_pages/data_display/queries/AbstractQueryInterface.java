@@ -5,7 +5,7 @@ import java.util.Map;
 
 import ca.drusk.flightmanager.client.services.FlightQueryServiceAsync;
 import ca.drusk.flightmanager.client.ui.custom_widgets.LabeledTextBox;
-import ca.drusk.flightmanager.client.ui.custom_widgets.TextBoxInputForm;
+import ca.drusk.flightmanager.client.ui.custom_widgets.VerticalTextBoxInputForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.AbstractDataDisplay;
 
 import com.google.gwt.user.client.ui.HTML;
@@ -23,13 +23,13 @@ public abstract class AbstractQueryInterface extends AbstractDataDisplay {
 
 	protected Map<String, LabeledTextBox> textBoxes = new HashMap<String, LabeledTextBox>();
 
-	protected TextBoxInputForm inputForm;
+	protected VerticalTextBoxInputForm inputForm;
 
 	public AbstractQueryInterface(FlightQueryServiceAsync flightQueryService,
 			String... inputFields) {
 		display.add(new HTML(getInstructions()));
 		this.flightQueryService = flightQueryService;
-		this.inputForm = new TextBoxInputForm(inputFields);
+		this.inputForm = new VerticalTextBoxInputForm(inputFields);
 		display.add(inputForm);
 		createSubmitButton();
 	}

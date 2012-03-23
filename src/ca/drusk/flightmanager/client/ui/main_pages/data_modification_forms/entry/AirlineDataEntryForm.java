@@ -31,9 +31,9 @@ public class AirlineDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String name = textBoxes.get(Airlines.NAME).getText();
-				String code = textBoxes.get(Airlines.CODE).getText();
-				String website = textBoxes.get(Airlines.WEBSITE).getText();
+				String name = inputForm.getEnteredText(Airlines.NAME);
+				String code = inputForm.getEnteredText(Airlines.CODE);
+				String website = inputForm.getEnteredText(Airlines.WEBSITE);
 
 				dataEntryService.addAirline(name, code, website,
 						new LoggingCallback(

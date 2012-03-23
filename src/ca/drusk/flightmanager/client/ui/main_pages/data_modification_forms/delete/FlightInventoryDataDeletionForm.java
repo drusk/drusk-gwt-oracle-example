@@ -38,9 +38,12 @@ public class FlightInventoryDataDeletionForm extends
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String passengerId = getEnteredText(FlightInventory.PASSENGER_ID);
-				String flightId = getEnteredText(FlightInventory.FLIGHT_ID);
-				String baggageId = getEnteredText(FlightInventory.BAGGAGE_ID);
+				String passengerId = inputForm
+						.getEnteredText(FlightInventory.PASSENGER_ID);
+				String flightId = inputForm
+						.getEnteredText(FlightInventory.FLIGHT_ID);
+				String baggageId = inputForm
+						.getEnteredText(FlightInventory.BAGGAGE_ID);
 
 				dataDeletionService.removeBaggageForFlight(passengerId,
 						flightId, baggageId, new LoggingCallback(

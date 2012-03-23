@@ -36,8 +36,9 @@ public class GuardiansDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String guardianId = getEnteredText(Guardians.GUARDIAN_ID);
-				String infantId = getEnteredText(Guardians.INFANT_ID);
+				String guardianId = inputForm
+						.getEnteredText(Guardians.GUARDIAN_ID);
+				String infantId = inputForm.getEnteredText(Guardians.INFANT_ID);
 				dataEntryService.addGuardian(guardianId, infantId,
 						new LoggingCallback(
 								"Data received successfully by server"));

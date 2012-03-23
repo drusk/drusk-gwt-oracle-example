@@ -39,13 +39,18 @@ public class FlightsDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String flightNumber = getEnteredText(Flights.FLIGHT_NUMBER);
-				String source = getEnteredText(Flights.SOURCE);
-				String destination = getEnteredText(Flights.DESTINATION);
-				String airlineCode = getEnteredText(Flights.AIRLINE_CODE);
-				String planeCode = getEnteredText(Flights.PLANE_CODE);
-				String plannedArrivalTime = getEnteredText(IncomingFlights.PLANNED_ARRIVAL_TIME);
-				String plannedDepartureTime = getEnteredText(OutgoingFlights.PLANNED_DEPARTURE_TIME);
+				String flightNumber = inputForm
+						.getEnteredText(Flights.FLIGHT_NUMBER);
+				String source = inputForm.getEnteredText(Flights.SOURCE);
+				String destination = inputForm
+						.getEnteredText(Flights.DESTINATION);
+				String airlineCode = inputForm
+						.getEnteredText(Flights.AIRLINE_CODE);
+				String planeCode = inputForm.getEnteredText(Flights.PLANE_CODE);
+				String plannedArrivalTime = inputForm
+						.getEnteredText(IncomingFlights.PLANNED_ARRIVAL_TIME);
+				String plannedDepartureTime = inputForm
+						.getEnteredText(OutgoingFlights.PLANNED_DEPARTURE_TIME);
 
 				dataEntryService.addFlight(flightNumber, source, destination,
 						airlineCode, planeCode, plannedArrivalTime,

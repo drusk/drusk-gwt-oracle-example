@@ -36,12 +36,12 @@ public class AirportsDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String airportCode = textBoxes.get(Airports.AIRPORT_CODE)
-						.getText();
-				String city = textBoxes.get(Airports.CITY).getText();
-				String country = textBoxes.get(Airports.COUNTRY).getText();
-				int utcOffset = Integer.parseInt(textBoxes.get(
-						Airports.UTC_OFFSET).getText());
+				String airportCode = inputForm
+						.getEnteredText(Airports.AIRPORT_CODE);
+				String city = inputForm.getEnteredText(Airports.CITY);
+				String country = inputForm.getEnteredText(Airports.COUNTRY);
+				int utcOffset = Integer.parseInt(inputForm
+						.getEnteredText(Airports.UTC_OFFSET));
 				dataEntryService.addAirport(airportCode, city, country,
 						utcOffset, new LoggingCallback(
 								"Data received successfully by server"));
@@ -51,5 +51,4 @@ public class AirportsDataEntryForm extends AbstractDataModificationForm {
 
 		return submitButton;
 	}
-
 }

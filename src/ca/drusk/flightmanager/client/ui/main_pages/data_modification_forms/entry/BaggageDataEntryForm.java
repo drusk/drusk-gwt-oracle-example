@@ -36,7 +36,7 @@ public class BaggageDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String weight = getEnteredText(Baggage.WEIGHT);
+				String weight = inputForm.getEnteredText(Baggage.WEIGHT);
 				dataEntryService.addBaggage(weight, new LoggingCallback(
 						"Data received successfully by server"));
 			}
