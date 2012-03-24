@@ -35,7 +35,9 @@ public class FlightsAroundTimeDisplay extends AbstractQueryInterface {
 	protected void retrieveResultsAndAddToDisplay() {
 		String targetTime = inputForm.getEnteredText(TARGET_TIME);
 		String bufferTime = inputForm.getEnteredText(TIME_BUFFER);
-		flightQueryService.getFlightsAroundTime(targetTime, bufferTime,
+		flightQueryService.getDeparturesAroundTime(targetTime, bufferTime,
+				new TableGeneratingCallback());
+		flightQueryService.getArrivalsAroundTime(targetTime, bufferTime,
 				new TableGeneratingCallback());
 	}
 

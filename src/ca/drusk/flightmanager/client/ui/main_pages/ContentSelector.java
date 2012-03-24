@@ -32,7 +32,7 @@ public class ContentSelector implements IsWidget {
 	private void formatButtonHolder() {
 		buttonHolder.setWidth("100%");
 		buttonHolder.setHeight("100%");
-		buttonHolder.setBorderWidth(1);
+		buttonHolder.addStyleName("contentSelector");
 	}
 
 	private void generateButtons(String[] buttonNames) {

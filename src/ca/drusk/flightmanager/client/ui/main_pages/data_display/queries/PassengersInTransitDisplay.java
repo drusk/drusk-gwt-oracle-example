@@ -24,7 +24,7 @@ public class PassengersInTransitDisplay extends AbstractQueryInterface {
 
 	@Override
 	protected String getInstructions() {
-		return "Find Passengers In Transit";
+		return "Press submit to view the passengers in transit";
 	}
 
 	@Override

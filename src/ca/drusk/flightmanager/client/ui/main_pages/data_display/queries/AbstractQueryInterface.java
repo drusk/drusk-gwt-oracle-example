@@ -1,10 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_display.queries;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import ca.drusk.flightmanager.client.services.FlightQueryServiceAsync;
-import ca.drusk.flightmanager.client.ui.custom_widgets.LabeledTextBox;
 import ca.drusk.flightmanager.client.ui.custom_widgets.VerticalTextBoxInputForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.AbstractDataDisplay;
 
@@ -20,8 +16,6 @@ import com.google.gwt.user.client.ui.HTML;
 public abstract class AbstractQueryInterface extends AbstractDataDisplay {
 
 	protected final FlightQueryServiceAsync flightQueryService;
-
-	protected Map<String, LabeledTextBox> textBoxes = new HashMap<String, LabeledTextBox>();
 
 	protected VerticalTextBoxInputForm inputForm;
 

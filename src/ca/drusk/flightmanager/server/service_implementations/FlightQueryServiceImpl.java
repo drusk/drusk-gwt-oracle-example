@@ -64,11 +64,25 @@ public class FlightQueryServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public Relation getFlightsAroundTime(String targetTimeStr,
+	public Relation getDeparturesAroundTime(String targetTimeStr,
 			String bufferTimeStr) throws ParseException {
 		Time targetTime = timeFormatter.parseTime(targetTimeStr);
 		Time bufferTime = timeFormatter.parseTime(bufferTimeStr);
-		return dataQuerier.getArrivalsAndDeparturesAround(targetTime,
+		return dataQuerier.getDeparturesAround(targetTime,
+				TimeUtils.convertToMinutes(bufferTime));
+	}
+
+	@Override
+	public Relation getMostDelayedAirlines() {
+		return dataQuerier.getMostDelayedAirlines();
+	}
+
+	@Override
+	public Relation getArrivalsAroundTime(String targetTimeStr,
+			String bufferTimeStr) throws ParseException {
+		Time targetTime = timeFormatter.parseTime(targetTimeStr);
+		Time bufferTime = timeFormatter.parseTime(bufferTimeStr);
+		return dataQuerier.getArrivalsAround(targetTime,
 				TimeUtils.convertToMinutes(bufferTime));
 	}
 }

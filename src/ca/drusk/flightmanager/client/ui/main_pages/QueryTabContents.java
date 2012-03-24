@@ -9,6 +9,7 @@ import ca.drusk.flightmanager.client.ui.main_pages.data_display.queries.Incoming
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.queries.MostFrequentPassengersDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.queries.PassengerBaggageDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.queries.PassengersInTransitDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.queries.RouteDelaysDisplay;
 
 import com.google.gwt.user.client.ui.DeckLayoutPanel;
 
@@ -23,7 +24,7 @@ public class QueryTabContents extends AbstractTabContents {
 	private final FlightQueryServiceAsync flightQueryService;
 
 	public QueryTabContents(FlightQueryServiceAsync flightQueryService) {
-		super(200);
+		super(100);
 		this.flightQueryService = flightQueryService;
 		tabContents = initTabContents();
 		dockPanel.add(tabContents);
@@ -37,7 +38,7 @@ public class QueryTabContents extends AbstractTabContents {
 				FlightInstancePassengersDisplay.DESC,
 				PassengerBaggageDisplay.DESC, ConnectingFlightsDisplay.DESC,
 				MostFrequentPassengersDisplay.DESC,
-				PassengersInTransitDisplay.DESC };
+				PassengersInTransitDisplay.DESC, RouteDelaysDisplay.DESC };
 	}
 
 	@Override
@@ -46,14 +47,15 @@ public class QueryTabContents extends AbstractTabContents {
 
 		FlightsOperatedDisplay flightsOperatedDisplay = new FlightsOperatedDisplay(
 				flightQueryService);
-		contentSelector.registerSwitchHandler(flightsOperatedDisplay.DESC,
+		contentSelector.registerSwitchHandler(FlightsOperatedDisplay.DESC,
 				flightsOperatedDisplay, tabContents);
 		tabContents.add(flightsOperatedDisplay);
 
 		IncomingOutgoingFlightsDisplay inOutFlightDisplay = new IncomingOutgoingFlightsDisplay(
 				flightQueryService);
-		contentSelector.registerSwitchHandler(inOutFlightDisplay.DESC,
-				inOutFlightDisplay, tabContents);
+		contentSelector.registerSwitchHandler(
+				IncomingOutgoingFlightsDisplay.DESC, inOutFlightDisplay,
+				tabContents);
 		tabContents.add(inOutFlightDisplay);
 
 		FlightInstancePassengersDisplay flightPassengersDisplay = new FlightInstancePassengersDisplay(
@@ -93,6 +95,12 @@ public class QueryTabContents extends AbstractTabContents {
 		contentSelector.registerSwitchHandler(FlightsAroundTimeDisplay.DESC,
 				flightsByTimeDisplay, tabContents);
 		tabContents.add(flightsByTimeDisplay);
+
+		RouteDelaysDisplay routeDelaysDisplay = new RouteDelaysDisplay(
+				flightQueryService);
+		contentSelector.registerSwitchHandler(RouteDelaysDisplay.DESC,
+				routeDelaysDisplay, tabContents);
+		tabContents.add(routeDelaysDisplay);
 
 		tabContents.showWidget(0);
 		return tabContents;

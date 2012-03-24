@@ -4,8 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.Time;
 
 import ca.drusk.flightmanager.client.data.Relation;
+import ca.drusk.flightmanager.client.table_data.Arrivals;
 import ca.drusk.flightmanager.client.table_data.Baggage;
 import ca.drusk.flightmanager.client.table_data.Citizenships;
+import ca.drusk.flightmanager.client.table_data.Departures;
 import ca.drusk.flightmanager.client.table_data.FlightAttendance;
 import ca.drusk.flightmanager.client.table_data.Flights;
 import ca.drusk.flightmanager.client.table_data.Passengers;
@@ -24,7 +26,9 @@ public class FlightDataQuerier extends DatabaseAccessor {
 
 	private PreparedStatement inOutFlightsStmt = null;
 
-	private PreparedStatement arrDepStmt = null;
+	private PreparedStatement depTimeStmt = null;
+
+	private PreparedStatement arrTimeStmt = null;
 
 	private PreparedStatement passengersForFlightStmt = null;
 
@@ -35,6 +39,8 @@ public class FlightDataQuerier extends DatabaseAccessor {
 	private PreparedStatement frequentPassengerStmt = null;
 
 	private PreparedStatement passengersInTransitStmt = null;
+
+	private PreparedStatement delaysStmt = null;
 
 	public Relation getOperatedFlights(String airlineCode) {
 		operatedFlightsStmt = prepareStatement(operatedFlightsStmt,
@@ -54,14 +60,34 @@ public class FlightDataQuerier extends DatabaseAccessor {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Relation getArrivalsAndDeparturesAround(Time time, int minutes) {
-		arrDepStmt = prepareStatement(
-				arrDepStmt,
-				"SELECT flightNumber, plannedDepartureTime, OutgoingFlights.status AS departureStatus, plannedArrivalTime, IncomingFlights.status AS arrivalStatus FROM IncomingFlights JOIN OutgoingFlights USING(flightId) WHERE ? < ABS(plannedDepartureTime-?)*1440 OR ? < ABS(plannedArrivalTime-?)*1440");
-		setParameters(arrDepStmt, minutes, time, minutes, time);
-		// return executeQuery(arrDepStmt, Flights.FLIGHT_NUMBER,
-		// AArrivals.STATUS);
-		return null;
+	public Relation getDeparturesAround(Time targetTime, int bufferMinutes) {
+		/*
+		 * Subtracting dates in Oracle returns the number of days difference as
+		 * a float. This can be multiplied by the number of minutes in a day
+		 * (1440) to get the difference between the dates in minutes.
+		 */
+		depTimeStmt = prepareStatement(
+				depTimeStmt,
+				"SELECT flightNumber, TO_CHAR(plannedDepartureTime, 'HH:MI') AS scheduledDeparture, departureDate, status FROM OutgoingFlights JOIN FlightInstances USING(flightNumber) JOIN Departures USING(id) WHERE ? < ABS(plannedDepartureTime-?)*1440");
+		setParameters(depTimeStmt, bufferMinutes, targetTime);
+		return executeQuery(depTimeStmt, Flights.FLIGHT_NUMBER,
+				"scheduledDeparture", Departures.DEPARTURE_DATE,
+				Departures.STATUS);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Relation getArrivalsAround(Time targetTime, int bufferMinutes) {
+		/*
+		 * Subtracting dates in Oracle returns the number of days difference as
+		 * a float. This can be multiplied by the number of minutes in a day
+		 * (1440) to get the difference between the dates in minutes.
+		 */
+		arrTimeStmt = prepareStatement(
+				arrTimeStmt,
+				"SELECT flightNumber, TO_CHAR(plannedArrivalTime, 'HH:MI') AS scheduledArrival, arrivalDate, status FROM IncomingFlights JOIN FlightInstances USING(flightNumber) JOIN Arrivals USING(id) WHERE ? < ABS(plannedArrivalTime-?)*1440");
+		setParameters(arrTimeStmt, bufferMinutes, targetTime);
+		return executeQuery(arrTimeStmt, Flights.FLIGHT_NUMBER,
+				"scheduledArrival", Arrivals.ARRIVAL_DATE, Arrivals.STATUS);
 	}
 
 	public Relation getPassengers(String flightInstanceId) {
@@ -114,5 +140,13 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				"SELECT Passengers.id, Passengers.firstName, Passengers.lastName FROM (SELECT passengerId FROM FlightAttendance JOIN (SELECT id FROM FlightInstances JOIN Departures USING(id) LEFT OUTER JOIN Arrivals USING(id) WHERE departureDate IS NOT NULL AND arrivalDate IS NULL) R ON FlightAttendance.flightId=R.id) S JOIN Passengers ON Passengers.id=S.passengerId");
 		return executeQuery(passengersInTransitStmt, Passengers.ID,
 				Passengers.FIRST_NAME, Passengers.LAST_NAME);
+	}
+
+	public Relation getMostDelayedAirlines() {
+		delaysStmt = prepareStatement(
+				delaysStmt,
+				"SELECT source, destination, airlineCode, numDelays FROM DelayedFlights R WHERE numDelays=(SELECT MAX(numDelays) FROM DelayedFlights S WHERE R.source=S.source AND R.destination=S.destination)");
+		return executeQuery(delaysStmt, Flights.SOURCE, Flights.DESTINATION,
+				Flights.AIRLINE_CODE, "numDelays");
 	}
 }

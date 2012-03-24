@@ -1,4 +1,8 @@
 /** Add css rules here for your application. */
+.contentSelector {
+	border: 1px solid black;
+}
+
 .mainPageHeader {
 	text-align: center;
 	font-size: 2em;

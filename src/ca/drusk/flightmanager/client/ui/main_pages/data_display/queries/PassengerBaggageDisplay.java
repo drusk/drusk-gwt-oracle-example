@@ -1,8 +1,7 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_display.queries;
 
 import ca.drusk.flightmanager.client.services.FlightQueryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.FlightInstances;
-import ca.drusk.flightmanager.client.table_data.Passengers;
+import ca.drusk.flightmanager.client.table_data.FlightInventory;
 
 /**
  * Displays the baggage for a passenger on a specific flight.
@@ -15,7 +14,8 @@ public class PassengerBaggageDisplay extends AbstractQueryInterface {
 	public static final String DESC = "Find Passenger Baggage";
 
 	public PassengerBaggageDisplay(FlightQueryServiceAsync flightQueryService) {
-		super(flightQueryService, Passengers.ID, FlightInstances.ID);
+		super(flightQueryService, FlightInventory.PASSENGER_ID,
+				FlightInventory.FLIGHT_ID);
 	}
 
 	@Override
@@ -30,8 +30,9 @@ public class PassengerBaggageDisplay extends AbstractQueryInterface {
 
 	@Override
 	protected void retrieveResultsAndAddToDisplay() {
-		String passengerId = inputForm.getEnteredText(Passengers.ID);
-		String flightId = inputForm.getEnteredText(FlightInstances.ID);
+		String passengerId = inputForm
+				.getEnteredText(FlightInventory.PASSENGER_ID);
+		String flightId = inputForm.getEnteredText(FlightInventory.FLIGHT_ID);
 		flightQueryService.getBaggage(passengerId, flightId,
 				new TableGeneratingCallback());
 	}

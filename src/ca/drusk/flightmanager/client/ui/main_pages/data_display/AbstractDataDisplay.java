@@ -1,5 +1,8 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_display;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ca.drusk.flightmanager.client.data.Relation;
 import ca.drusk.flightmanager.client.ui.custom_widgets.ResultsTable;
 
@@ -24,7 +27,7 @@ public abstract class AbstractDataDisplay implements IsWidget {
 
 	protected VerticalPanel display = new VerticalPanel();
 
-	private ResultsTable results;
+	private List<ResultsTable> results = new ArrayList<ResultsTable>();
 
 	private Label errorLabel;
 
@@ -34,11 +37,19 @@ public abstract class AbstractDataDisplay implements IsWidget {
 		display.setSpacing(SPACING);
 	}
 
+	private void clearResults() {
+		for (ResultsTable result : results) {
+			display.remove(result);
+		}
+		results.removeAll(results);
+	}
+
 	protected abstract void retrieveResultsAndAddToDisplay();
 
 	protected void generateResultsTable(Relation result) {
-		results = new ResultsTable(result);
-		display.add(results);
+		ResultsTable resultTable = new ResultsTable(result);
+		results.add(resultTable);
+		display.add(resultTable);
 	}
 
 	protected void addInstructions(String instructions) {
@@ -52,7 +63,7 @@ public abstract class AbstractDataDisplay implements IsWidget {
 			@Override
 			public void onClick(ClickEvent event) {
 				removeFromDisplayIfNotNull(errorLabel);
-				removeFromDisplayIfNotNull(results);
+				clearResults();
 
 				retrieveResultsAndAddToDisplay();
 			}

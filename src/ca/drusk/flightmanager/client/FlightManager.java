@@ -48,7 +48,7 @@ public class FlightManager implements EntryPoint {
 
 		HTML header = new HTML("Flight Management System");
 		header.addStyleName("mainPageHeader");
-		basePanel.addNorth(header, 80);
+		basePanel.addNorth(header, 60);
 		basePanel.add(new MainTabPanel(dataEntryService, dataDeletionService,
 				dataQueryService, flightQueryService));
 
