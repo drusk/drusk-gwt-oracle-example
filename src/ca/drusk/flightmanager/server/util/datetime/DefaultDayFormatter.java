@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.SimpleTimeZone;
+import java.util.TimeZone;
 
 /**
  * Wraps a {@link SimpleDateFormat} which has been configured for the default
@@ -21,8 +21,7 @@ public class DefaultDayFormatter {
 
 	public DefaultDayFormatter() {
 		formatter = new SimpleDateFormat("MMM dd, yyyy");
-		formatter.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME,
-				TIME_ZONE));
+		formatter.setTimeZone(TimeZone.getTimeZone(TIME_ZONE));
 	}
 
 	public Date parseDate(String dateString) throws ParseException {

@@ -28,7 +28,8 @@ public class FlightsAroundTimeDisplay extends AbstractQueryInterface {
 
 	@Override
 	protected String getInstructions() {
-		return "Find arrivals, departures and their status around a specified time";
+		return "Find arrivals, departures and their status around a specified time.<br/>"
+				+ "Enter times in hours and minutes (ex: 9:45, 14:20, 0:45)";
 	}
 
 	@Override

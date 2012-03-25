@@ -4,9 +4,11 @@ import java.text.ParseException;
 
 import ca.drusk.flightmanager.client.services.DataEntryService;
 import ca.drusk.flightmanager.server.database.DataInserter;
+import ca.drusk.flightmanager.server.database.DataValueQuerier;
 import ca.drusk.flightmanager.server.util.datetime.DateTimeFormatter;
 import ca.drusk.flightmanager.server.util.datetime.DefaultDayFormatter;
 import ca.drusk.flightmanager.server.util.datetime.DefaultTimeFormatter;
+import ca.drusk.flightmanager.server.util.datetime.OracleTimeStampUtils;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -20,6 +22,8 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 		DataEntryService {
 
 	private DataInserter inserter = new DataInserter();
+
+	private DataValueQuerier querier = new DataValueQuerier();
 
 	private DefaultTimeFormatter timeFormatter = new DefaultTimeFormatter();
 
@@ -76,18 +80,24 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 	public int addArrival(String id, String gate, String airportCode,
 			String arrivalDay, String arrivalTime, String status)
 			throws ParseException {
+
+		int utcOffset = querier.getUtcOffset(airportCode);
+		String arrivalDate = OracleTimeStampUtils.toTimeStampWithTimeZone(
+				arrivalDay, arrivalTime, utcOffset);
 		return inserter.addArrival(Integer.parseInt(id), gate, airportCode,
-				dateTimeFormatter.parseDateTime(arrivalDay, arrivalTime),
-				status);
+				arrivalDate, status);
 	}
 
 	@Override
 	public int addDeparture(String id, String gate, String airportCode,
 			String departureDay, String departureTime, String status)
 			throws ParseException {
+
+		int utcOffset = querier.getUtcOffset(airportCode);
+		String departureDate = OracleTimeStampUtils.toTimeStampWithTimeZone(
+				departureDay, departureTime, utcOffset);
 		return inserter.addDeparture(Integer.parseInt(id), gate, airportCode,
-				dateTimeFormatter.parseDateTime(departureDay, departureTime),
-				status);
+				departureDate, status);
 	}
 
 	@Override

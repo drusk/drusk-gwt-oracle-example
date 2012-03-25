@@ -5,7 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.SimpleTimeZone;
+import java.util.TimeZone;
 
 /**
  * Wraps a {@link SimpleDateFormat} which has been configured for the default
@@ -22,8 +22,7 @@ public class DefaultTimeFormatter {
 
 	public DefaultTimeFormatter() {
 		formatter = new SimpleDateFormat("HH:mm");
-		formatter.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME,
-				TIME_ZONE));
+		formatter.setTimeZone(TimeZone.getTimeZone(TIME_ZONE));
 	}
 
 	public Time parseTime(String timeString) throws ParseException {

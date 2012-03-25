@@ -65,8 +65,8 @@ public class DataEntryTabContents extends AbstractTabContents {
 
 		AirportsDataEntryForm locationsForm = new AirportsDataEntryForm(
 				dataEntryService);
-		contentSelector.registerSwitchHandler(TableNames.AIRPORTS, locationsForm,
-				tabContents);
+		contentSelector.registerSwitchHandler(TableNames.AIRPORTS,
+				locationsForm, tabContents);
 		tabContents.add(locationsForm);
 
 		FlightsDataEntryForm flightsForm = new FlightsDataEntryForm(
@@ -82,8 +82,8 @@ public class DataEntryTabContents extends AbstractTabContents {
 
 		ArrivalsDataEntryForm arrivalsForm = new ArrivalsDataEntryForm(
 				dataEntryService);
-		contentSelector.registerSwitchHandler(TableNames.ARRIVALS, arrivalsForm,
-				tabContents);
+		contentSelector.registerSwitchHandler(TableNames.ARRIVALS,
+				arrivalsForm, tabContents);
 		tabContents.add(arrivalsForm);
 
 		DeparturesDataEntryForm departuresForm = new DeparturesDataEntryForm(

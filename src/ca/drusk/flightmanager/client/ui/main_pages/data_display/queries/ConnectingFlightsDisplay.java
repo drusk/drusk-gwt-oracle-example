@@ -26,7 +26,7 @@ public class ConnectingFlightsDisplay extends AbstractQueryInterface {
 
 	@Override
 	protected String getInstructions() {
-		return "Enter a max wait time for connecting flights";
+		return "Enter a max wait time for connecting flights in hours and minutes (ex: 0:45, 3:00)";
 	}
 
 	@Override

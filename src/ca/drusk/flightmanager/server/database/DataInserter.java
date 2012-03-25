@@ -3,7 +3,6 @@ package ca.drusk.flightmanager.server.database;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Time;
-import java.sql.Timestamp;
 
 /**
  * Inserts data into the database.
@@ -112,10 +111,10 @@ public class DataInserter extends DatabaseAccessor {
 
 	@SuppressWarnings("unchecked")
 	public int addArrival(int id, String gate, String airportCode,
-			Timestamp arrivalDate, String status) {
+			String arrivalDate, String status) {
 		arrivalStmt = prepareStatement(
 				arrivalStmt,
-				"INSERT INTO Arrivals(id, gate, airportCode, arrivalDate, status) VALUES(?, ?, ?, ?, ?)");
+				"INSERT INTO Arrivals(id, gate, airportCode, arrivalDate, status) VALUES(?, ?, ?, TO_TIMESTAMP_TZ(? 'MON DD, YYYY HH:MI TZH:TZM'), ?)");
 		System.out.println("Arrival date" + arrivalDate);
 		setParameters(arrivalStmt, id, gate, airportCode, arrivalDate, status);
 		return executeUpdate(arrivalStmt);
@@ -123,10 +122,10 @@ public class DataInserter extends DatabaseAccessor {
 
 	@SuppressWarnings("unchecked")
 	public int addDeparture(int id, String gate, String airportCode,
-			Timestamp departureDate, String status) {
+			String departureDate, String status) {
 		departureStmt = prepareStatement(
 				departureStmt,
-				"INSERT INTO Departures(id, gate, airportCode, departureDate, status) VALUES(?, ?, ?, ?, ?)");
+				"INSERT INTO Departures(id, gate, airportCode, departureDate, status) VALUES(?, ?, ?, TO_TIMESTAMP_TZ(?, 'MON DD, YYYY HH:MI TZH:TZM'), ?)");
 		setParameters(departureStmt, id, gate, airportCode, departureDate,
 				status);
 		return executeUpdate(departureStmt);
