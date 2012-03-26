@@ -1,6 +1,8 @@
 package ca.drusk.flightmanager.client.ui.custom_widgets;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.user.client.ui.IsWidget;
@@ -22,6 +24,8 @@ public class VerticalTextBoxInputForm implements IsWidget {
 
 	private Map<String, LabeledTextBox> textBoxes = new HashMap<String, LabeledTextBox>();
 
+	private List<LabeledTextBox> textBoxList = new ArrayList<LabeledTextBox>();
+
 	/**
 	 * Creates a vertical panel with {@link LabeledTextBox}s for input.
 	 * 
@@ -42,6 +46,7 @@ public class VerticalTextBoxInputForm implements IsWidget {
 		for (String field : inputFields) {
 			LabeledTextBox labeledTextBox = new LabeledTextBox(field);
 			textBoxes.put(field, labeledTextBox);
+			textBoxList.add(labeledTextBox);
 			inputForm.add(labeledTextBox);
 		}
 	}
@@ -56,8 +61,16 @@ public class VerticalTextBoxInputForm implements IsWidget {
 		return textBoxes.get(textbox).getText();
 	}
 
+	public String getEnteredText(int index) {
+		return textBoxList.get(index).getText();
+	}
+
 	public void setSpacing(int spacing) {
 		inputForm.setSpacing(spacing);
+	}
+
+	public void addLabel(int inputIndex, String text) {
+		textBoxList.get(inputIndex).insertLabel(text);
 	}
 
 	@Override

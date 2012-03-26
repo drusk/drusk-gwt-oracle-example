@@ -41,10 +41,10 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 
 	protected VerticalTextBoxInputForm inputForm;
 
-	protected AbstractDataModificationForm(String... fields) {
+	protected AbstractDataModificationForm() {
 		formDisplay
 				.add(new HtmlBuilder(getTitle()).bold().underline().asHtml());
-		inputForm = new VerticalTextBoxInputForm(fields);
+		inputForm = new VerticalTextBoxInputForm(getInputFieldLabels());
 		formDisplay.add(inputForm);
 		formDisplay.add(createSubmissionButton());
 		formDisplay.setSpacing(TEXTBOX_SPACING);
@@ -73,6 +73,8 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 	protected void logMessage(String message) {
 		log.addMessage(message);
 	}
+
+	protected abstract String[] getInputFieldLabels();
 
 	protected void logErrorMessage(Throwable caught) {
 		log.addMessage("An error occured while communicating with the server: "

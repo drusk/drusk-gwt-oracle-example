@@ -1,5 +1,8 @@
 package ca.drusk.flightmanager.client.ui.custom_widgets;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
@@ -17,21 +20,31 @@ public class LabeledTextBox implements IsWidget {
 
 	private VerticalPanel container = new VerticalPanel();
 
-	private Label label;
+	private List<Label> labels = new ArrayList<Label>();
 
 	private TextBox textBox = new TextBox();
 
-	public LabeledTextBox(String textLabel) {
-		init(textLabel);
+	public LabeledTextBox(String... textLabels) {
+		for (String textLabel : textLabels) {
+			Label label = new Label(textLabel);
+			container.add(label);
+			labels.add(label);
+		}
+		container.add(textBox);
+		container.setSpacing(0);
 	}
 
-	private void init(String textLabel) {
-		label = new Label(textLabel);
-
-		container.add(label);
-		container.add(textBox);
-
-		container.setSpacing(0);
+	/**
+	 * Adds an additional label above the text box. It will be placed below the
+	 * existing labels, right above the text field.
+	 * 
+	 * @param text
+	 *            the text for the new label.
+	 */
+	public void insertLabel(String text) {
+		Label label = new Label(text);
+		container.insert(label, labels.size());
+		labels.add(label);
 	}
 
 	/**

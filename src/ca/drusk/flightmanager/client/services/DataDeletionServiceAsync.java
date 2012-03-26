@@ -18,7 +18,8 @@ public interface DataDeletionServiceAsync {
 
 	void removeLocation(String airportCode, AsyncCallback<Integer> callback);
 
-	void removeFlight(String flightNumber, AsyncCallback<Integer> callback);
+	void removeFlight(String airlineCode, String flightNumber,
+			AsyncCallback<Integer> callback);
 
 	void removeGate(String gate, String airportCode,
 			AsyncCallback<Integer> callback);

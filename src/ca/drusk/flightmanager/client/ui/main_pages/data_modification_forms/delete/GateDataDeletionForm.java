@@ -21,7 +21,6 @@ public class GateDataDeletionForm extends AbstractDataModificationForm {
 	private final DataDeletionServiceAsync dataDeletionService;
 
 	public GateDataDeletionForm(DataDeletionServiceAsync dataDeletionService) {
-		super(new Gates().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 
@@ -47,6 +46,11 @@ public class GateDataDeletionForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Gates().getPrimaryKeyAttributes();
 	}
 
 }

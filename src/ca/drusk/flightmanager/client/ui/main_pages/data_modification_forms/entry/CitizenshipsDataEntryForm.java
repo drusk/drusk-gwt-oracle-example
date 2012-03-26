@@ -20,7 +20,6 @@ public class CitizenshipsDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public CitizenshipsDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Citizenships().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
@@ -46,5 +45,10 @@ public class CitizenshipsDataEntryForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Citizenships().getEntryFields();
 	}
 }

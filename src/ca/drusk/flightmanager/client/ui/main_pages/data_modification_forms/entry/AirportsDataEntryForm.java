@@ -20,7 +20,6 @@ public class AirportsDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public AirportsDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Airports().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
@@ -50,5 +49,10 @@ public class AirportsDataEntryForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Airports().getEntryFields();
 	}
 }

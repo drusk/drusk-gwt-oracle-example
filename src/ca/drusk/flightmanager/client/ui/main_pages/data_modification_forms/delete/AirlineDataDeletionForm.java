@@ -20,7 +20,6 @@ public class AirlineDataDeletionForm extends AbstractDataModificationForm {
 	private final DataDeletionServiceAsync dataDeletionService;
 
 	public AirlineDataDeletionForm(DataDeletionServiceAsync dataDeletionService) {
-		super(new Airlines().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 
@@ -44,6 +43,11 @@ public class AirlineDataDeletionForm extends AbstractDataModificationForm {
 	@Override
 	protected String getTitle() {
 		return TableNames.AIRLINES;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Airlines().getPrimaryKeyAttributes();
 	}
 
 }

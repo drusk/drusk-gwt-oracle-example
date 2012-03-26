@@ -20,7 +20,6 @@ public class BaggageDataDeletionForm extends AbstractDataModificationForm {
 	private final DataDeletionServiceAsync dataDeletionService;
 
 	public BaggageDataDeletionForm(DataDeletionServiceAsync dataDeletionService) {
-		super(new Baggage().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 
@@ -44,6 +43,11 @@ public class BaggageDataDeletionForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Baggage().getPrimaryKeyAttributes();
 	}
 
 }

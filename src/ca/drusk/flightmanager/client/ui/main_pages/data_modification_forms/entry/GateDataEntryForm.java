@@ -21,7 +21,6 @@ public class GateDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public GateDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Gates().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
@@ -48,6 +47,11 @@ public class GateDataEntryForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Gates().getEntryFields();
 	}
 
 }

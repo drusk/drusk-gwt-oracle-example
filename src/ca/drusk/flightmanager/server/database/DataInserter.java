@@ -2,7 +2,6 @@ package ca.drusk.flightmanager.server.database;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.Time;
 
 /**
  * Inserts data into the database.
@@ -22,10 +21,6 @@ public class DataInserter extends DatabaseAccessor {
 
 	private PreparedStatement flightsStmt = null;
 
-	private PreparedStatement incomingFlightStmt = null;
-
-	private PreparedStatement outgoingFlightStmt = null;
-
 	private PreparedStatement gateStmt = null;
 
 	private PreparedStatement arrivalStmt = null;
@@ -43,6 +38,8 @@ public class DataInserter extends DatabaseAccessor {
 	private PreparedStatement flightInventoryStmt = null;
 
 	private PreparedStatement guardiansStmt = null;
+
+	private static final String TO_TIMESTAMP_TZ = "TO_TIMESTAMP_TZ(?, 'MON DD, YYYY HH24:MI TZH:TZM')";
 
 	public int addAirline(String name, String code, String website) {
 		airlineStmt = prepareStatement(airlineStmt,
@@ -76,30 +73,16 @@ public class DataInserter extends DatabaseAccessor {
 	}
 
 	@SuppressWarnings("unchecked")
-	public int addFlight(int flightNumber, String source, String destination,
-			String airlineCode, int planeCode) {
-		flightsStmt = prepareStatement(
-				flightsStmt,
-				"INSERT INTO Flights(flightNumber, source, destination, airlineCode, planeCode) VALUES(?, ?, ?, ?, ?)");
-		setParameters(flightsStmt, flightNumber, source, destination,
-				airlineCode, planeCode);
+	public int addFlight(String airlineCode, int flightNumber, String source,
+			String destination, int planeCode, String departureTime,
+			String arrivalTime) {
+		String sql = "INSERT INTO Flights(airlineCode, flightNumber, source, destination, planeCode, plannedDepartureTime, plannedArrivalTime) VALUES(?, ?, ?, ?, ?, "
+				+ TO_TIMESTAMP_TZ + ", " + TO_TIMESTAMP_TZ + ")";
+		System.out.println(sql);
+		flightsStmt = prepareStatement(flightsStmt, sql);
+		setParameters(flightsStmt, airlineCode, flightNumber, source,
+				destination, planeCode, departureTime, arrivalTime);
 		return executeUpdate(flightsStmt);
-	}
-
-	@SuppressWarnings("unchecked")
-	public int addIncomingFlight(int flightNumber, Time plannedArrivalTime) {
-		incomingFlightStmt = prepareStatement(incomingFlightStmt,
-				"INSERT INTO IncomingFlights(flightNumber, plannedArrivalTime) VALUES(?, ?)");
-		setParameters(incomingFlightStmt, flightNumber, plannedArrivalTime);
-		return executeUpdate(incomingFlightStmt);
-	}
-
-	@SuppressWarnings("unchecked")
-	public int addOutgoingFlight(int flightNumber, Time plannedDepartureTime) {
-		outgoingFlightStmt = prepareStatement(outgoingFlightStmt,
-				"INSERT INTO OutgoingFlights(flightNumber, plannedDepartureTime) VALUES(?, ?)");
-		setParameters(outgoingFlightStmt, flightNumber, plannedDepartureTime);
-		return executeUpdate(outgoingFlightStmt);
 	}
 
 	public int addGate(String gate, String airportCode) {
@@ -114,7 +97,8 @@ public class DataInserter extends DatabaseAccessor {
 			String arrivalDate, String status) {
 		arrivalStmt = prepareStatement(
 				arrivalStmt,
-				"INSERT INTO Arrivals(id, gate, airportCode, arrivalDate, status) VALUES(?, ?, ?, TO_TIMESTAMP_TZ(? 'MON DD, YYYY HH:MI TZH:TZM'), ?)");
+				"INSERT INTO Arrivals(id, gate, airportCode, arrivalDate, status) VALUES(?, ?, ?, "
+						+ TO_TIMESTAMP_TZ + ", ?)");
 		System.out.println("Arrival date" + arrivalDate);
 		setParameters(arrivalStmt, id, gate, airportCode, arrivalDate, status);
 		return executeUpdate(arrivalStmt);
@@ -125,7 +109,8 @@ public class DataInserter extends DatabaseAccessor {
 			String departureDate, String status) {
 		departureStmt = prepareStatement(
 				departureStmt,
-				"INSERT INTO Departures(id, gate, airportCode, departureDate, status) VALUES(?, ?, ?, TO_TIMESTAMP_TZ(?, 'MON DD, YYYY HH:MI TZH:TZM'), ?)");
+				"INSERT INTO Departures(id, gate, airportCode, departureDate, status) VALUES(?, ?, ?, "
+						+ TO_TIMESTAMP_TZ + ", ?)");
 		setParameters(departureStmt, id, gate, airportCode, departureDate,
 				status);
 		return executeUpdate(departureStmt);

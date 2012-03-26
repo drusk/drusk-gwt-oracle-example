@@ -21,7 +21,6 @@ public class GuardiansDataDeletionForm extends AbstractDataModificationForm {
 
 	public GuardiansDataDeletionForm(
 			DataDeletionServiceAsync dataDeletionService) {
-		super(new Guardians().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 
@@ -47,6 +46,11 @@ public class GuardiansDataDeletionForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Guardians().getPrimaryKeyAttributes();
 	}
 
 }

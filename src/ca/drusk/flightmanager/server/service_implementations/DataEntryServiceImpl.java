@@ -21,6 +21,12 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class DataEntryServiceImpl extends RemoteServiceServlet implements
 		DataEntryService {
 
+	/*
+	 * This is the default day used when storing times (which we don't care
+	 * about the day for, but need to be consistent).
+	 */
+	private String DEFAULT_DAY = "Jan 15, 1980";
+
 	private DataInserter inserter = new DataInserter();
 
 	private DataValueQuerier querier = new DataValueQuerier();
@@ -58,17 +64,20 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 			String destination, String airlineCode, String planeCode,
 			String plannedArrivalTime, String plannedDepartureTime)
 			throws ParseException {
-		int inserted = 0;
 
-		int flightNumberInt = Integer.parseInt(flightNumber);
-		inserted += inserter.addFlight(flightNumberInt, source, destination,
-				airlineCode, Integer.parseInt(planeCode));
-		inserted += inserter.addIncomingFlight(flightNumberInt,
-				timeFormatter.parseTime(plannedArrivalTime));
-		inserted += inserter.addOutgoingFlight(flightNumberInt,
-				timeFormatter.parseTime(plannedDepartureTime));
+		System.out.println("airline code=" + airlineCode);
+		System.out.println("source= " + source);
+		System.out.println("dest= " + destination);
+		String formattedDepartureTime = OracleTimeStampUtils
+				.toTimeStampWithTimeZone(DEFAULT_DAY, plannedDepartureTime,
+						querier.getUtcOffset(source));
+		String formattedArrivalTime = OracleTimeStampUtils
+				.toTimeStampWithTimeZone(DEFAULT_DAY, plannedArrivalTime,
+						querier.getUtcOffset(destination));
 
-		return inserted;
+		return inserter.addFlight(airlineCode, Integer.parseInt(flightNumber),
+				source, destination, Integer.parseInt(planeCode),
+				formattedDepartureTime, formattedArrivalTime);
 	}
 
 	@Override

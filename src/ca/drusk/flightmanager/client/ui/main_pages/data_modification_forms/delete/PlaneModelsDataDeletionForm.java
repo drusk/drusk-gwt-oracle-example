@@ -21,7 +21,6 @@ public class PlaneModelsDataDeletionForm extends AbstractDataModificationForm {
 
 	public PlaneModelsDataDeletionForm(
 			DataDeletionServiceAsync dataDeletionService) {
-		super(new PlaneModels().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 
@@ -45,6 +44,11 @@ public class PlaneModelsDataDeletionForm extends AbstractDataModificationForm {
 	@Override
 	protected String getTitle() {
 		return TableNames.PLANE_MODELS;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new PlaneModels().getPrimaryKeyAttributes();
 	}
 
 }

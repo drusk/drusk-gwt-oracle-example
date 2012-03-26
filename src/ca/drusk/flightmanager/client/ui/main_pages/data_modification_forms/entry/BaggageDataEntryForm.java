@@ -20,7 +20,6 @@ public class BaggageDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public BaggageDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Baggage().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
@@ -44,6 +43,11 @@ public class BaggageDataEntryForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Baggage().getEntryFields();
 	}
 
 }

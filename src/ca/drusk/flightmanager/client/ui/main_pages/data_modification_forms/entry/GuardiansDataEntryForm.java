@@ -20,7 +20,6 @@ public class GuardiansDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public GuardiansDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Guardians().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
@@ -47,6 +46,11 @@ public class GuardiansDataEntryForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Guardians().getEntryFields();
 	}
 
 }

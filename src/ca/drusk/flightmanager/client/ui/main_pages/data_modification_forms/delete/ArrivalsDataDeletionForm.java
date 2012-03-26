@@ -21,7 +21,6 @@ public class ArrivalsDataDeletionForm extends AbstractDataModificationForm {
 	private final DataDeletionServiceAsync dataDeletionService;
 
 	public ArrivalsDataDeletionForm(DataDeletionServiceAsync dataDeletionService) {
-		super(new Arrivals().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 
@@ -45,6 +44,11 @@ public class ArrivalsDataDeletionForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Arrivals().getPrimaryKeyAttributes();
 	}
 
 }

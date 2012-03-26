@@ -79,10 +79,10 @@ public class FullRelationDataQuerier extends DatabaseAccessor {
 		return executeQuery(airportsStmt, new Airports().getFields());
 	}
 
-	public Relation getFlightsIncomingOutgoingFullRelation() {
+	public Relation getFlightsFullRelation() {
 		flightsStmt = prepareStatement(
 				flightsStmt,
-				"SELECT flightNumber, source, destination, airlineCode, planeCode, TO_CHAR(plannedDepartureTime, 'HH24:MI') AS plannedDepartureTime, TO_CHAR(plannedArrivalTime, 'HH24:MI') AS plannedArrivalTime FROM Flights JOIN IncomingFlights USING(flightNumber) JOIN OutgoingFlights USING(flightNumber)");
+				"SELECT airlineCode, flightNumber, source, destination, planeCode, TO_CHAR(plannedDepartureTime, 'HH24:MI TZH:TZM') AS plannedDepartureTime, TO_CHAR(plannedArrivalTime, 'HH24:MI TZH:TZM') AS plannedArrivalTime FROM Flights");
 		return executeQuery(flightsStmt, new AllFlights().getFields());
 	}
 

@@ -22,7 +22,6 @@ public class FlightAttendanceDataDeletionForm extends
 
 	public FlightAttendanceDataDeletionForm(
 			DataDeletionServiceAsync dataDeletionService) {
-		super(new FlightAttendance().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 
@@ -51,6 +50,11 @@ public class FlightAttendanceDataDeletionForm extends
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new FlightAttendance().getPrimaryKeyAttributes();
 	}
 
 }

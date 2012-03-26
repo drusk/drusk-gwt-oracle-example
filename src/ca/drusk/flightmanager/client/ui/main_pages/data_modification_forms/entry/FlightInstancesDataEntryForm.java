@@ -21,7 +21,6 @@ public class FlightInstancesDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public FlightInstancesDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new FlightInstances().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
@@ -47,6 +46,11 @@ public class FlightInstancesDataEntryForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new FlightInstances().getEntryFields();
 	}
 
 }

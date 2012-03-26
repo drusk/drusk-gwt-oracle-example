@@ -22,7 +22,6 @@ public class FlightInventoryDataDeletionForm extends
 
 	public FlightInventoryDataDeletionForm(
 			DataDeletionServiceAsync dataDeletionService) {
-		super(new FlightInventory().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 
@@ -53,6 +52,11 @@ public class FlightInventoryDataDeletionForm extends
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new FlightInventory().getPrimaryKeyAttributes();
 	}
 
 }

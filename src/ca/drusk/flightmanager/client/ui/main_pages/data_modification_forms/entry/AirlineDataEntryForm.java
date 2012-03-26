@@ -20,7 +20,6 @@ public class AirlineDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public AirlineDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Airlines().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
@@ -48,6 +47,11 @@ public class AirlineDataEntryForm extends AbstractDataModificationForm {
 	@Override
 	protected String getTitle() {
 		return TableNames.AIRLINES;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Airlines().getEntryFields();
 	}
 
 }

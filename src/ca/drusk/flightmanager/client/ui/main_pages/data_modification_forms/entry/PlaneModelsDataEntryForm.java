@@ -20,7 +20,6 @@ public class PlaneModelsDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public PlaneModelsDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new PlaneModels().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
@@ -48,6 +47,11 @@ public class PlaneModelsDataEntryForm extends AbstractDataModificationForm {
 	@Override
 	protected String getTitle() {
 		return TableNames.PLANE_MODELS;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new PlaneModels().getEntryFields();
 	}
 
 }

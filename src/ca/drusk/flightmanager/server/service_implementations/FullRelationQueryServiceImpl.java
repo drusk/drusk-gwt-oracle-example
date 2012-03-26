@@ -39,7 +39,7 @@ public class FullRelationQueryServiceImpl extends RemoteServiceServlet implement
 
 	@Override
 	public Relation getFlights() {
-		return dataQuerier.getFlightsIncomingOutgoingFullRelation();
+		return dataQuerier.getFlightsFullRelation();
 	}
 
 	@Override

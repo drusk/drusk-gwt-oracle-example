@@ -37,13 +37,9 @@ public class DataDeletionServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public int removeFlight(String flightNumber) {
-		int deleted = 0;
-		int flightNumberInt = Integer.parseInt(flightNumber);
-		deleted += deleter.removeIncomingFlight(flightNumberInt);
-		deleted += deleter.removeOutgoingFlight(flightNumberInt);
-		deleted += deleter.removeFlight(flightNumberInt);
-		return deleted;
+	public int removeFlight(String airlineCode, String flightNumber) {
+		return deleter
+				.removeFlight(airlineCode, Integer.parseInt(flightNumber));
 	}
 
 	@Override

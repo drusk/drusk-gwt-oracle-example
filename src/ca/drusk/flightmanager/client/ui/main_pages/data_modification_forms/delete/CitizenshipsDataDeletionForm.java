@@ -21,7 +21,6 @@ public class CitizenshipsDataDeletionForm extends AbstractDataModificationForm {
 
 	public CitizenshipsDataDeletionForm(
 			DataDeletionServiceAsync dataDeletionService) {
-		super(new Citizenships().getPrimaryKeyAttributes());
 		this.dataDeletionService = dataDeletionService;
 	}
 
@@ -46,6 +45,11 @@ public class CitizenshipsDataDeletionForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Citizenships().getPrimaryKeyAttributes();
 	}
 
 }

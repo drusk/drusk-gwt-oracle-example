@@ -23,7 +23,6 @@ public class ArrivalsDataEntryForm extends AbstractDataModificationForm {
 	private final DataEntryServiceAsync dataEntryService;
 
 	public ArrivalsDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Arrivals().getEntryFields());
 		this.dataEntryService = dataEntryService;
 	}
 
@@ -57,6 +56,11 @@ public class ArrivalsDataEntryForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Arrivals().getEntryFields();
 	}
 
 }

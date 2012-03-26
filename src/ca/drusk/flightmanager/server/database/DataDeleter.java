@@ -20,10 +20,6 @@ public class DataDeleter extends DatabaseAccessor {
 
 	private PreparedStatement flightsStmt = null;
 
-	private PreparedStatement incomingFlightStmt = null;
-
-	private PreparedStatement outgoingFlightStmt = null;
-
 	private PreparedStatement gateStmt = null;
 
 	private PreparedStatement arrivalStmt = null;
@@ -70,25 +66,12 @@ public class DataDeleter extends DatabaseAccessor {
 		return executeUpdate(airportsStmt);
 	}
 
-	public int removeFlight(int flightNumber) {
+	@SuppressWarnings("unchecked")
+	public int removeFlight(String airlineCode, int flightNumber) {
 		flightsStmt = prepareStatement(flightsStmt,
-				"DELETE FROM Flights WHERE flightNumber=?");
-		setParameters(flightsStmt, flightNumber);
+				"DELETE FROM Flights WHERE airlineCode=? AND flightNumber=?");
+		setParameters(flightsStmt, airlineCode, flightNumber);
 		return executeUpdate(flightsStmt);
-	}
-
-	public int removeIncomingFlight(int flightNumber) {
-		incomingFlightStmt = prepareStatement(incomingFlightStmt,
-				"DELETE FROM IncomingFlights WHERE flightNumber=?");
-		setParameters(incomingFlightStmt, flightNumber);
-		return executeUpdate(incomingFlightStmt);
-	}
-
-	public int removeOutgoingFlight(int flightNumber) {
-		outgoingFlightStmt = prepareStatement(outgoingFlightStmt,
-				"DELETE FROM OutgoingFlights WHERE flightNumber=?");
-		setParameters(outgoingFlightStmt, flightNumber);
-		return executeUpdate(outgoingFlightStmt);
 	}
 
 	public int removeGate(String gate, String airportCode) {

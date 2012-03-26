@@ -23,7 +23,6 @@ public class PassengersDataEntryForm extends AbstractDataModificationForm {
 	// private CheckBox infantCheckbox;
 
 	public PassengersDataEntryForm(DataEntryServiceAsync dataEntryService) {
-		super(new Passengers().getEntryFields());
 		// infantCheckbox = addCheckbox(Passengers.INFANT);
 		this.dataEntryService = dataEntryService;
 	}
@@ -61,6 +60,11 @@ public class PassengersDataEntryForm extends AbstractDataModificationForm {
 		});
 
 		return submitButton;
+	}
+
+	@Override
+	protected String[] getInputFieldLabels() {
+		return new Passengers().getEntryFields();
 	}
 
 }
