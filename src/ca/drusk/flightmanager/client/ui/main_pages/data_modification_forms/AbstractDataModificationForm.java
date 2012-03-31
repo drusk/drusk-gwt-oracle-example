@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -33,7 +34,9 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 
 	private static final int TEXTBOX_SPACING = 15;
 
-	private HorizontalPanel container = new HorizontalPanel();
+	private HorizontalPanel horizontalContainer = new HorizontalPanel();
+
+	private ScrollPanel scrollContainer = new ScrollPanel();
 
 	protected VerticalPanel formDisplay = new VerticalPanel();
 
@@ -48,9 +51,11 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 		formDisplay.add(inputForm);
 		formDisplay.add(createSubmissionButton());
 		formDisplay.setSpacing(TEXTBOX_SPACING);
-		container.add(formDisplay);
-		container.add(log);
-		container.setSpacing(TEXT_BOXES_TO_LOG_SPACING);
+		horizontalContainer.add(formDisplay);
+		horizontalContainer.add(log);
+		horizontalContainer.setSpacing(TEXT_BOXES_TO_LOG_SPACING);
+		// provides scrolling for the form
+		scrollContainer.add(horizontalContainer);
 	}
 
 	/**
@@ -87,7 +92,7 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 
 	@Override
 	public Widget asWidget() {
-		return container;
+		return scrollContainer;
 	}
 
 	public final class LoggingCallback implements AsyncCallback<Integer> {

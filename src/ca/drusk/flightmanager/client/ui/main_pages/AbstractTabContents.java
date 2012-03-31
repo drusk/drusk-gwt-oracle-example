@@ -28,6 +28,7 @@ public abstract class AbstractTabContents implements IsWidget {
 
 	protected AbstractTabContents(double contentSelectorWidth) {
 		contentSelector = new ContentSelector(getButtonNamesForContents());
+		// allow scrolling of content selector
 		ScrollPanel scrollPanel = new ScrollPanel();
 		scrollPanel.add(contentSelector);
 		dockPanel.addWest(scrollPanel, contentSelectorWidth);

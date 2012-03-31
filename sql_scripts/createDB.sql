@@ -28,8 +28,8 @@ CREATE TABLE Flights(
   source CHAR(3) REFERENCES Airports(airportCode),
   destination CHAR(3) REFERENCES Airports(airportCode),
   planeCode VARCHAR(5) REFERENCES PlaneModels(code),
-  plannedArrivalTime TIMESTAMP WITH TIME ZONE, 
   plannedDepartureTime TIMESTAMP WITH TIME ZONE,
+  plannedArrivalTime TIMESTAMP WITH TIME ZONE, 
   PRIMARY KEY(airlineCode, flightNumber)
 );
 
