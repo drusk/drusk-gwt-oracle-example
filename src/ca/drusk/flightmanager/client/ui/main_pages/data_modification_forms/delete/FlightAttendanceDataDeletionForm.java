@@ -1,7 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete;
 
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
-import ca.drusk.flightmanager.client.table_data.FlightAttendance;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -37,14 +36,12 @@ public class FlightAttendanceDataDeletionForm extends
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String passengerId = inputForm
-						.getEnteredText(FlightAttendance.PASSENGER_ID);
-				String flightId = inputForm
-						.getEnteredText(FlightAttendance.FLIGHT_ID);
+				String passengerId = inputForm.getEnteredText(0);
+				String flightId = inputForm.getEnteredText(1);
 
 				dataDeletionService.removePassengerFromFlight(passengerId,
-						flightId,
-						new LoggingCallback("Deletion sent to server"));
+						flightId, new LoggingCallback("Deleted passenger "
+								+ passengerId + " from flight " + flightId));
 			}
 
 		});
@@ -54,7 +51,7 @@ public class FlightAttendanceDataDeletionForm extends
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new FlightAttendance().getPrimaryKeyAttributes();
+		return new String[] { "Passenger id", "Flight instance id" };
 	}
 
 }

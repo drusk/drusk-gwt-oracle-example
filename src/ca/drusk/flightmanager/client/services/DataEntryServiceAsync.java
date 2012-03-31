@@ -13,13 +13,13 @@ public interface DataEntryServiceAsync {
 	void addAirline(String name, String code, String website,
 			AsyncCallback<Integer> callback);
 
-	void addPlaneModel(String code, String capacity,
+	void addPlaneModel(String code, String name, String capacity,
 			AsyncCallback<Integer> callback);
 
 	void addCitizenship(String citizenship, AsyncCallback<Integer> callback);
 
 	void addAirport(String airportCode, String city, String country,
-			int utcOffset, AsyncCallback<Integer> callback);
+			String utcOffset, AsyncCallback<Integer> callback);
 
 	void addFlight(String flightNumber, String source, String destination,
 			String airlineCode, String planeCode, String plannedArrivalTime,
@@ -38,9 +38,12 @@ public interface DataEntryServiceAsync {
 
 	void addPassenger(String firstName, String lastName, String citizenship,
 			String placeOfBirth, String dateOfBirth,
-			AsyncCallback<Integer> callback);
+			String dietaryRestrictions, String medicalConsiderations,
+			String isAirlineEmployee, String isDoctor, String isInfant,
+			String guardian, AsyncCallback<Integer> callback);
 
-	void addFlightInstance(String flightNumber, AsyncCallback<Integer> callback);
+	void addFlightInstance(String airlineCode, String flightNumber,
+			AsyncCallback<Integer> callback);
 
 	void addPassengerToFlight(String passengerId, String flightId,
 			String travelClass, AsyncCallback<Integer> callback);
@@ -52,5 +55,8 @@ public interface DataEntryServiceAsync {
 
 	void addGuardian(String guardianId, String infantId,
 			AsyncCallback<Integer> callback);
+
+	void addPassengerClass(String travelClass, String includesMeal,
+			AsyncCallback<Integer> loggingCallback);
 
 }

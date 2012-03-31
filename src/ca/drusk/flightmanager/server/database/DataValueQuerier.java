@@ -12,27 +12,81 @@ import java.sql.SQLException;
  */
 public class DataValueQuerier extends DatabaseAccessor {
 
-	private PreparedStatement airportUtcStmt = null;
+	// private PreparedStatement airportUtcStmt = null;
 
-	public int getUtcOffset(String airportCode) {
+	private PreparedStatement passengerIdStmt = null;
+
+	private PreparedStatement infantStmt = null;
+
+	public String getUtcOffset(String airportCode) {
+		PreparedStatement airportUtcStmt = null;
 		airportUtcStmt = prepareStatement(airportUtcStmt,
 				"SELECT utcOffset FROM Airports WHERE airportCode=?");
 		setParameters(airportUtcStmt, airportCode);
 
-		int utcOffset = Integer.MIN_VALUE;
+		String utcOffset = null;
 		try {
 			ResultSet results = airportUtcStmt.executeQuery();
 			/*
 			 * Only one value will be returned.
 			 */
 			results.next();
-			utcOffset = results.getInt(1);
+			utcOffset = results.getString(1);
 
 			results.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return utcOffset;
+	}
+
+	public int getPassengerId(String firstName, String lastName,
+			String placeOfBirth, String dateOfBirth) {
+		// should be sufficient to specify a single passenger
+		passengerIdStmt = prepareStatement(
+				passengerIdStmt,
+				"SELECT id FROM Passengers WHERE firstName=? AND lastName=? AND placeOfBirth=? AND dateOfBirth="
+						+ TimezoneUtils.TO_TIMESTAMP_TZ);
+		setParameters(passengerIdStmt, firstName, lastName, placeOfBirth,
+				dateOfBirth);
+
+		int passengerId = -1;
+		try {
+			ResultSet results = passengerIdStmt.executeQuery();
+			/*
+			 * Only one value will be returned.
+			 */
+			results.next();
+			passengerId = results.getInt(1);
+
+			results.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return passengerId;
+	}
+
+	public int isInfant(int passengerId) {
+		infantStmt = prepareStatement(infantStmt,
+				"SELECT COUNT(id) FROM Infants WHERE id=?");
+		setParameters(infantStmt, passengerId);
+
+		int isInfant = -1;
+		try {
+			ResultSet results = infantStmt.executeQuery();
+			/*
+			 * Only one value will be returned.
+			 */
+			results.next();
+			isInfant = results.getInt(1);
+
+			results.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return isInfant;
 	}
 
 }

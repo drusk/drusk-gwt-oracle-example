@@ -1,7 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_display.queries;
 
 import ca.drusk.flightmanager.client.services.FlightQueryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Airports;
 
 /**
  * Displays incoming and outgoing flights for a location.
@@ -15,7 +14,7 @@ public class IncomingOutgoingFlightsDisplay extends AbstractQueryInterface {
 
 	public IncomingOutgoingFlightsDisplay(
 			FlightQueryServiceAsync flightQueryService) {
-		super(flightQueryService, Airports.AIRPORT_CODE);
+		super(flightQueryService, "Airport code");
 	}
 
 	@Override
@@ -25,7 +24,7 @@ public class IncomingOutgoingFlightsDisplay extends AbstractQueryInterface {
 
 	@Override
 	protected void retrieveResultsAndAddToDisplay() {
-		String airportCode = inputForm.getEnteredText(Airports.AIRPORT_CODE);
+		String airportCode = inputForm.getEnteredText(0);
 		flightQueryService.getIncomingAndOutgoingFlights(airportCode,
 				new TableGeneratingCallback());
 	}

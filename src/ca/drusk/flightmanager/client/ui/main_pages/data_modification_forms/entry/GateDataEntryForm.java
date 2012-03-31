@@ -1,8 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Airports;
-import ca.drusk.flightmanager.client.table_data.Gates;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -36,12 +34,11 @@ public class GateDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String gate = inputForm.getEnteredText(Gates.GATE);
-				String airportCode = inputForm
-						.getEnteredText(Airports.AIRPORT_CODE);
+				String gate = inputForm.getEnteredText(0);
+				String airportCode = inputForm.getEnteredText(1);
 				dataEntryService.addGate(gate, airportCode,
-						new LoggingCallback(
-								"Data received successfully by server"));
+						new LoggingCallback("Added gate " + gate
+								+ " for airport " + airportCode));
 			}
 
 		});
@@ -51,7 +48,7 @@ public class GateDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new Gates().getEntryFields();
+		return new String[] { "Gate", "Airport code (3 characters)" };
 	}
 
 }

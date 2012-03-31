@@ -38,6 +38,8 @@ public interface FullRelationQueryServiceAsync {
 
 	void getFlightInventory(AsyncCallback<Relation> callback);
 
-	void getGuardians(AsyncCallback<Relation> callback);
+	void getInfants(AsyncCallback<Relation> callback);
+
+	void getPassengerClasses(AsyncCallback<Relation> tableGeneratingCallback);
 
 }

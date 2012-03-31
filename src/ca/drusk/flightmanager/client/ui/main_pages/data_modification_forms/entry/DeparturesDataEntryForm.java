@@ -1,9 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Airports;
-import ca.drusk.flightmanager.client.table_data.Departures;
-import ca.drusk.flightmanager.client.table_data.Gates;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -23,6 +20,13 @@ public class DeparturesDataEntryForm extends AbstractDataModificationForm {
 
 	public DeparturesDataEntryForm(DataEntryServiceAsync dataEntryService) {
 		this.dataEntryService = dataEntryService;
+		inputForm.addLabel(3,
+				"(should be in 'MON DD, YYYY' format, ex: 'Apr 4, 2012')");
+		inputForm.addLabel(4,
+				"(should be in 24 hour clock, 'HH:MI' format.  Ex: 14:20");
+		inputForm
+				.addLabel(5,
+						"(should be in the form 'departed at xx:xx' or 'delayed to xx:xx')");
 	}
 
 	@Override
@@ -37,20 +41,18 @@ public class DeparturesDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String id = inputForm.getEnteredText(Departures.ID);
-				String gate = inputForm.getEnteredText(Gates.GATE);
-				String airportCode = inputForm
-						.getEnteredText(Airports.AIRPORT_CODE);
-				String departureDay = inputForm
-						.getEnteredText(Departures.DEPARTURE_DAY);
-				String departureTime = inputForm
-						.getEnteredText(Departures.DEPARTURE_TIME);
-				String status = inputForm.getEnteredText(Departures.STATUS);
+				String id = inputForm.getEnteredText(0);
+				String gate = inputForm.getEnteredText(1);
+				String airportCode = inputForm.getEnteredText(2);
+				String departureDay = inputForm.getEnteredText(3);
+				String departureTime = inputForm.getEnteredText(4);
+				String status = inputForm.getEnteredText(5);
 
 				dataEntryService.addDeparture(id, gate, airportCode,
 						departureDay, departureTime, status,
 						new LoggingCallback(
-								"Data received successfully by server"));
+								"Added departure information for flight instance "
+										+ id));
 			}
 
 		});
@@ -60,7 +62,8 @@ public class DeparturesDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new Departures().getEntryFields();
+		return new String[] { "Id of departing flight instance", "Gate",
+				"Airport", "Departure day", "Departure time", "Status" };
 	}
 
 }

@@ -5,10 +5,8 @@ import java.text.ParseException;
 import ca.drusk.flightmanager.client.services.DataEntryService;
 import ca.drusk.flightmanager.server.database.DataInserter;
 import ca.drusk.flightmanager.server.database.DataValueQuerier;
-import ca.drusk.flightmanager.server.util.datetime.DateTimeFormatter;
 import ca.drusk.flightmanager.server.util.datetime.DefaultDayFormatter;
-import ca.drusk.flightmanager.server.util.datetime.DefaultTimeFormatter;
-import ca.drusk.flightmanager.server.util.datetime.OracleTimeStampUtils;
+import ca.drusk.flightmanager.server.util.datetime.TimeStampUtils;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -25,17 +23,13 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 	 * This is the default day used when storing times (which we don't care
 	 * about the day for, but need to be consistent).
 	 */
-	private String DEFAULT_DAY = "Jan 15, 1980";
+	public static String DEFAULT_DAY = "Jan 15, 1980";
 
 	private DataInserter inserter = new DataInserter();
 
 	private DataValueQuerier querier = new DataValueQuerier();
 
-	private DefaultTimeFormatter timeFormatter = new DefaultTimeFormatter();
-
 	private DefaultDayFormatter dayFormatter = new DefaultDayFormatter();
-
-	private DateTimeFormatter dateTimeFormatter = new DateTimeFormatter();
 
 	@Override
 	public int addAirline(String name, String code, String website) {
@@ -43,9 +37,8 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public int addPlaneModel(String code, String capacity) {
-		return inserter.addPlaneModel(Integer.parseInt(code),
-				Integer.parseInt(capacity));
+	public int addPlaneModel(String code, String name, String capacity) {
+		return inserter.addPlaneModel(code, name, Integer.parseInt(capacity));
 	}
 
 	@Override
@@ -55,7 +48,7 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public int addAirport(String airportCode, String city, String country,
-			int utcOffset) {
+			String utcOffset) {
 		return inserter.addAirport(airportCode, city, country, utcOffset);
 	}
 
@@ -65,19 +58,16 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 			String plannedArrivalTime, String plannedDepartureTime)
 			throws ParseException {
 
-		System.out.println("airline code=" + airlineCode);
-		System.out.println("source= " + source);
-		System.out.println("dest= " + destination);
-		String formattedDepartureTime = OracleTimeStampUtils
+		String formattedDepartureTime = TimeStampUtils
 				.toTimeStampWithTimeZone(DEFAULT_DAY, plannedDepartureTime,
 						querier.getUtcOffset(source));
-		String formattedArrivalTime = OracleTimeStampUtils
-				.toTimeStampWithTimeZone(DEFAULT_DAY, plannedArrivalTime,
-						querier.getUtcOffset(destination));
+		String formattedArrivalTime = TimeStampUtils.toTimeStampWithTimeZone(
+				DEFAULT_DAY, plannedArrivalTime,
+				querier.getUtcOffset(destination));
 
 		return inserter.addFlight(airlineCode, Integer.parseInt(flightNumber),
-				source, destination, Integer.parseInt(planeCode),
-				formattedDepartureTime, formattedArrivalTime);
+				source, destination, planeCode, formattedDepartureTime,
+				formattedArrivalTime);
 	}
 
 	@Override
@@ -90,9 +80,9 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 			String arrivalDay, String arrivalTime, String status)
 			throws ParseException {
 
-		int utcOffset = querier.getUtcOffset(airportCode);
-		String arrivalDate = OracleTimeStampUtils.toTimeStampWithTimeZone(
-				arrivalDay, arrivalTime, utcOffset);
+		String utcOffset = querier.getUtcOffset(airportCode);
+		String arrivalDate = TimeStampUtils.toTimeStampWithTimeZone(arrivalDay,
+				arrivalTime, utcOffset);
 		return inserter.addArrival(Integer.parseInt(id), gate, airportCode,
 				arrivalDate, status);
 	}
@@ -102,8 +92,8 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 			String departureDay, String departureTime, String status)
 			throws ParseException {
 
-		int utcOffset = querier.getUtcOffset(airportCode);
-		String departureDate = OracleTimeStampUtils.toTimeStampWithTimeZone(
+		String utcOffset = querier.getUtcOffset(airportCode);
+		String departureDate = TimeStampUtils.toTimeStampWithTimeZone(
 				departureDay, departureTime, utcOffset);
 		return inserter.addDeparture(Integer.parseInt(id), gate, airportCode,
 				departureDate, status);
@@ -111,15 +101,25 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public int addPassenger(String firstName, String lastName,
-			String citizenship, String placeOfBirth, String dateOfBirth)
-			throws ParseException {
-		return inserter.addPassenger(firstName, lastName, citizenship,
+			String citizenship, String placeOfBirth, String dateOfBirth,
+			String dietaryRestrictions, String medicalConsiderations,
+			String isAirlineEmployee, String isDoctor, String isInfant,
+			String guardianId) throws ParseException {
+		int modCount = 0;
+		modCount += inserter.addPassenger(firstName, lastName, citizenship,
 				placeOfBirth, dayFormatter.parseDay(dateOfBirth));
+		if (isInfant.equals("y")) {
+			modCount += inserter.addInfant(querier.getPassengerId(firstName,
+					lastName, placeOfBirth, dateOfBirth), Integer
+					.parseInt(guardianId));
+		}
+		return modCount;
 	}
 
 	@Override
-	public int addFlightInstance(String flightNumber) {
-		return inserter.addFlightInstance(Integer.parseInt(flightNumber));
+	public int addFlightInstance(String airlineCode, String flightNumber) {
+		return inserter.addFlightInstance(airlineCode,
+				Integer.parseInt(flightNumber));
 	}
 
 	@Override
@@ -145,5 +145,10 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 	public int addGuardian(String guardianId, String infantId) {
 		return inserter.addGuardian(Integer.parseInt(guardianId),
 				Integer.parseInt(infantId));
+	}
+
+	@Override
+	public int addPassengerClass(String travelClass, String includesMeal) {
+		return inserter.addPassengerClass(travelClass, includesMeal);
 	}
 }

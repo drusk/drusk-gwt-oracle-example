@@ -41,6 +41,8 @@ public interface FullRelationQueryService extends RemoteService {
 
 	Relation getFlightInventory();
 
-	Relation getGuardians();
+	Relation getInfants();
+
+	Relation getPassengerClasses();
 
 }

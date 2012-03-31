@@ -1,7 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_display.queries;
 
 import ca.drusk.flightmanager.client.services.FlightQueryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.FlightInstances;
 
 /**
  * Displays the passengers on a particular flight.
@@ -15,7 +14,7 @@ public class FlightInstancePassengersDisplay extends AbstractQueryInterface {
 
 	public FlightInstancePassengersDisplay(
 			FlightQueryServiceAsync flightQueryService) {
-		super(flightQueryService, FlightInstances.ID);
+		super(flightQueryService, "Flight instance id");
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class FlightInstancePassengersDisplay extends AbstractQueryInterface {
 
 	@Override
 	protected void retrieveResultsAndAddToDisplay() {
-		String flightInstanceId = inputForm.getEnteredText(FlightInstances.ID);
+		String flightInstanceId = inputForm.getEnteredText(0);
 		flightQueryService.getPassengers(flightInstanceId,
 				new TableGeneratingCallback());
 

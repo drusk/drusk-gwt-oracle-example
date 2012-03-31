@@ -1,7 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Baggage;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -35,9 +34,9 @@ public class BaggageDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String weight = inputForm.getEnteredText(Baggage.WEIGHT);
+				String weight = inputForm.getEnteredText(0);
 				dataEntryService.addBaggage(weight, new LoggingCallback(
-						"Data received successfully by server"));
+						"Baggage recorded"));
 			}
 
 		});
@@ -47,7 +46,7 @@ public class BaggageDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new Baggage().getEntryFields();
+		return new String[] { "Weight (in kilograms)" };
 	}
 
 }

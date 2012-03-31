@@ -62,7 +62,7 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 	protected CheckBox addCheckbox(String caption) {
 		CheckBox checkbox = new CheckBox(caption);
 		checkbox.setValue(false);
-		container.add(checkbox);
+		formDisplay.insert(checkbox, formDisplay.getWidgetCount() - 1);
 		return checkbox;
 	}
 
@@ -79,6 +79,10 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 	protected void logErrorMessage(Throwable caught) {
 		log.addMessage("An error occured while communicating with the server: "
 				+ caught.getMessage());
+	}
+
+	protected void clearUI() {
+		inputForm.clearTextBoxes();
 	}
 
 	@Override
@@ -100,7 +104,7 @@ public abstract class AbstractDataModificationForm implements IsWidget {
 
 		@Override
 		public void onSuccess(Integer result) {
-			inputForm.clearTextBoxes();
+			clearUI();
 			logMessage(successMessage);
 		}
 	}

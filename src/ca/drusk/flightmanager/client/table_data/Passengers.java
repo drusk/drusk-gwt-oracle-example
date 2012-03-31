@@ -18,9 +18,17 @@ public class Passengers implements TableFields {
 
 	public static final String DATE_OF_BIRTH = "dateOfBirth";
 
-	public static final String SPECIAL_NEEDS = "specialNeeds";
-
 	public static final String INFANT = "Infant";
+
+	public static final String DIETARY_RESTRICTIONS = "dietaryRestrictions";
+
+	public static final String MEDICAL_CONSIDERATIONS = "medicalConsiderations";
+
+	public static final String IS_AIRLINE_EMPLOYEE = "isAirlineEmployee";
+
+	public static final String IS_DOCTOR = "isDoctor";
+
+	public static final String IS_INFANT = "isInfant";
 
 	@Override
 	public String[] getPrimaryKeyAttributes() {
@@ -31,13 +39,14 @@ public class Passengers implements TableFields {
 	public String[] getFields() {
 		return new String[] { ID, FIRST_NAME, LAST_NAME,
 				Citizenships.CITIZENSHIP, PLACE_OF_BIRTH, DATE_OF_BIRTH,
-				SPECIAL_NEEDS };
+				DIETARY_RESTRICTIONS, MEDICAL_CONSIDERATIONS,
+				IS_AIRLINE_EMPLOYEE, IS_DOCTOR, IS_INFANT };
 	}
 
 	@Override
 	public String[] getEntryFields() {
 		return new String[] { FIRST_NAME, LAST_NAME, Citizenships.CITIZENSHIP,
-				PLACE_OF_BIRTH, DATE_OF_BIRTH, SPECIAL_NEEDS };
+				PLACE_OF_BIRTH, DATE_OF_BIRTH };
 	}
 
 	@Override

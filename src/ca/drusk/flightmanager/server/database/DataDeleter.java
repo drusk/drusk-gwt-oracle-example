@@ -36,7 +36,11 @@ public class DataDeleter extends DatabaseAccessor {
 
 	private PreparedStatement flightInventoryStmt = null;
 
+	private PreparedStatement infantStmt = null;
+
 	private PreparedStatement guardiansStmt = null;
+
+	private PreparedStatement passengerClassStmt = null;
 
 	public int removeAirline(String code) {
 		airlineStmt = prepareStatement(airlineStmt,
@@ -137,5 +141,19 @@ public class DataDeleter extends DatabaseAccessor {
 				"DELETE FROM Guardians WHERE guardianId=? AND infantId=?");
 		setParameters(guardiansStmt, guardianId, infantId);
 		return executeUpdate(guardiansStmt);
+	}
+
+	public int removeInfant(int id) {
+		infantStmt = prepareStatement(infantStmt,
+				"DELETE FROM Infants WHERE id=?");
+		setParameters(infantStmt, id);
+		return executeUpdate(infantStmt);
+	}
+
+	public int removePassengerClass(String passengerClass) {
+		passengerClassStmt = prepareStatement(passengerClassStmt,
+				"DELETE FROM PassengerClass where travelClass=?");
+		setParameters(passengerClassStmt, passengerClass);
+		return executeUpdate(passengerClassStmt);
 	}
 }

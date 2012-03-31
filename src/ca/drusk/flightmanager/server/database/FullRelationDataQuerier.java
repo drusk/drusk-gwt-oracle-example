@@ -14,7 +14,6 @@ import ca.drusk.flightmanager.client.table_data.FlightAttendance;
 import ca.drusk.flightmanager.client.table_data.FlightInstances;
 import ca.drusk.flightmanager.client.table_data.FlightInventory;
 import ca.drusk.flightmanager.client.table_data.Gates;
-import ca.drusk.flightmanager.client.table_data.Guardians;
 import ca.drusk.flightmanager.client.table_data.Passengers;
 import ca.drusk.flightmanager.client.table_data.PlaneModels;
 
@@ -55,6 +54,8 @@ public class FullRelationDataQuerier extends DatabaseAccessor {
 
 	private PreparedStatement guardiansStmt = null;
 
+	private PreparedStatement passengerClassesStmt = null;
+
 	public Relation getAirlineFullRelation() {
 		airlineStmt = prepareStatement(airlineStmt,
 				"SELECT name, code, website FROM Airlines");
@@ -69,7 +70,7 @@ public class FullRelationDataQuerier extends DatabaseAccessor {
 
 	public Relation getPlaneModelsFullRelation() {
 		planeModelStmt = prepareStatement(planeModelStmt,
-				"SELECT code, capacity FROM PlaneModels");
+				"SELECT code, name, capacity FROM PlaneModels");
 		return executeQuery(planeModelStmt, new PlaneModels().getFields());
 	}
 
@@ -107,13 +108,13 @@ public class FullRelationDataQuerier extends DatabaseAccessor {
 	public Relation getPassengersFullRelation() {
 		passengerStmt = prepareStatement(
 				passengerStmt,
-				"SELECT id, firstName, lastName, citizenship, placeOfBirth, TO_CHAR(dateOfBirth, 'MON DD, YYYY') AS dateOfBirth, specialNeeds FROM Passengers");
+				"SELECT id, firstName, lastName, citizenship, placeOfBirth, TO_CHAR(dateOfBirth, 'MON DD, YYYY') AS dateOfBirth, dietaryRestrictions, medicalConsiderations, isAirlineEmployee, isDoctor, isInfant FROM Passengers");
 		return executeQuery(passengerStmt, new Passengers().getFields());
 	}
 
 	public Relation getFlightInstances() {
 		flightInstancesStmt = prepareStatement(flightInstancesStmt,
-				"SELECT id, flightNumber FROM FlightInstances");
+				"SELECT id, airlineCode, flightNumber FROM FlightInstances");
 		return executeQuery(flightInstancesStmt,
 				new FlightInstances().getFields());
 	}
@@ -138,9 +139,17 @@ public class FullRelationDataQuerier extends DatabaseAccessor {
 				new FlightInventory().getFields());
 	}
 
-	public Relation getGuardiansFullRelation() {
+	public Relation getInfantsFullRelation() {
 		guardiansStmt = prepareStatement(guardiansStmt,
-				"SELECT guardianId, infantId FROM Guardians");
-		return executeQuery(guardiansStmt, new Guardians().getFields());
+				"SELECT id AS infantId, guardianId FROM Infants");
+		return executeQuery(guardiansStmt, new String[] { "infantId",
+				"guardianId" });
+	}
+
+	public Relation getPassengerClassesFullRelation() {
+		passengerClassesStmt = prepareStatement(passengerClassesStmt,
+				"SELECT travelClass, includesMeal FROM PassengerClass");
+		return executeQuery(passengerClassesStmt, new String[] { "travelClass",
+				"includesMeal" });
 	}
 }

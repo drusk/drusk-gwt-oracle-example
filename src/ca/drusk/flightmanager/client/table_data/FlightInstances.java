@@ -17,7 +17,7 @@ public class FlightInstances implements TableFields {
 
 	@Override
 	public String[] getFields() {
-		return new String[] { ID, Flights.FLIGHT_NUMBER };
+		return new String[] { ID, "airlineCode", Flights.FLIGHT_NUMBER };
 	}
 
 	@Override

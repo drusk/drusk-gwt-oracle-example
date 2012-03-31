@@ -10,7 +10,8 @@ CREATE TABLE Airlines(
 );
 
 CREATE TABLE PlaneModels(
-  code INT PRIMARY KEY,
+  code VARCHAR(5) PRIMARY KEY,
+  name VARCHAR(32),
   capacity INT
 );
 
@@ -18,7 +19,7 @@ CREATE TABLE Airports(
   airportCode CHAR(3) PRIMARY KEY,
   city VARCHAR(255),
   country VARCHAR(255),
-  utcOffset INT
+  utcOffset VARCHAR(6)
 );
 
 CREATE TABLE Flights(
@@ -26,7 +27,7 @@ CREATE TABLE Flights(
   flightNumber INT,
   source CHAR(3) REFERENCES Airports(airportCode),
   destination CHAR(3) REFERENCES Airports(airportCode),
-  planeCode INT REFERENCES PlaneModels(code),
+  planeCode VARCHAR(5) REFERENCES PlaneModels(code),
   plannedArrivalTime TIMESTAMP WITH TIME ZONE, 
   plannedDepartureTime TIMESTAMP WITH TIME ZONE,
   PRIMARY KEY(airlineCode, flightNumber)
@@ -106,7 +107,8 @@ CREATE TABLE Infants(
 CREATE TABLE FlightAttendance(
   passengerId INT REFERENCES Passengers(id),
   flightId INT REFERENCES FlightInstances(id),
-  travelClass CHAR(1) REFERENCES PassengerClass(travelClass)
+  travelClass CHAR(1) REFERENCES PassengerClass(travelClass),
+  PRIMARY KEY(passengerId, flightId)
 );
 
 CREATE SEQUENCE BaggageIds
@@ -129,7 +131,6 @@ CREATE TABLE FlightInventory(
 CREATE VIEW DelayedFlights AS
   SELECT source, destination, airlineCode, COUNT(id) AS numDelays  
   FROM Flights JOIN FlightInstances USING(airlineCode, flightNumber) JOIN
-    Arrivals USING(id) JOIN Departures USING(id)
-  WHERE Arrivals.status LIKE 'delayed%' OR 
-    Departures.status LIKE 'delayed%'
+    Arrivals USING(id)
+  WHERE Arrivals.status LIKE 'delayed%'
   GROUP BY source, destination, airlineCode;

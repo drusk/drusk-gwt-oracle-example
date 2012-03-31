@@ -1,7 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.PlaneModels;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -30,13 +29,12 @@ public class PlaneModelsDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String code = inputForm.getEnteredText(PlaneModels.CODE);
-				String capacity = inputForm
-						.getEnteredText(PlaneModels.CAPACITY);
+				String code = inputForm.getEnteredText(0);
+				String name = inputForm.getEnteredText(1);
+				String capacity = inputForm.getEnteredText(2);
 
-				dataEntryService.addPlaneModel(code, capacity,
-						new LoggingCallback(
-								"Data received successfully by server"));
+				dataEntryService.addPlaneModel(code, name, capacity,
+						new LoggingCallback("Added plane model " + code));
 			}
 
 		});
@@ -51,7 +49,7 @@ public class PlaneModelsDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new PlaneModels().getEntryFields();
+		return new String[] { "Code", "Name", "Capacity" };
 	}
 
 }

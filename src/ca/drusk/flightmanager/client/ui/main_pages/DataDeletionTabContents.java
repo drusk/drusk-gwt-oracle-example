@@ -13,7 +13,7 @@ import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delet
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.FlightInventoryDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.FlightsDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.GateDataDeletionForm;
-import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.GuardiansDataDeletionForm;
+import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.PassengerClassDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.PassengersDataDeletionForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete.PlaneModelsDataDeletionForm;
 
@@ -34,12 +34,14 @@ public class DataDeletionTabContents extends AbstractTabContents {
 		super();
 		this.dataDeletionService = dataDeletionService;
 		tabContents = initTabContents();
+		// ScrollPanel scrollPanel = new ScrollPanel();
+		// scrollPanel.add(tabContents);
 		dockPanel.add(tabContents);
 	}
 
 	@Override
 	protected String[] getButtonNamesForContents() {
-		return TableNames.getAll();
+		return TableNames.getEntryAndDeletionTables();
 	}
 
 	@Override
@@ -66,8 +68,8 @@ public class DataDeletionTabContents extends AbstractTabContents {
 
 		AirportsDataDeletionForm locationsForm = new AirportsDataDeletionForm(
 				dataDeletionService);
-		contentSelector.registerSwitchHandler(TableNames.AIRPORTS, locationsForm,
-				tabContents);
+		contentSelector.registerSwitchHandler(TableNames.AIRPORTS,
+				locationsForm, tabContents);
 		tabContents.add(locationsForm);
 
 		FlightsDataDeletionForm flightsForm = new FlightsDataDeletionForm(
@@ -84,8 +86,8 @@ public class DataDeletionTabContents extends AbstractTabContents {
 
 		ArrivalsDataDeletionForm arrivalsForm = new ArrivalsDataDeletionForm(
 				dataDeletionService);
-		contentSelector.registerSwitchHandler(TableNames.ARRIVALS, arrivalsForm,
-				tabContents);
+		contentSelector.registerSwitchHandler(TableNames.ARRIVALS,
+				arrivalsForm, tabContents);
 		tabContents.add(arrivalsForm);
 
 		DeparturesDataDeletionForm departuresForm = new DeparturesDataDeletionForm(
@@ -124,11 +126,11 @@ public class DataDeletionTabContents extends AbstractTabContents {
 				flightInventoryForm, tabContents);
 		tabContents.add(flightInventoryForm);
 
-		GuardiansDataDeletionForm guardiansForm = new GuardiansDataDeletionForm(
+		PassengerClassDataDeletionForm passengerClassForm = new PassengerClassDataDeletionForm(
 				dataDeletionService);
-		contentSelector.registerSwitchHandler(TableNames.GUARDIANS,
-				guardiansForm, tabContents);
-		tabContents.add(guardiansForm);
+		contentSelector.registerSwitchHandler(TableNames.PASSENGER_CLASS,
+				passengerClassForm, tabContents);
+		tabContents.add(passengerClassForm);
 
 		tabContents.showWidget(0);
 

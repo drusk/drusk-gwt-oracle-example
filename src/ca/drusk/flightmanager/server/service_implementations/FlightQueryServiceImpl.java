@@ -5,8 +5,10 @@ import java.text.ParseException;
 
 import ca.drusk.flightmanager.client.data.Relation;
 import ca.drusk.flightmanager.client.services.FlightQueryService;
+import ca.drusk.flightmanager.server.database.DataValueQuerier;
 import ca.drusk.flightmanager.server.database.FlightDataQuerier;
 import ca.drusk.flightmanager.server.util.datetime.DefaultTimeFormatter;
+import ca.drusk.flightmanager.server.util.datetime.TimeStampUtils;
 import ca.drusk.flightmanager.server.util.datetime.TimeUtils;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -21,6 +23,8 @@ public class FlightQueryServiceImpl extends RemoteServiceServlet implements
 		FlightQueryService {
 
 	private FlightDataQuerier dataQuerier = new FlightDataQuerier();
+
+	private DataValueQuerier valueQuerier = new DataValueQuerier();
 
 	private DefaultTimeFormatter timeFormatter = new DefaultTimeFormatter();
 
@@ -65,10 +69,17 @@ public class FlightQueryServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Relation getDeparturesAroundTime(String targetTimeStr,
-			String bufferTimeStr) throws ParseException {
-		Time targetTime = timeFormatter.parseTime(targetTimeStr);
+			String bufferTimeStr, String airportCode) throws ParseException {
+
+		// System.out.println("Get departures airport code=" + airportCode);
+		String utcOffset = valueQuerier.getUtcOffset(airportCode);
+		// System.out.println("Get departures utcOffset=" + utcOffset);
+		String targetTime = TimeStampUtils.toTimeStampWithTimeZone(
+				DataEntryServiceImpl.DEFAULT_DAY, targetTimeStr, utcOffset);
+
+		// Time targetTime = timeFormatter.parseTime(targetTimeStr);
 		Time bufferTime = timeFormatter.parseTime(bufferTimeStr);
-		return dataQuerier.getDeparturesAround(targetTime,
+		return dataQuerier.getDeparturesAround(airportCode, targetTime,
 				TimeUtils.convertToMinutes(bufferTime));
 	}
 
@@ -79,10 +90,16 @@ public class FlightQueryServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Relation getArrivalsAroundTime(String targetTimeStr,
-			String bufferTimeStr) throws ParseException {
-		Time targetTime = timeFormatter.parseTime(targetTimeStr);
+			String bufferTimeStr, String airportCode) throws ParseException {
+
+		// System.out.println("Get arrivals airport code=" + airportCode);
+		String utcOffset = valueQuerier.getUtcOffset(airportCode);
+		// System.out.println("Get arrivals utcOffset=" + utcOffset);
+		String targetTime = TimeStampUtils.toTimeStampWithTimeZone(
+				DataEntryServiceImpl.DEFAULT_DAY, targetTimeStr, utcOffset);
+
 		Time bufferTime = timeFormatter.parseTime(bufferTimeStr);
-		return dataQuerier.getArrivalsAround(targetTime,
+		return dataQuerier.getArrivalsAround(airportCode, targetTime,
 				TimeUtils.convertToMinutes(bufferTime));
 	}
 }

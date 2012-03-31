@@ -43,4 +43,7 @@ public interface DataDeletionServiceAsync {
 	void removeGuardian(String guardianId, String infantId,
 			AsyncCallback<Integer> callback);
 
+	void removePassengerClass(String passengerClass,
+			AsyncCallback<Integer> loggingCallback);
+
 }

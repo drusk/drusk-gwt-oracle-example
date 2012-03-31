@@ -12,8 +12,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author drusk
  * 
  */
-public class FullRelationQueryServiceImpl extends RemoteServiceServlet implements
-		FullRelationQueryService {
+public class FullRelationQueryServiceImpl extends RemoteServiceServlet
+		implements FullRelationQueryService {
 
 	private FullRelationDataQuerier dataQuerier = new FullRelationDataQuerier();
 
@@ -83,8 +83,13 @@ public class FullRelationQueryServiceImpl extends RemoteServiceServlet implement
 	}
 
 	@Override
-	public Relation getGuardians() {
-		return dataQuerier.getGuardiansFullRelation();
+	public Relation getInfants() {
+		return dataQuerier.getInfantsFullRelation();
+	}
+
+	@Override
+	public Relation getPassengerClasses() {
+		return dataQuerier.getPassengerClassesFullRelation();
 	}
 
 }

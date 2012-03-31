@@ -4,6 +4,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DeckLayoutPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -27,7 +28,9 @@ public abstract class AbstractTabContents implements IsWidget {
 
 	protected AbstractTabContents(double contentSelectorWidth) {
 		contentSelector = new ContentSelector(getButtonNamesForContents());
-		dockPanel.addWest(contentSelector, contentSelectorWidth);
+		ScrollPanel scrollPanel = new ScrollPanel();
+		scrollPanel.add(contentSelector);
+		dockPanel.addWest(scrollPanel, contentSelectorWidth);
 	}
 
 	protected abstract String[] getButtonNamesForContents();

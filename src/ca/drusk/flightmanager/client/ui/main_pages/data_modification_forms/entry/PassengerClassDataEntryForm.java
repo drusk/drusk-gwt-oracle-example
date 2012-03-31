@@ -7,24 +7,42 @@ import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.Abstr
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 
 /**
- * UI elements for entering location data.
+ * UI elements for entering passenger class data.
  * 
  * @author drusk
  * 
  */
-public class AirportsDataEntryForm extends AbstractDataModificationForm {
+public class PassengerClassDataEntryForm extends AbstractDataModificationForm {
 
 	private final DataEntryServiceAsync dataEntryService;
 
-	public AirportsDataEntryForm(DataEntryServiceAsync dataEntryService) {
+	private CheckBox includesMealCheckbox;
+
+	public PassengerClassDataEntryForm(DataEntryServiceAsync dataEntryService) {
 		this.dataEntryService = dataEntryService;
+		includesMealCheckbox = addCheckbox("Includes meal");
+	}
+
+	@Override
+	public void clearUI() {
+		inputForm.clearTextBoxes();
+		includesMealCheckbox.setValue(false);
+	}
+
+	private String getCheckboxResponse(CheckBox checkbox) {
+		if (checkbox.getValue()) {
+			return "y";
+		} else {
+			return "n";
+		}
 	}
 
 	@Override
 	protected String getTitle() {
-		return TableNames.AIRPORTS;
+		return TableNames.PASSENGER_CLASS;
 	}
 
 	@Override
@@ -34,13 +52,12 @@ public class AirportsDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String airportCode = inputForm.getEnteredText(0);
-				String city = inputForm.getEnteredText(1);
-				String country = inputForm.getEnteredText(2);
-				String utcOffset = inputForm.getEnteredText(3);
-				dataEntryService.addAirport(airportCode, city, country,
-						utcOffset, new LoggingCallback(
-								"Added airport with code " + airportCode));
+				String travelClass = inputForm.getEnteredText(0);
+				String includesMeal = getCheckboxResponse(includesMealCheckbox);
+
+				dataEntryService.addPassengerClass(travelClass, includesMeal,
+						new LoggingCallback("Added passenger class: "
+								+ travelClass));
 			}
 
 		});
@@ -50,7 +67,7 @@ public class AirportsDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new String[] { "Airport code (3 characters)", "City", "Country",
-				"UTC Offset (ex: +08:00)" };
+		return new String[] { "Travel class (1 character)" };
 	}
+
 }

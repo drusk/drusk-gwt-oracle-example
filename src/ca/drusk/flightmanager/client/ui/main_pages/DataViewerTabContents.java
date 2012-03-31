@@ -13,7 +13,8 @@ import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.F
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.FlightInventoryDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.FlightsDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.GatesDataDisplay;
-import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.GuardiansDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.InfantsDisplay;
+import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.PassengerClassDataDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.PassengersDataDisplay;
 import ca.drusk.flightmanager.client.ui.main_pages.data_display.full_relations.PlaneModelsDisplay;
 
@@ -33,12 +34,13 @@ public class DataViewerTabContents extends AbstractTabContents {
 		super();
 		this.dataQueryService = dataQueryService;
 		tabContents = initTabContents();
+		// ScrollPanel scrollPanel = new ScrollPanel(tabContents);
 		dockPanel.add(tabContents);
 	}
 
 	@Override
 	protected String[] getButtonNamesForContents() {
-		return TableNames.getAll();
+		return TableNames.getViewingTables();
 	}
 
 	@Override
@@ -119,11 +121,16 @@ public class DataViewerTabContents extends AbstractTabContents {
 				flightInventoryDisplay, tabContents);
 		tabContents.add(flightInventoryDisplay);
 
-		GuardiansDisplay guardiansDisplay = new GuardiansDisplay(
+		InfantsDisplay infantsDisplay = new InfantsDisplay(dataQueryService);
+		contentSelector.registerSwitchHandler(TableNames.INFANTS,
+				infantsDisplay, tabContents);
+		tabContents.add(infantsDisplay);
+
+		PassengerClassDataDisplay passengerClassesDisplay = new PassengerClassDataDisplay(
 				dataQueryService);
-		contentSelector.registerSwitchHandler(TableNames.GUARDIANS,
-				guardiansDisplay, tabContents);
-		tabContents.add(guardiansDisplay);
+		contentSelector.registerSwitchHandler(TableNames.PASSENGER_CLASS,
+				passengerClassesDisplay, tabContents);
+		tabContents.add(passengerClassesDisplay);
 
 		tabContents.showWidget(0);
 		return tabContents;

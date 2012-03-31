@@ -1,13 +1,10 @@
 package ca.drusk.flightmanager.server.database;
 
 import java.sql.PreparedStatement;
-import java.sql.Time;
 
 import ca.drusk.flightmanager.client.data.Relation;
-import ca.drusk.flightmanager.client.table_data.Arrivals;
 import ca.drusk.flightmanager.client.table_data.Baggage;
 import ca.drusk.flightmanager.client.table_data.Citizenships;
-import ca.drusk.flightmanager.client.table_data.Departures;
 import ca.drusk.flightmanager.client.table_data.FlightAttendance;
 import ca.drusk.flightmanager.client.table_data.Flights;
 import ca.drusk.flightmanager.client.table_data.Passengers;
@@ -59,47 +56,90 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				Flights.FLIGHT_NUMBER, Flights.SOURCE, Flights.DESTINATION });
 	}
 
+	// @SuppressWarnings("unchecked")
+	// public Relation getDeparturesAround(Time targetTime, int bufferMinutes) {
+	// /*
+	// * Subtracting dates in Oracle returns the number of days difference as
+	// * a float. This can be multiplied by the number of minutes in a day
+	// * (1440) to get the difference between the dates in minutes.
+	// */
+	// depTimeStmt = prepareStatement(
+	// depTimeStmt,
+	// "SELECT flightNumber, TO_CHAR(plannedDepartureTime, 'HH:MI') AS scheduledDeparture, departureDate, status FROM OutgoingFlights JOIN FlightInstances USING(flightNumber) JOIN Departures USING(id) WHERE ? < ABS(plannedDepartureTime-?)*1440");
+	// setParameters(depTimeStmt, bufferMinutes, targetTime);
+	// return executeQuery(depTimeStmt, Flights.FLIGHT_NUMBER,
+	// "scheduledDeparture", Departures.DEPARTURE_DATE,
+	// Departures.STATUS);
+	// }
+
 	@SuppressWarnings("unchecked")
-	public Relation getDeparturesAround(Time targetTime, int bufferMinutes) {
+	public Relation getDeparturesAround(String airportCode, String targetTime,
+			int bufferMinutes) {
 		/*
-		 * Subtracting dates in Oracle returns the number of days difference as
-		 * a float. This can be multiplied by the number of minutes in a day
-		 * (1440) to get the difference between the dates in minutes.
+		 * XXX having trouble setting interval value with prepared statement
 		 */
-		depTimeStmt = prepareStatement(
-				depTimeStmt,
-				"SELECT flightNumber, TO_CHAR(plannedDepartureTime, 'HH:MI') AS scheduledDeparture, departureDate, status FROM OutgoingFlights JOIN FlightInstances USING(flightNumber) JOIN Departures USING(id) WHERE ? < ABS(plannedDepartureTime-?)*1440");
-		setParameters(depTimeStmt, bufferMinutes, targetTime);
-		return executeQuery(depTimeStmt, Flights.FLIGHT_NUMBER,
-				"scheduledDeparture", Departures.DEPARTURE_DATE,
-				Departures.STATUS);
+		System.out.println("Target time " + targetTime);
+		String sql = "SELECT flightNumber, TO_CHAR(plannedDepartureTime, 'HH24:MI') AS scheduledDeparture, departureDate, status FROM Flights JOIN FlightInstances USING(flightNumber) JOIN Departures USING(id) WHERE airportCode='"
+				+ airportCode
+				+ "' AND "
+				+ "TO_TIMESTAMP_TZ('"
+				+ targetTime
+				+ "', 'MON DD, YYYY HH24:MI TZH:TZM')"
+				+ "BETWEEN (plannedDepartureTime - interval '"
+				+ bufferMinutes
+				+ "' minute) AND "
+				+ "(plannedDepartureTime + interval '"
+				+ bufferMinutes + "' minute)";
+		System.out.println(sql);
+		return executeQuery(sql);
+		// depTimeStmt = prepareStatement(depTimeStmt, sql);
+		// setParameters(depTimeStmt, airportCode, targetTime, bufferMinutes,
+		// bufferMinutes);
+		// return executeQuery(depTimeStmt, Flights.FLIGHT_NUMBER,
+		// "scheduledDeparture", Departures.DEPARTURE_DATE,
+		// Departures.STATUS);
 	}
 
 	@SuppressWarnings("unchecked")
-	public Relation getArrivalsAround(Time targetTime, int bufferMinutes) {
+	public Relation getArrivalsAround(String airportCode, String targetTime,
+			int bufferMinutes) {
 		/*
-		 * Subtracting dates in Oracle returns the number of days difference as
-		 * a float. This can be multiplied by the number of minutes in a day
-		 * (1440) to get the difference between the dates in minutes.
+		 * XXX having trouble setting interval value with prepared statement
 		 */
-		arrTimeStmt = prepareStatement(
-				arrTimeStmt,
-				"SELECT flightNumber, TO_CHAR(plannedArrivalTime, 'HH:MI') AS scheduledArrival, arrivalDate, status FROM IncomingFlights JOIN FlightInstances USING(flightNumber) JOIN Arrivals USING(id) WHERE ? < ABS(plannedArrivalTime-?)*1440");
-		setParameters(arrTimeStmt, bufferMinutes, targetTime);
-		return executeQuery(arrTimeStmt, Flights.FLIGHT_NUMBER,
-				"scheduledArrival", Arrivals.ARRIVAL_DATE, Arrivals.STATUS);
+		System.out.println("Target time " + targetTime);
+		String sql = "SELECT flightNumber, TO_CHAR(plannedArrivalTime, 'HH24:MI') AS scheduledArrival, arrivalDate, status FROM Flights JOIN FlightInstances USING(flightNumber) JOIN Arrivals USING(id) WHERE airportCode='"
+				+ airportCode
+				+ "' AND "
+				+ "TO_TIMESTAMP_TZ('"
+				+ targetTime
+				+ "', 'MON DD, YYYY HH24:MI TZH:TZM')"
+				+ " BETWEEN (plannedArrivalTime - interval '"
+				+ bufferMinutes
+				+ "' minute) AND "
+				+ "(plannedArrivalTime + interval '"
+				+ bufferMinutes + "' minute)";
+		System.out.println(sql);
+		return executeQuery(sql);
+		// arrTimeStmt = prepareStatement(arrTimeStmt, sql);
+		// setParameters(arrTimeStmt, airportCode, targetTime, bufferMinutes,
+		// bufferMinutes);
+		// return executeQuery(arrTimeStmt, Flights.FLIGHT_NUMBER,
+		// "scheduledArrival", Arrivals.ARRIVAL_DATE, Arrivals.STATUS);
 	}
 
 	public Relation getPassengers(String flightInstanceId) {
 		passengersForFlightStmt = prepareStatement(
 				passengersForFlightStmt,
-				"SELECT Passengers.id, travelClass, firstName, lastName, citizenship, placeOfBirth, TO_CHAR(dateOfBirth, 'MON DD, YYYY') AS dateOfBirth, specialNeeds FROM FlightAttendance JOIN Passengers ON FlightAttendance.passengerId=Passengers.id WHERE flightId=?");
+				"SELECT Passengers.id, travelClass, firstName, lastName, citizenship, placeOfBirth, TO_CHAR(dateOfBirth, 'MON DD, YYYY') AS dateOfBirth, dietaryRestrictions, medicalConsiderations, isAirlineEmployee, isDoctor, isInfant FROM FlightAttendance JOIN Passengers ON FlightAttendance.passengerId=Passengers.id WHERE flightId=?");
 		setParameters(passengersForFlightStmt, flightInstanceId);
 		return executeQuery(passengersForFlightStmt, new String[] {
 				Passengers.ID, FlightAttendance.TRAVEL_CLASS,
 				Passengers.FIRST_NAME, Passengers.LAST_NAME,
 				Citizenships.CITIZENSHIP, Passengers.PLACE_OF_BIRTH,
-				Passengers.DATE_OF_BIRTH, Passengers.SPECIAL_NEEDS });
+				Passengers.DATE_OF_BIRTH, Passengers.DIETARY_RESTRICTIONS,
+				Passengers.MEDICAL_CONSIDERATIONS,
+				Passengers.IS_AIRLINE_EMPLOYEE, Passengers.IS_DOCTOR,
+				Passengers.IS_INFANT });
 	}
 
 	public Relation getBaggage(String passengerId, String flightId) {
@@ -113,15 +153,11 @@ public class FlightDataQuerier extends DatabaseAccessor {
 
 	public Relation getConnectingFlights(int maxWaitTimeMinutes) {
 		/*
-		 * Subtracting dates in Oracle returns the number of days difference as
-		 * a float. This can be multiplied by the number of minutes in a day
-		 * (1440) to get the difference between the dates in minutes.
+		 * XXX having trouble setting interval value with prepared statement
 		 */
-		connectingFlightsStmt = prepareStatement(
-				connectingFlightsStmt,
-				"SELECT F1.flightNumber AS f1, F2.flightNumber AS f2 FROM (SELECT * FROM Flights JOIN IncomingFlights USING(flightNumber)) F1, (SELECT * FROM Flights JOIN OutgoingFlights USING(flightNumber)) F2 WHERE F1.destination=F2.source AND F2.plannedDepartureTime>F1.plannedArrivalTime AND (F2.plannedDepartureTime-F1.plannedArrivalTime)*1440 < ?");
-		setParameters(connectingFlightsStmt, maxWaitTimeMinutes);
-		return executeQuery(connectingFlightsStmt, new String[] { "f1", "f2" });
+		String sql = "SELECT R1.flightNumber AS f1, R2.flightNumber AS f2 FROM Flights R1, Flights R2 WHERE R1.destination=R2.source AND R2.plannedDepartureTime>R1.plannedArrivalTime AND R2.plannedDepartureTime<(R1.plannedArrivalTime + INTERVAL '"
+				+ maxWaitTimeMinutes + "' MINUTE)";
+		return executeQuery(sql);
 	}
 
 	public Relation getMostFrequentPassengers(int topN) {

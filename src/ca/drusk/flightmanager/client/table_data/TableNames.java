@@ -36,11 +36,22 @@ public final class TableNames {
 
 	public static final String GUARDIANS = "Guardians";
 
-	public static final String[] getAll() {
+	public static final String INFANTS = "Infants";
+
+	public static final String PASSENGER_CLASS = "Passenger Class";
+
+	public static final String[] getEntryAndDeletionTables() {
 		return new String[] { AIRLINES, AIRPORTS, ARRIVALS, BAGGAGE,
 				CITIZENSHIPS, DEPARTURES, FLIGHTS, FLIGHT_ATTENDANCE,
-				FLIGHT_INSTANCES, FLIGHT_INVENTORY, GATES, GUARDIANS,
-				PASSENGERS, PLANE_MODELS };
+				FLIGHT_INSTANCES, FLIGHT_INVENTORY, GATES, PASSENGERS,
+				PASSENGER_CLASS, PLANE_MODELS };
+	}
+
+	public static final String[] getViewingTables() {
+		return new String[] { AIRLINES, AIRPORTS, ARRIVALS, BAGGAGE,
+				CITIZENSHIPS, DEPARTURES, FLIGHTS, FLIGHT_ATTENDANCE,
+				FLIGHT_INSTANCES, FLIGHT_INVENTORY, GATES, INFANTS, PASSENGERS,
+				PASSENGER_CLASS, PLANE_MODELS };
 	}
 
 }

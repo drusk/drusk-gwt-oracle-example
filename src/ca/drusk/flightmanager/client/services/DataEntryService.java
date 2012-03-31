@@ -15,12 +15,12 @@ public interface DataEntryService extends RemoteService {
 
 	int addAirline(String name, String code, String website);
 
-	int addPlaneModel(String code, String capacity);
+	int addPlaneModel(String code, String name, String capacity);
 
 	int addCitizenship(String citizenship);
 
 	int addAirport(String airportCode, String city, String country,
-			int utcOffset);
+			String utcOffset);
 
 	int addFlight(String flightNumber, String source, String destination,
 			String airlineCode, String planeCode, String plannedArrivalTime,
@@ -37,9 +37,12 @@ public interface DataEntryService extends RemoteService {
 			throws Exception;
 
 	int addPassenger(String firstName, String lastName, String citizenship,
-			String placeOfBirth, String dateOfBirth) throws Exception;
+			String placeOfBirth, String dateOfBirth,
+			String dietaryRestrictions, String medicalConsiderations,
+			String isAirlineEmployee, String isDoctor, String isInfant,
+			String guardian) throws Exception;
 
-	int addFlightInstance(String flightNumber);
+	int addFlightInstance(String airlineCode, String flightNumber);
 
 	int addPassengerToFlight(String passengerId, String flightId,
 			String travelClass);
@@ -50,5 +53,7 @@ public interface DataEntryService extends RemoteService {
 			String baggageId);
 
 	int addGuardian(String guardianId, String infantId);
+
+	int addPassengerClass(String travelClass, String includesMeal);
 
 }

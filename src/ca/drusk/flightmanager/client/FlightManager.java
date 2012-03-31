@@ -51,7 +51,6 @@ public class FlightManager implements EntryPoint {
 		basePanel.addNorth(header, 60);
 		basePanel.add(new MainTabPanel(dataEntryService, dataDeletionService,
 				dataQueryService, flightQueryService));
-
 		RootLayoutPanel.get().add(basePanel);
 	}
 }

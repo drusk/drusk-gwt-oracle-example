@@ -3,7 +3,11 @@ package ca.drusk.flightmanager.server.database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import ca.drusk.flightmanager.client.data.DefaultRelation;
 import ca.drusk.flightmanager.client.data.DefaultRow;
@@ -63,6 +67,33 @@ public abstract class DatabaseAccessor {
 				for (String columnName : columnNames) {
 					row.addColumnValue(columnName,
 							resultSet.getString(columnName));
+				}
+				relation.add(row);
+			}
+			resultSet.close();
+		} catch (SQLException sqlExcept) {
+			System.err.println("SQLException: " + sqlExcept.getMessage());
+		}
+		return relation;
+	}
+
+	protected Relation executeQuery(String sql) {
+		DefaultRelation relation = null;
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet resultSet = stmt.executeQuery(sql);
+			List<String> columnNames = new ArrayList<String>();
+			ResultSetMetaData metaData = resultSet.getMetaData();
+			for (int i = 0; i < metaData.getColumnCount(); i++) {
+				columnNames.add(metaData.getColumnLabel(i + 1));
+			}
+
+			relation = new DefaultRelation(columnNames);
+			while (resultSet.next()) {
+				DefaultRow row = new DefaultRow();
+				for (int i = 0; i < metaData.getColumnCount(); i++) {
+					String columnLabel = metaData.getColumnLabel(i + 1);
+					row.addColumnValue(columnLabel, resultSet.getString(i + 1));
 				}
 				relation.add(row);
 			}

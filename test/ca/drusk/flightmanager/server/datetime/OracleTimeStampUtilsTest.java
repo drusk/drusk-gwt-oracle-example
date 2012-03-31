@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import ca.drusk.flightmanager.server.util.datetime.OracleTimeStampUtils;
+import ca.drusk.flightmanager.server.util.datetime.TimeStampUtils;
 
 /**
- * Tests for {@link OracleTimeStampUtils}.
+ * Tests for {@link TimeStampUtils}.
  * 
  * @author drusk
  * 
@@ -16,15 +16,15 @@ public class OracleTimeStampUtilsTest {
 
 	@Test
 	public void positiveOffset() {
-		String timestamp = OracleTimeStampUtils.toTimeStampWithTimeZone(
-				"Mar 23, 2012", "9:30", 2);
+		String timestamp = TimeStampUtils.toTimeStampWithTimeZone(
+				"Mar 23, 2012", "9:30", "+2:00");
 		assertEquals("Mar 23, 2012 9:30 +2:00", timestamp);
 	}
 
 	@Test
 	public void negativeOffset() {
-		String timestamp = OracleTimeStampUtils.toTimeStampWithTimeZone(
-				"Mar 23, 2012", "9:30", -2);
+		String timestamp = TimeStampUtils.toTimeStampWithTimeZone(
+				"Mar 23, 2012", "9:30", "-2:00");
 		assertEquals("Mar 23, 2012 9:30 -2:00", timestamp);
 	}
 

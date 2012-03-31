@@ -1,8 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.FlightInstances;
-import ca.drusk.flightmanager.client.table_data.Flights;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -36,11 +34,12 @@ public class FlightInstancesDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String flightNumber = inputForm
-						.getEnteredText(Flights.FLIGHT_NUMBER);
-				dataEntryService.addFlightInstance(flightNumber,
+				String airlineCode = inputForm.getEnteredText(0);
+				String flightNumber = inputForm.getEnteredText(1);
+				dataEntryService.addFlightInstance(airlineCode, flightNumber,
 						new LoggingCallback(
-								"Data received successfully by server"));
+								"Added a flight instance for flight "
+										+ airlineCode + flightNumber));
 			}
 
 		});
@@ -50,7 +49,7 @@ public class FlightInstancesDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new FlightInstances().getEntryFields();
+		return new String[] { "Airline code", "Flight number" };
 	}
 
 }

@@ -55,6 +55,7 @@ public class MainTabPanel implements IsWidget {
 				DELETE_DATA);
 		tabPanel.add(new DataViewerTabContents(dataQueryService), VIEW_DATA);
 		tabPanel.add(new QueryTabContents(flightQueryService), QUERIES);
+
 		// default to first tab
 		tabPanel.selectTab(0);
 	}

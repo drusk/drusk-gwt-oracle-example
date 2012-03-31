@@ -1,7 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Citizenships;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -35,11 +34,10 @@ public class CitizenshipsDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String citizenship = inputForm
-						.getEnteredText(Citizenships.CITIZENSHIP);
-				dataEntryService.addCitizenship(citizenship,
-						new LoggingCallback(
-								"Data received successfully by server"));
+				String citizenship = inputForm.getEnteredText(0);
+				dataEntryService
+						.addCitizenship(citizenship, new LoggingCallback(
+								"Added citizenship: " + citizenship));
 			}
 
 		});
@@ -49,6 +47,6 @@ public class CitizenshipsDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new Citizenships().getEntryFields();
+		return new String[] { "Citizenship" };
 	}
 }

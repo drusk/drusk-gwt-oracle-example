@@ -18,7 +18,7 @@ public class FlightsAroundTimeDisplay extends AbstractQueryInterface {
 	private static final String TIME_BUFFER = "Buffer time";
 
 	public FlightsAroundTimeDisplay(FlightQueryServiceAsync flightQueryService) {
-		super(flightQueryService, TARGET_TIME, TIME_BUFFER);
+		super(flightQueryService, TARGET_TIME, TIME_BUFFER, "Airport code");
 	}
 
 	@Override
@@ -28,18 +28,19 @@ public class FlightsAroundTimeDisplay extends AbstractQueryInterface {
 
 	@Override
 	protected String getInstructions() {
-		return "Find arrivals, departures and their status around a specified time.<br/>"
+		return "Find arrivals, departures and their status around a specified time for a specific airport."
 				+ "Enter times in hours and minutes (ex: 9:45, 14:20, 0:45)";
 	}
 
 	@Override
 	protected void retrieveResultsAndAddToDisplay() {
-		String targetTime = inputForm.getEnteredText(TARGET_TIME);
-		String bufferTime = inputForm.getEnteredText(TIME_BUFFER);
+		String targetTime = inputForm.getEnteredText(0);
+		String bufferTime = inputForm.getEnteredText(1);
+		String airportCode = inputForm.getEnteredText(2);
 		flightQueryService.getDeparturesAroundTime(targetTime, bufferTime,
-				new TableGeneratingCallback());
+				airportCode, new TableGeneratingCallback());
 		flightQueryService.getArrivalsAroundTime(targetTime, bufferTime,
-				new TableGeneratingCallback());
+				airportCode, new TableGeneratingCallback());
 	}
 
 }

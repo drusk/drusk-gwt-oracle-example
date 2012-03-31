@@ -9,24 +9,24 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 
 /**
- * UI elements for deleting records of a passenger's baggage for a flight.
+ * UI elements for deleting passenger classes.
  * 
  * @author drusk
  * 
  */
-public class FlightInventoryDataDeletionForm extends
+public class PassengerClassDataDeletionForm extends
 		AbstractDataModificationForm {
 
 	private final DataDeletionServiceAsync dataDeletionService;
 
-	public FlightInventoryDataDeletionForm(
+	public PassengerClassDataDeletionForm(
 			DataDeletionServiceAsync dataDeletionService) {
 		this.dataDeletionService = dataDeletionService;
 	}
 
 	@Override
 	protected String getTitle() {
-		return TableNames.FLIGHT_INVENTORY;
+		return TableNames.PASSENGER_CLASS;
 	}
 
 	@Override
@@ -36,14 +36,10 @@ public class FlightInventoryDataDeletionForm extends
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String passengerId = inputForm.getEnteredText(0);
-				String flightId = inputForm.getEnteredText(1);
-				String baggageId = inputForm.getEnteredText(2);
-
-				dataDeletionService.removeBaggageForFlight(passengerId,
-						flightId, baggageId, new LoggingCallback(
-								"Deleted baggage with id=" + baggageId
-										+ " from flight instance " + flightId));
+				String passengerClass = inputForm.getEnteredText(0);
+				dataDeletionService.removePassengerClass(passengerClass,
+						new LoggingCallback("Deleted passenger class: "
+								+ passengerClass));
 			}
 
 		});
@@ -53,8 +49,7 @@ public class FlightInventoryDataDeletionForm extends
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new String[] { "Passenger id", "Flight instance id",
-				"Baggage id" };
+		return new String[] { "Passenger class" };
 	}
 
 }

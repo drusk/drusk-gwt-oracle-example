@@ -19,11 +19,11 @@ public interface FlightQueryService extends RemoteService {
 
 	Relation getIncomingAndOutgoingFlights(String airportCode);
 
-	Relation getDeparturesAroundTime(String targetTime, String bufferTime)
-			throws Exception;
+	Relation getDeparturesAroundTime(String targetTime, String bufferTime,
+			String airportCode) throws Exception;
 
-	Relation getArrivalsAroundTime(String targetTime, String bufferTime)
-			throws Exception;
+	Relation getArrivalsAroundTime(String targetTime, String bufferTime,
+			String airportCode) throws Exception;
 
 	Relation getPassengers(String flightInstanceId);
 

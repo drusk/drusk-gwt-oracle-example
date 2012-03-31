@@ -42,4 +42,6 @@ public interface DataDeletionService extends RemoteService {
 
 	int removeGuardian(String guardianId, String infantId);
 
+	int removePassengerClass(String passengerClass);
+
 }

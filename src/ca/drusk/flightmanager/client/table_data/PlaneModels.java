@@ -10,6 +10,8 @@ public final class PlaneModels implements TableFields {
 
 	public static final String CODE = "Code";
 
+	public static final String NAME = "Name";
+
 	public static final String CAPACITY = "Capacity";
 
 	@Override
@@ -19,7 +21,7 @@ public final class PlaneModels implements TableFields {
 
 	@Override
 	public String[] getFields() {
-		return new String[] { CODE, CAPACITY };
+		return new String[] { CODE, NAME, CAPACITY };
 	}
 
 	@Override

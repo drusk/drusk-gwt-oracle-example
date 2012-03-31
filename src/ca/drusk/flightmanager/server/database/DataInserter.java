@@ -37,9 +37,11 @@ public class DataInserter extends DatabaseAccessor {
 
 	private PreparedStatement flightInventoryStmt = null;
 
+	private PreparedStatement infantStmt = null;
+
 	private PreparedStatement guardiansStmt = null;
 
-	private static final String TO_TIMESTAMP_TZ = "TO_TIMESTAMP_TZ(?, 'MON DD, YYYY HH24:MI TZH:TZM')";
+	private PreparedStatement passengerClassStmt = null;
 
 	public int addAirline(String name, String code, String website) {
 		airlineStmt = prepareStatement(airlineStmt,
@@ -48,10 +50,11 @@ public class DataInserter extends DatabaseAccessor {
 		return executeUpdate(airlineStmt);
 	}
 
-	public int addPlaneModel(int code, int capacity) {
+	@SuppressWarnings("unchecked")
+	public int addPlaneModel(String code, String name, int capacity) {
 		planeModelStmt = prepareStatement(planeModelStmt,
-				"INSERT INTO PlaneModels(code, capacity) VALUES(?, ?)");
-		setParameters(planeModelStmt, code, capacity);
+				"INSERT INTO PlaneModels(code, name, capacity) VALUES(?, ?, ?)");
+		setParameters(planeModelStmt, code, name, capacity);
 		return executeUpdate(planeModelStmt);
 	}
 
@@ -62,9 +65,8 @@ public class DataInserter extends DatabaseAccessor {
 		return executeUpdate(citizenshipsStmt);
 	}
 
-	@SuppressWarnings("unchecked")
 	public int addAirport(String airportCode, String city, String country,
-			int utcOffset) {
+			String utcOffset) {
 		airportsStmt = prepareStatement(
 				airportsStmt,
 				"INSERT INTO Airports(airportCode, city, country, utcOffset) VALUES(?, ?, ?, ?)");
@@ -74,11 +76,10 @@ public class DataInserter extends DatabaseAccessor {
 
 	@SuppressWarnings("unchecked")
 	public int addFlight(String airlineCode, int flightNumber, String source,
-			String destination, int planeCode, String departureTime,
+			String destination, String planeCode, String departureTime,
 			String arrivalTime) {
 		String sql = "INSERT INTO Flights(airlineCode, flightNumber, source, destination, planeCode, plannedDepartureTime, plannedArrivalTime) VALUES(?, ?, ?, ?, ?, "
-				+ TO_TIMESTAMP_TZ + ", " + TO_TIMESTAMP_TZ + ")";
-		System.out.println(sql);
+				+ TimezoneUtils.TO_TIMESTAMP_TZ + ", " + TimezoneUtils.TO_TIMESTAMP_TZ + ")";
 		flightsStmt = prepareStatement(flightsStmt, sql);
 		setParameters(flightsStmt, airlineCode, flightNumber, source,
 				destination, planeCode, departureTime, arrivalTime);
@@ -98,8 +99,7 @@ public class DataInserter extends DatabaseAccessor {
 		arrivalStmt = prepareStatement(
 				arrivalStmt,
 				"INSERT INTO Arrivals(id, gate, airportCode, arrivalDate, status) VALUES(?, ?, ?, "
-						+ TO_TIMESTAMP_TZ + ", ?)");
-		System.out.println("Arrival date" + arrivalDate);
+						+ TimezoneUtils.TO_TIMESTAMP_TZ + ", ?)");
 		setParameters(arrivalStmt, id, gate, airportCode, arrivalDate, status);
 		return executeUpdate(arrivalStmt);
 	}
@@ -110,7 +110,7 @@ public class DataInserter extends DatabaseAccessor {
 		departureStmt = prepareStatement(
 				departureStmt,
 				"INSERT INTO Departures(id, gate, airportCode, departureDate, status) VALUES(?, ?, ?, "
-						+ TO_TIMESTAMP_TZ + ", ?)");
+						+ TimezoneUtils.TO_TIMESTAMP_TZ + ", ?)");
 		setParameters(departureStmt, id, gate, airportCode, departureDate,
 				status);
 		return executeUpdate(departureStmt);
@@ -127,11 +127,12 @@ public class DataInserter extends DatabaseAccessor {
 		return executeUpdate(passengerStmt);
 	}
 
-	public int addFlightInstance(int flightNumber) {
+	@SuppressWarnings("unchecked")
+	public int addFlightInstance(String airlineCode, int flightNumber) {
 		flightInstanceStmt = prepareStatement(
 				flightInstanceStmt,
-				"INSERT INTO FlightInstances(id, flightNumber) VALUES(FlightInstanceIds.nextval, ?)");
-		setParameters(flightInstanceStmt, flightNumber);
+				"INSERT INTO FlightInstances(id, airlineCode, flightNumber) VALUES(FlightInstanceIds.nextval, ?, ?)");
+		setParameters(flightInstanceStmt, airlineCode, flightNumber);
 		return executeUpdate(flightInstanceStmt);
 	}
 
@@ -164,5 +165,19 @@ public class DataInserter extends DatabaseAccessor {
 				"INSERT INTO Guardians(guardianId, infantId) VALUES(?, ?)");
 		setParameters(guardiansStmt, guardianId, infantId);
 		return executeUpdate(guardiansStmt);
+	}
+
+	public int addInfant(int passengerId, int guardianId) {
+		infantStmt = prepareStatement(infantStmt,
+				"INSERT INTO Infants(id, guardianId) VALUES(?, ?)");
+		setParameters(infantStmt, passengerId, guardianId);
+		return executeUpdate(infantStmt);
+	}
+
+	public int addPassengerClass(String travelClass, String includesMeal) {
+		passengerClassStmt = prepareStatement(passengerClassStmt,
+				"INSERT INTO PassengerClass(travelClass, includesMeal) VALUES(?, ?)");
+		setParameters(passengerClassStmt, travelClass, includesMeal);
+		return executeUpdate(passengerClassStmt);
 	}
 }

@@ -1,7 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.FlightAttendance;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -35,15 +34,12 @@ public class FlightAttendanceDataEntryForm extends AbstractDataModificationForm 
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String passengerId = inputForm
-						.getEnteredText(FlightAttendance.PASSENGER_ID);
-				String flightId = inputForm
-						.getEnteredText(FlightAttendance.FLIGHT_ID);
-				String travelClass = inputForm
-						.getEnteredText(FlightAttendance.TRAVEL_CLASS);
+				String passengerId = inputForm.getEnteredText(0);
+				String flightId = inputForm.getEnteredText(1);
+				String travelClass = inputForm.getEnteredText(2);
 				dataEntryService.addPassengerToFlight(passengerId, flightId,
-						travelClass, new LoggingCallback(
-								"Data received successfully by server"));
+						travelClass, new LoggingCallback("Added passenger "
+								+ passengerId + " to flight " + flightId));
 			}
 
 		});
@@ -53,7 +49,8 @@ public class FlightAttendanceDataEntryForm extends AbstractDataModificationForm 
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new FlightAttendance().getEntryFields();
+		return new String[] { "Passenger id", "Flight instance id",
+				"Travel class" };
 	}
 
 }

@@ -1,7 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete;
 
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Baggage;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -35,9 +34,9 @@ public class BaggageDataDeletionForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String id = inputForm.getEnteredText(Baggage.ID);
+				String id = inputForm.getEnteredText(0);
 				dataDeletionService.removeBaggage(id, new LoggingCallback(
-						"Deletion sent to server"));
+						"Deleted baggage with id: " + id));
 			}
 
 		});
@@ -47,7 +46,7 @@ public class BaggageDataDeletionForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new Baggage().getPrimaryKeyAttributes();
+		return new String[] { "Baggage id" };
 	}
 
 }

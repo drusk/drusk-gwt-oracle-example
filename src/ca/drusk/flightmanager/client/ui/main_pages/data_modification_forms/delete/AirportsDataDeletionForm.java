@@ -1,7 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete;
 
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Airports;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -35,10 +34,10 @@ public class AirportsDataDeletionForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String airportCode = inputForm
-						.getEnteredText(Airports.AIRPORT_CODE);
+				String airportCode = inputForm.getEnteredText(0);
 				dataDeletionService.removeLocation(airportCode,
-						new LoggingCallback("Deletion sent to server"));
+						new LoggingCallback("Deleted airport with code "
+								+ airportCode));
 			}
 
 		});
@@ -48,7 +47,7 @@ public class AirportsDataDeletionForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new Airports().getPrimaryKeyAttributes();
+		return new String[] { "Airport code (3 characters)" };
 	}
 
 }

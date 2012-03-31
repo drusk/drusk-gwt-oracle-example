@@ -1,7 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Airlines;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -30,13 +29,13 @@ public class AirlineDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String name = inputForm.getEnteredText(Airlines.NAME);
-				String code = inputForm.getEnteredText(Airlines.CODE);
-				String website = inputForm.getEnteredText(Airlines.WEBSITE);
+				String name = inputForm.getEnteredText(0);
+				String code = inputForm.getEnteredText(1);
+				String website = inputForm.getEnteredText(2);
 
 				dataEntryService.addAirline(name, code, website,
-						new LoggingCallback(
-								"Data received successfully by server"));
+						new LoggingCallback("Added airline " + name + " ("
+								+ code + ")"));
 			}
 
 		});
@@ -51,7 +50,7 @@ public class AirlineDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new Airlines().getEntryFields();
+		return new String[] { "Name", "Code (2 characters)", "Website" };
 	}
 
 }

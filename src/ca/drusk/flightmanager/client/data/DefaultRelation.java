@@ -25,6 +25,10 @@ public class DefaultRelation implements Relation, Serializable {
 		this.columnNames = Arrays.asList(columnNames);
 	}
 
+	public DefaultRelation(List<String> columnNames) {
+		this.columnNames = columnNames;
+	}
+
 	public void add(Row row) {
 		rows.add(row);
 	}

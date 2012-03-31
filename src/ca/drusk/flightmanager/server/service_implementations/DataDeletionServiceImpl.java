@@ -2,6 +2,7 @@ package ca.drusk.flightmanager.server.service_implementations;
 
 import ca.drusk.flightmanager.client.services.DataDeletionService;
 import ca.drusk.flightmanager.server.database.DataDeleter;
+import ca.drusk.flightmanager.server.database.DataValueQuerier;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -15,6 +16,8 @@ public class DataDeletionServiceImpl extends RemoteServiceServlet implements
 		DataDeletionService {
 
 	private DataDeleter deleter = new DataDeleter();
+
+	private DataValueQuerier queier = new DataValueQuerier();
 
 	@Override
 	public int removeAirline(String code) {
@@ -65,7 +68,12 @@ public class DataDeletionServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public int removePassenger(String id) {
-		return deleter.removePassenger(id);
+		int modCount = 0;
+		if (queier.isInfant(Integer.parseInt(id)) == 1) {
+			modCount += deleter.removeInfant(Integer.parseInt(id));
+		}
+		modCount += deleter.removePassenger(id);
+		return modCount;
 	}
 
 	@Override
@@ -95,5 +103,10 @@ public class DataDeletionServiceImpl extends RemoteServiceServlet implements
 	public int removeGuardian(String guardianId, String infantId) {
 		return deleter.removeGuardian(Integer.parseInt(guardianId),
 				Integer.parseInt(infantId));
+	}
+
+	@Override
+	public int removePassengerClass(String passengerClass) {
+		return deleter.removePassengerClass(passengerClass);
 	}
 }

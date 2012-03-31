@@ -4,20 +4,20 @@ import ca.drusk.flightmanager.client.services.FullRelationQueryServiceAsync;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 
 /**
- * Display for data from the Guardians table.
+ * Display for data from the Infants table.
  * 
  * @author drusk
  * 
  */
-public class GuardiansDisplay extends AbstractFullRelationDisplay {
+public class InfantsDisplay extends AbstractFullRelationDisplay {
 
-	public GuardiansDisplay(FullRelationQueryServiceAsync dataQueryService) {
-		super(TableNames.GUARDIANS, dataQueryService);
+	public InfantsDisplay(FullRelationQueryServiceAsync dataQueryService) {
+		super(TableNames.INFANTS, dataQueryService);
 	}
 
 	@Override
 	protected void retrieveResultsAndAddToDisplay() {
-		dataQueryService.getGuardians(new TableGeneratingCallback());
+		dataQueryService.getInfants(new TableGeneratingCallback());
 	}
 
 }

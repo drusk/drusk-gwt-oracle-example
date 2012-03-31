@@ -16,8 +16,8 @@ public class AllFlights implements TableFields {
 
 	@Override
 	public String[] getFields() {
-		return new String[] { Flights.FLIGHT_NUMBER, Flights.SOURCE,
-				Flights.DESTINATION, Flights.AIRLINE_CODE, Flights.PLANE_CODE,
+		return new String[] { Flights.AIRLINE_CODE, Flights.FLIGHT_NUMBER,
+				Flights.SOURCE, Flights.DESTINATION, Flights.PLANE_CODE,
 				OutgoingFlights.PLANNED_DEPARTURE_TIME,
 				IncomingFlights.PLANNED_ARRIVAL_TIME };
 	}

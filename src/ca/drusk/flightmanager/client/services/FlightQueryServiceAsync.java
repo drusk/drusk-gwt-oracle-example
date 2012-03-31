@@ -29,11 +29,11 @@ public interface FlightQueryServiceAsync {
 	void getPassengersInTransit(AsyncCallback<Relation> callback);
 
 	void getDeparturesAroundTime(String targetTime, String bufferTime,
-			AsyncCallback<Relation> callback);
+			String airportCode, AsyncCallback<Relation> callback);
 
 	void getMostDelayedAirlines(AsyncCallback<Relation> callback);
 
 	void getArrivalsAroundTime(String targetTime, String bufferTime,
-			AsyncCallback<Relation> callback);
+			String airportCode, AsyncCallback<Relation> callback);
 
 }

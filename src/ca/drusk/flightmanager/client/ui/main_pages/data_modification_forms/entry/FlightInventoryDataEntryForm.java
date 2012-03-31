@@ -1,7 +1,6 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.FlightInventory;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -36,16 +35,14 @@ public class FlightInventoryDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String passengerId = inputForm
-						.getEnteredText(FlightInventory.PASSENGER_ID);
-				String flightId = inputForm
-						.getEnteredText(FlightInventory.FLIGHT_ID);
-				String baggageId = inputForm
-						.getEnteredText(FlightInventory.BAGGAGE_ID);
+				String passengerId = inputForm.getEnteredText(0);
+				String flightId = inputForm.getEnteredText(1);
+				String baggageId = inputForm.getEnteredText(2);
 
 				dataEntryService.addBaggageForFlight(passengerId, flightId,
-						baggageId, new LoggingCallback(
-								"Data received successfully by server"));
+						baggageId, new LoggingCallback("Added baggage with id="
+								+ baggageId + " to flight instance " + flightId
+								+ " for passenger " + passengerId));
 			}
 
 		});
@@ -55,7 +52,8 @@ public class FlightInventoryDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new FlightInventory().getEntryFields();
+		return new String[] { "Passenger id", "Flight instance id",
+				"Baggage id" };
 	}
 
 }

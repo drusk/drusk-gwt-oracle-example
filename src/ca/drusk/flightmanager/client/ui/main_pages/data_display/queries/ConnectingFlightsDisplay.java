@@ -31,7 +31,7 @@ public class ConnectingFlightsDisplay extends AbstractQueryInterface {
 
 	@Override
 	protected void retrieveResultsAndAddToDisplay() {
-		String maxWaitTime = inputForm.getEnteredText(MAX_WAIT_TIME);
+		String maxWaitTime = inputForm.getEnteredText(0);
 		flightQueryService.getConnectingFlights(maxWaitTime,
 				new TableGeneratingCallback());
 	}
