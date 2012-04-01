@@ -23,11 +23,15 @@ CREATE TABLE Airports(
 );
 
 CREATE TABLE Flights(
-  airlineCode CHAR(2) REFERENCES Airlines(code),
+  airlineCode CHAR(2) REFERENCES Airlines(code)
+    ON DELETE CASCADE,
   flightNumber INT,
-  source CHAR(3) REFERENCES Airports(airportCode),
-  destination CHAR(3) REFERENCES Airports(airportCode),
-  planeCode VARCHAR(5) REFERENCES PlaneModels(code),
+  source CHAR(3) REFERENCES Airports(airportCode)
+    ON DELETE CASCADE,
+  destination CHAR(3) REFERENCES Airports(airportCode)
+    ON DELETE CASCADE,
+  planeCode VARCHAR(5) REFERENCES PlaneModels(code)
+    ON DELETE CASCADE,
   plannedDepartureTime TIMESTAMP WITH TIME ZONE,
   plannedArrivalTime TIMESTAMP WITH TIME ZONE, 
   PRIMARY KEY(airlineCode, flightNumber)
@@ -35,7 +39,8 @@ CREATE TABLE Flights(
 
 CREATE TABLE Gates(
   gate VARCHAR(5),
-  airportCode CHAR(3) REFERENCES Airports(airportCode),
+  airportCode CHAR(3) REFERENCES Airports(airportCode)
+    ON DELETE CASCADE,
   PRIMARY KEY(gate, airportCode)
 );
 
@@ -50,25 +55,30 @@ CREATE TABLE FlightInstances(
   flightNumber INT,
   flightDate DATE,
   FOREIGN KEY(airlineCode, flightNumber) REFERENCES Flights(airlineCode, flightNumber)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE Arrivals(
-  id INT PRIMARY KEY REFERENCES FlightInstances(id),
+  id INT PRIMARY KEY REFERENCES FlightInstances(id)
+    ON DELETE CASCADE,
   gate VARCHAR(5),
   airportCode CHAR(3),
   arrivalDate TIMESTAMP WITH TIME ZONE,
   status VARCHAR(20),
-  FOREIGN KEY(gate, airportCode) REFERENCES Gates(gate, airportCode), 
+  FOREIGN KEY(gate, airportCode) REFERENCES Gates(gate, airportCode)
+    ON DELETE CASCADE, 
   CONSTRAINT arrStatFormat CHECK(status LIKE 'arrived at __:__' OR status LIKE 'delayed to __:__')
 );
 
 CREATE TABLE Departures(
-  id INT PRIMARY KEY REFERENCES FlightInstances(id),
+  id INT PRIMARY KEY REFERENCES FlightInstances(id)
+    ON DELETE CASCADE,
   gate VARCHAR(5),
   airportCode CHAR(3),
   departureDate TIMESTAMP WITH TIME ZONE,
   status VARCHAR(20),
-  FOREIGN KEY(gate, airportCode) REFERENCES Gates(gate, airportCode), 
+  FOREIGN KEY(gate, airportCode) REFERENCES Gates(gate, airportCode)
+    ON DELETE CASCADE, 
   CONSTRAINT depStatFormat CHECK(status LIKE 'departed at __:__' OR status LIKE 'delayed to __:__')
 );
 
@@ -85,7 +95,8 @@ CREATE TABLE Passengers(
   id INT PRIMARY KEY,
   firstName VARCHAR(255),
   lastName VARCHAR(255),
-  citizenship VARCHAR(255) REFERENCES Citizenships(citizenship),
+  citizenship VARCHAR(255) REFERENCES Citizenships(citizenship)
+    ON DELETE CASCADE,
   placeOfBirth VARCHAR(255),
   dateOfBirth DATE,
   dietaryRestrictions VARCHAR(255) DEFAULT NULL,
@@ -101,14 +112,21 @@ CREATE TABLE PassengerClass(
 );
 
 CREATE TABLE Infants(
-  id INT PRIMARY KEY REFERENCES Passengers(id),
-  guardianId INT REFERENCES Passengers(id) NOT NULL
+  id INT PRIMARY KEY,
+  guardianId INT NOT NULL,
+  FOREIGN KEY(id) REFERENCES Passengers(id)
+    ON DELETE CASCADE,
+  FOREIGN KEY(guardianId) REFERENCES Passengers(id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE FlightAttendance(
-  passengerId INT REFERENCES Passengers(id),
-  flightId INT REFERENCES FlightInstances(id),
-  travelClass CHAR(1) REFERENCES PassengerClass(travelClass),
+  passengerId INT REFERENCES Passengers(id)
+    ON DELETE CASCADE,
+  flightId INT REFERENCES FlightInstances(id)
+    ON DELETE CASCADE,
+  travelClass CHAR(1) REFERENCES PassengerClass(travelClass)
+    ON DELETE CASCADE,
   PRIMARY KEY(passengerId, flightId)
 );
 
@@ -119,13 +137,16 @@ CREATE SEQUENCE BaggageIds
 
 CREATE TABLE Baggage(
   id INT PRIMARY KEY,
-  ownerId INT REFERENCES Passengers(id),
+  ownerId INT REFERENCES Passengers(id)
+    ON DELETE CASCADE,
   weight NUMBER
 );
 
 CREATE TABLE FlightInventory(
-  flightId INT REFERENCES FlightInstances(id) NOT NULL,
-  baggageId INT REFERENCES Baggage(id) NOT NULL,
+  flightId INT REFERENCES FlightInstances(id)
+    ON DELETE CASCADE,
+  baggageId INT REFERENCES Baggage(id)
+    ON DELETE CASCADE,
   PRIMARY KEY(flightId, baggageId)
 );
 
