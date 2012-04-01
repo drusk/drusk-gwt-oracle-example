@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -25,6 +26,8 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public abstract class AbstractDataDisplay implements IsWidget {
 
+	private ScrollPanel scrollContainer = new ScrollPanel();
+
 	protected VerticalPanel display = new VerticalPanel();
 
 	private List<ResultsTable> results = new ArrayList<ResultsTable>();
@@ -35,6 +38,7 @@ public abstract class AbstractDataDisplay implements IsWidget {
 
 	public AbstractDataDisplay() {
 		display.setSpacing(SPACING);
+		scrollContainer.add(display);
 	}
 
 	private void clearResults() {
@@ -88,7 +92,7 @@ public abstract class AbstractDataDisplay implements IsWidget {
 
 	@Override
 	public Widget asWidget() {
-		return display;
+		return scrollContainer;
 	}
 
 	public final class TableGeneratingCallback implements
