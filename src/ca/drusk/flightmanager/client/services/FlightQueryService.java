@@ -29,7 +29,8 @@ public interface FlightQueryService extends RemoteService {
 
 	Relation getBaggage(String passengerId, String flightId);
 
-	Relation getConnectingFlights(String maxWait) throws Exception;
+	Relation getConnectingFlights(String airportCode, String maxWait)
+			throws Exception;
 
 	Relation getMostFrequentPassengers(String topN);
 

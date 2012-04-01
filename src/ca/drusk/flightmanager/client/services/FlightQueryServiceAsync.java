@@ -22,7 +22,8 @@ public interface FlightQueryServiceAsync {
 	void getBaggage(String passengerId, String flightId,
 			AsyncCallback<Relation> callback);
 
-	void getConnectingFlights(String maxWait, AsyncCallback<Relation> callback);
+	void getConnectingFlights(String airportCode, String maxWait,
+			AsyncCallback<Relation> callback);
 
 	void getMostFrequentPassengers(String topN, AsyncCallback<Relation> callback);
 

@@ -15,8 +15,10 @@ public class ConnectingFlightsDisplay extends AbstractQueryInterface {
 
 	private static final String MAX_WAIT_TIME = "Max wait time";
 
+	private static final String AIRPORT_CODE = "Airport code";
+
 	public ConnectingFlightsDisplay(FlightQueryServiceAsync flightQueryService) {
-		super(flightQueryService, MAX_WAIT_TIME);
+		super(flightQueryService, AIRPORT_CODE, MAX_WAIT_TIME);
 	}
 
 	@Override
@@ -26,13 +28,14 @@ public class ConnectingFlightsDisplay extends AbstractQueryInterface {
 
 	@Override
 	protected String getInstructions() {
-		return "Enter a max wait time for connecting flights in hours and minutes (ex: 0:45, 3:00)";
+		return "Enter an airport and a max wait time for connecting flights in hours and minutes (ex: 0:45, 3:00)";
 	}
 
 	@Override
 	protected void retrieveResultsAndAddToDisplay() {
-		String maxWaitTime = inputForm.getEnteredText(0);
-		flightQueryService.getConnectingFlights(maxWaitTime,
+		String airportCode = inputForm.getEnteredText(0);
+		String maxWaitTime = inputForm.getEnteredText(1);
+		flightQueryService.getConnectingFlights(airportCode, maxWaitTime,
 				new TableGeneratingCallback());
 	}
 

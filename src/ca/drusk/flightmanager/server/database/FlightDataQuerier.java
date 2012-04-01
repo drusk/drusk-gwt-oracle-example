@@ -151,11 +151,14 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				Baggage.WEIGHT });
 	}
 
-	public Relation getConnectingFlights(int maxWaitTimeMinutes) {
+	public Relation getConnectingFlights(String airportCode,
+			int maxWaitTimeMinutes) {
 		/*
 		 * XXX having trouble setting interval value with prepared statement
 		 */
-		String sql = "SELECT R1.flightNumber AS f1, R2.flightNumber AS f2 FROM Flights R1, Flights R2 WHERE R1.destination=R2.source AND R2.plannedDepartureTime>R1.plannedArrivalTime AND R2.plannedDepartureTime<(R1.plannedArrivalTime + INTERVAL '"
+		String sql = "SELECT R1.airlineCode AS f1_airlineCode, R1.flightNumber AS f1_flightNumber, R2.airlineCode AS f2_airlineCode, R2.flightNumber AS f2_flightNumber FROM Flights R1, Flights R2 WHERE R1.destination=R2.source AND R1.destination='"
+				+ airportCode
+				+ "' AND R2.plannedDepartureTime>R1.plannedArrivalTime AND R2.plannedDepartureTime<(R1.plannedArrivalTime + INTERVAL '"
 				+ maxWaitTimeMinutes + "' MINUTE)";
 		return executeQuery(sql);
 	}

@@ -6,7 +6,7 @@
 @data_insertion/flights.sql;
 @data_insertion/gates.sql;
 @data_insertion/flightinstances.sql;
-@data_insertion/dep_arr.sql;
+@data_insertion/departures_arrivals.sql;
 @data_insertion/citizenships.sql;
 @data_insertion/passengers.sql;
 @data_insertion/passengerclasses.sql;

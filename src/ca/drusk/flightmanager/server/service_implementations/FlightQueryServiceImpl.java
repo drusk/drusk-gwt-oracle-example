@@ -49,12 +49,13 @@ public class FlightQueryServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public Relation getConnectingFlights(String maxWait) throws ParseException {
+	public Relation getConnectingFlights(String airportCode, String maxWait)
+			throws ParseException {
 		Time maxWaitTime = timeFormatter.parseTime(maxWait);
 		System.out.println("time= " + maxWaitTime);
 		int convertToMinutes = TimeUtils.convertToMinutes(maxWaitTime);
 		System.out.println("Minutes= " + convertToMinutes);
-		return dataQuerier.getConnectingFlights(convertToMinutes);
+		return dataQuerier.getConnectingFlights(airportCode, convertToMinutes);
 	}
 
 	@Override
