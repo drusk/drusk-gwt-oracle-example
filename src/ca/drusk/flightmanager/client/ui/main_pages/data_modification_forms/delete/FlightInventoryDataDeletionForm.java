@@ -36,14 +36,13 @@ public class FlightInventoryDataDeletionForm extends
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String passengerId = inputForm.getEnteredText(0);
-				String flightId = inputForm.getEnteredText(1);
-				String baggageId = inputForm.getEnteredText(2);
+				String flightId = inputForm.getEnteredText(0);
+				String baggageId = inputForm.getEnteredText(1);
 
-				dataDeletionService.removeBaggageForFlight(passengerId,
-						flightId, baggageId, new LoggingCallback(
-								"Deleted baggage with id=" + baggageId
-										+ " from flight instance " + flightId));
+				dataDeletionService.removeBaggageForFlight(flightId, baggageId,
+						new LoggingCallback("Deleted baggage with id="
+								+ baggageId + " from flight instance "
+								+ flightId));
 			}
 
 		});
@@ -53,8 +52,7 @@ public class FlightInventoryDataDeletionForm extends
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new String[] { "Passenger id", "Flight instance id",
-				"Baggage id" };
+		return new String[] { "Flight instance id", "Baggage id" };
 	}
 
 }

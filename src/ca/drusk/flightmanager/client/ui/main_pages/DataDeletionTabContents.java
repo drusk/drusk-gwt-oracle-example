@@ -41,7 +41,7 @@ public class DataDeletionTabContents extends AbstractTabContents {
 
 	@Override
 	protected String[] getButtonNamesForContents() {
-		return TableNames.getEntryAndDeletionTables();
+		return TableNames.getDeletionTables();
 	}
 
 	@Override

@@ -11,7 +11,6 @@ import ca.drusk.flightmanager.client.table_data.Baggage;
 import ca.drusk.flightmanager.client.table_data.Citizenships;
 import ca.drusk.flightmanager.client.table_data.Departures;
 import ca.drusk.flightmanager.client.table_data.FlightAttendance;
-import ca.drusk.flightmanager.client.table_data.FlightInstances;
 import ca.drusk.flightmanager.client.table_data.FlightInventory;
 import ca.drusk.flightmanager.client.table_data.Gates;
 import ca.drusk.flightmanager.client.table_data.Passengers;
@@ -114,9 +113,9 @@ public class FullRelationDataQuerier extends DatabaseAccessor {
 
 	public Relation getFlightInstances() {
 		flightInstancesStmt = prepareStatement(flightInstancesStmt,
-				"SELECT id, airlineCode, flightNumber FROM FlightInstances");
-		return executeQuery(flightInstancesStmt,
-				new FlightInstances().getFields());
+				"SELECT id, airlineCode, flightNumber, flightDate FROM FlightInstances");
+		return executeQuery(flightInstancesStmt, new String[] { "id",
+				"airlineCode", "flightNumber", "flightDate" });
 	}
 
 	public Relation getFlightAttendanceFullRelation() {
@@ -128,7 +127,7 @@ public class FullRelationDataQuerier extends DatabaseAccessor {
 
 	public Relation getBaggageFullRelation() {
 		baggageStmt = prepareStatement(baggageStmt,
-				"SELECT id, weight FROM Baggage");
+				"SELECT id, ownerId, weight FROM Baggage");
 		return executeQuery(baggageStmt, new Baggage().getFields());
 	}
 

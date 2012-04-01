@@ -28,11 +28,13 @@ public interface DataEntryService extends RemoteService {
 
 	int addGate(String gate, String airportCode);
 
-	int addArrival(String id, String gate, String airportCode,
+	int addArrival(String airlineCode, String flightNumber,
+			String plannedDepartureDay, String gate, String airportCode,
 			String arrivalDay, String arrivalTime, String status)
 			throws Exception;
 
-	int addDeparture(String id, String gate, String airportCode,
+	int addDeparture(String airlineCode, String flightNumber,
+			String plannedDepartureDay, String gate, String airportCode,
 			String departureDay, String departureTime, String status)
 			throws Exception;
 
@@ -42,15 +44,15 @@ public interface DataEntryService extends RemoteService {
 			String isAirlineEmployee, String isDoctor, String isInfant,
 			String guardian) throws Exception;
 
-	int addFlightInstance(String airlineCode, String flightNumber);
+	int addFlightInstance(String airlineCode, String flightNumber,
+			String flightDate);
 
 	int addPassengerToFlight(String passengerId, String flightId,
 			String travelClass);
 
-	int addBaggage(String weight);
+	int addBaggage(String ownerId, String weight);
 
-	int addBaggageForFlight(String passengerId, String flightId,
-			String baggageId);
+	int addBaggageForFlight(String flightId, String baggageId);
 
 	int addGuardian(String guardianId, String infantId);
 

@@ -8,20 +8,18 @@ package ca.drusk.flightmanager.client.table_data;
  */
 public class FlightInventory implements TableFields {
 
-	public static final String PASSENGER_ID = "passengerId";
-
 	public static final String FLIGHT_ID = "flightId";
 
 	public static final String BAGGAGE_ID = "baggageId";
 
 	@Override
 	public String[] getPrimaryKeyAttributes() {
-		return new String[] { PASSENGER_ID, FLIGHT_ID, BAGGAGE_ID };
+		return new String[] { FLIGHT_ID, BAGGAGE_ID };
 	}
 
 	@Override
 	public String[] getFields() {
-		return new String[] { PASSENGER_ID, FLIGHT_ID, BAGGAGE_ID };
+		return new String[] { FLIGHT_ID, BAGGAGE_ID };
 	}
 
 	@Override

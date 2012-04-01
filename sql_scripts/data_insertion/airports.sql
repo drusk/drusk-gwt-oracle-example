@@ -2,6 +2,9 @@
 INSERT INTO Airports VALUES ('YWH', 'Victoria', 'Canada', '-08:00');
 INSERT INTO Airports VALUES ('YYJ', 'Victoria', 'Canada', '-08:00');
 INSERT INTO Airports VALUES ('YVR', 'Vancouver', 'Canada', '-08:00');
+INSERT INTO Airports VALUES ('YKA', 'Kamloops', 'Canada', '-08:00');
+INSERT INTO Airports VALUES ('YXT', 'Terrace', 'Canada', '-08:00');
+INSERT INTO Airports VALUES ('YLW', 'Kelowna', 'Canada', '-08:00');
 INSERT INTO Airports VALUES ('YYC', 'Calgary', 'Canada', '-07:00');
 INSERT INTO Airports VALUES ('YEG', 'Edmonton', 'Canada', '-07:00');
 INSERT INTO Airports VALUES ('YQR', 'Regina', 'Canada', '-06:00');

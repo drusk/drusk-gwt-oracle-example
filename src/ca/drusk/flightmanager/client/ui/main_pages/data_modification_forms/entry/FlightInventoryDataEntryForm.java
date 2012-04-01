@@ -35,14 +35,14 @@ public class FlightInventoryDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String passengerId = inputForm.getEnteredText(0);
-				String flightId = inputForm.getEnteredText(1);
-				String baggageId = inputForm.getEnteredText(2);
+				String flightId = inputForm.getEnteredText(0);
+				String baggageId = inputForm.getEnteredText(1);
 
-				dataEntryService.addBaggageForFlight(passengerId, flightId,
-						baggageId, new LoggingCallback("Added baggage with id="
-								+ baggageId + " to flight instance " + flightId
-								+ " for passenger " + passengerId));
+				dataEntryService
+						.addBaggageForFlight(flightId, baggageId,
+								new LoggingCallback("Added baggage with id="
+										+ baggageId + " to flight instance "
+										+ flightId));
 			}
 
 		});
@@ -52,8 +52,7 @@ public class FlightInventoryDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new String[] { "Passenger id", "Flight instance id",
-				"Baggage id" };
+		return new String[] { "Flight instance id", "Baggage id" };
 	}
 
 }

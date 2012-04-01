@@ -127,12 +127,11 @@ public class DataDeleter extends DatabaseAccessor {
 		return executeUpdate(baggageStmt);
 	}
 
-	public int removeBaggageForFlight(int passengerId, int flightId,
-			int baggageId) {
+	public int removeBaggageForFlight(int flightId, int baggageId) {
 		flightInventoryStmt = prepareStatement(
 				flightInventoryStmt,
 				"DELETE FROM FlightInventory WHERE passengerId=? AND flightId=? AND baggageId=?");
-		setParameters(flightInventoryStmt, passengerId, flightId, baggageId);
+		setParameters(flightInventoryStmt, flightId, baggageId);
 		return executeUpdate(flightInventoryStmt);
 	}
 

@@ -79,7 +79,9 @@ public class DataInserter extends DatabaseAccessor {
 			String destination, String planeCode, String departureTime,
 			String arrivalTime) {
 		String sql = "INSERT INTO Flights(airlineCode, flightNumber, source, destination, planeCode, plannedDepartureTime, plannedArrivalTime) VALUES(?, ?, ?, ?, ?, "
-				+ TimezoneUtils.TO_TIMESTAMP_TZ + ", " + TimezoneUtils.TO_TIMESTAMP_TZ + ")";
+				+ TimezoneUtils.TO_TIMESTAMP_TZ
+				+ ", "
+				+ TimezoneUtils.TO_TIMESTAMP_TZ + ")";
 		flightsStmt = prepareStatement(flightsStmt, sql);
 		setParameters(flightsStmt, airlineCode, flightNumber, source,
 				destination, planeCode, departureTime, arrivalTime);
@@ -128,11 +130,12 @@ public class DataInserter extends DatabaseAccessor {
 	}
 
 	@SuppressWarnings("unchecked")
-	public int addFlightInstance(String airlineCode, int flightNumber) {
+	public int addFlightInstance(String airlineCode, int flightNumber,
+			String flightDate) {
 		flightInstanceStmt = prepareStatement(
 				flightInstanceStmt,
-				"INSERT INTO FlightInstances(id, airlineCode, flightNumber) VALUES(FlightInstanceIds.nextval, ?, ?)");
-		setParameters(flightInstanceStmt, airlineCode, flightNumber);
+				"INSERT INTO FlightInstances(id, airlineCode, flightNumber, flightDate) VALUES(FlightInstanceIds.nextval, ?, ?, TO_DATE(?, 'MON DD, YYYY'))");
+		setParameters(flightInstanceStmt, airlineCode, flightNumber, flightDate);
 		return executeUpdate(flightInstanceStmt);
 	}
 
@@ -146,17 +149,18 @@ public class DataInserter extends DatabaseAccessor {
 		return executeUpdate(flightAttendanceStmt);
 	}
 
-	public int addBaggage(double weight) {
+	@SuppressWarnings("unchecked")
+	public int addBaggage(int ownerId, double weight) {
 		baggageStmt = prepareStatement(baggageStmt,
-				"INSERT INTO Baggage(id, weight) VALUES(BaggageIds.nextval, ?)");
-		setParameters(baggageStmt, weight);
+				"INSERT INTO Baggage(id, ownerId, weight) VALUES(BaggageIds.nextval, ?, ?)");
+		setParameters(baggageStmt, ownerId, weight);
 		return executeUpdate(baggageStmt);
 	}
 
-	public int addBaggageForFlight(int passengerId, int flightId, int baggageId) {
+	public int addBaggageForFlight(int flightId, int baggageId) {
 		flightInventoryStmt = prepareStatement(flightInventoryStmt,
-				"INSERT INTO FlightInventory(passengerId, flightId, baggageId) VALUES(?, ?, ?)");
-		setParameters(flightInventoryStmt, passengerId, flightId, baggageId);
+				"INSERT INTO FlightInventory(flightId, baggageId) VALUES(?, ?)");
+		setParameters(flightInventoryStmt, flightId, baggageId);
 		return executeUpdate(flightInventoryStmt);
 	}
 

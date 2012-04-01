@@ -9,7 +9,6 @@ import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.CitizenshipsDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.DeparturesDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.FlightAttendanceDataEntryForm;
-import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.FlightInstancesDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.FlightInventoryDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.FlightsDataEntryForm;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry.GateDataEntryForm;
@@ -39,7 +38,7 @@ public class DataEntryTabContents extends AbstractTabContents {
 
 	@Override
 	protected String[] getButtonNamesForContents() {
-		return TableNames.getEntryAndDeletionTables();
+		return TableNames.getEntryTables();
 	}
 
 	@Override
@@ -99,11 +98,12 @@ public class DataEntryTabContents extends AbstractTabContents {
 				passengersForm, tabContents);
 		tabContents.add(passengersForm);
 
-		FlightInstancesDataEntryForm flightInstancesForm = new FlightInstancesDataEntryForm(
-				dataEntryService);
-		contentSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
-				flightInstancesForm, tabContents);
-		tabContents.add(flightInstancesForm);
+		// FlightInstancesDataEntryForm flightInstancesForm = new
+		// FlightInstancesDataEntryForm(
+		// dataEntryService);
+		// contentSelector.registerSwitchHandler(TableNames.FLIGHT_INSTANCES,
+		// flightInstancesForm, tabContents);
+		// tabContents.add(flightInstancesForm);
 
 		FlightAttendanceDataEntryForm flightAttendanceForm = new FlightAttendanceDataEntryForm(
 				dataEntryService);

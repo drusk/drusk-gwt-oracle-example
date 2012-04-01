@@ -18,6 +18,34 @@ public class DataValueQuerier extends DatabaseAccessor {
 
 	private PreparedStatement infantStmt = null;
 
+	@SuppressWarnings("unchecked")
+	public int getFlightInstanceId(String airlineCode, int flightNumber,
+			String flightDate) {
+		PreparedStatement stmt = null;
+		stmt = prepareStatement(
+				stmt,
+				"SELECT id FROM FlightInstances WHERE airlineCode=? AND flightNumber=? AND flightDate="
+						+ TimezoneUtils.TO_TIMESTAMP_TZ);
+		setParameters(stmt, airlineCode, flightNumber, flightDate);
+
+		int flightInstanceId = -1;
+		try {
+			ResultSet results = stmt.executeQuery();
+			/*
+			 * If it exists there will be one result, otherwise none
+			 */
+			if (results.next()) {
+				flightInstanceId = results.getInt(1);
+			}
+
+			results.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return flightInstanceId;
+	}
+
 	public String getUtcOffset(String airportCode) {
 		PreparedStatement airportUtcStmt = null;
 		airportUtcStmt = prepareStatement(airportUtcStmt,

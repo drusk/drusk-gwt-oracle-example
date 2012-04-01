@@ -48,6 +48,7 @@ CREATE TABLE FlightInstances(
   id INT PRIMARY KEY,
   airlineCode CHAR(2),  
   flightNumber INT,
+  flightDate DATE,
   FOREIGN KEY(airlineCode, flightNumber) REFERENCES Flights(airlineCode, flightNumber)
 );
 
@@ -118,14 +119,14 @@ CREATE SEQUENCE BaggageIds
 
 CREATE TABLE Baggage(
   id INT PRIMARY KEY,
+  ownerId INT REFERENCES Passengers(id),
   weight NUMBER
 );
 
 CREATE TABLE FlightInventory(
-  passengerId INT REFERENCES Passengers(id) NOT NULL,
   flightId INT REFERENCES FlightInstances(id) NOT NULL,
   baggageId INT REFERENCES Baggage(id) NOT NULL,
-  PRIMARY KEY(passengerId, flightId, baggageId)
+  PRIMARY KEY(flightId, baggageId)
 );
 
 CREATE VIEW DelayedFlights AS

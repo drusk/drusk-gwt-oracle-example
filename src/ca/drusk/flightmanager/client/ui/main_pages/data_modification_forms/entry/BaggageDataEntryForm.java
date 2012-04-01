@@ -34,9 +34,11 @@ public class BaggageDataEntryForm extends AbstractDataModificationForm {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String weight = inputForm.getEnteredText(0);
-				dataEntryService.addBaggage(weight, new LoggingCallback(
-						"Baggage recorded"));
+				String ownerId = inputForm.getEnteredText(0);
+				String weight = inputForm.getEnteredText(1);
+				dataEntryService.addBaggage(ownerId, weight,
+						new LoggingCallback("Baggage recorded for passenger "
+								+ ownerId));
 			}
 
 		});
@@ -46,7 +48,7 @@ public class BaggageDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new String[] { "Weight (in kilograms)" };
+		return new String[] { "Owner's passenger id", "Weight (in kilograms)" };
 	}
 
 }

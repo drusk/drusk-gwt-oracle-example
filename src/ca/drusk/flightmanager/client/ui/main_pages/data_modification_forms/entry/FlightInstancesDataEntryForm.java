@@ -20,6 +20,8 @@ public class FlightInstancesDataEntryForm extends AbstractDataModificationForm {
 
 	public FlightInstancesDataEntryForm(DataEntryServiceAsync dataEntryService) {
 		this.dataEntryService = dataEntryService;
+		inputForm.addLabel(2,
+				"(should be in 'MON DD, YYYY' format, ex: 'Apr 4, 2012')");
 	}
 
 	@Override
@@ -36,10 +38,12 @@ public class FlightInstancesDataEntryForm extends AbstractDataModificationForm {
 			public void onClick(ClickEvent event) {
 				String airlineCode = inputForm.getEnteredText(0);
 				String flightNumber = inputForm.getEnteredText(1);
+				String flightDate = inputForm.getEnteredText(2);
 				dataEntryService.addFlightInstance(airlineCode, flightNumber,
-						new LoggingCallback(
+						flightDate, new LoggingCallback(
 								"Added a flight instance for flight "
-										+ airlineCode + flightNumber));
+										+ airlineCode + flightNumber + " on "
+										+ flightDate));
 			}
 
 		});
@@ -49,7 +53,7 @@ public class FlightInstancesDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new String[] { "Airline code", "Flight number" };
+		return new String[] { "Airline code", "Flight number", "Flight date" };
 	}
 
 }

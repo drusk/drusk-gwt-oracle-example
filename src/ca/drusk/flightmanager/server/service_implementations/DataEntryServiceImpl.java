@@ -76,27 +76,56 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public int addArrival(String id, String gate, String airportCode,
+	public int addArrival(String airlineCode, String flightNumber,
+			String plannedDepartureDay, String gate, String airportCode,
 			String arrivalDay, String arrivalTime, String status)
 			throws ParseException {
+
+		int flightInstanceId = getFlightInstanceId(airlineCode, flightNumber,
+				plannedDepartureDay);
 
 		String utcOffset = querier.getUtcOffset(airportCode);
 		String arrivalDate = TimeStampUtils.toTimeStampWithTimeZone(arrivalDay,
 				arrivalTime, utcOffset);
-		return inserter.addArrival(Integer.parseInt(id), gate, airportCode,
+		return inserter.addArrival(flightInstanceId, gate, airportCode,
 				arrivalDate, status);
 	}
 
 	@Override
-	public int addDeparture(String id, String gate, String airportCode,
+	public int addDeparture(String airlineCode, String flightNumber,
+			String plannedDepartureDay, String gate, String airportCode,
 			String departureDay, String departureTime, String status)
 			throws ParseException {
+
+		int flightInstanceId = getFlightInstanceId(airlineCode, flightNumber,
+				plannedDepartureDay);
 
 		String utcOffset = querier.getUtcOffset(airportCode);
 		String departureDate = TimeStampUtils.toTimeStampWithTimeZone(
 				departureDay, departureTime, utcOffset);
-		return inserter.addDeparture(Integer.parseInt(id), gate, airportCode,
+		return inserter.addDeparture(flightInstanceId, gate, airportCode,
 				departureDate, status);
+	}
+
+	/**
+	 * Retrieves the flight instance id for the specified airline code, flight
+	 * number and date. If no flight instance exists yet, it creates it in the
+	 * database first.
+	 */
+	private int getFlightInstanceId(String airlineCode, String flightNumber,
+			String plannedDepartureDay) {
+		int flightNumberInt = Integer.parseInt(flightNumber);
+		int flightInstanceId = querier.getFlightInstanceId(airlineCode,
+				flightNumberInt, plannedDepartureDay);
+		System.out.println("Flight instance id=" + flightInstanceId);
+		if (flightInstanceId < 0) {
+			inserter.addFlightInstance(airlineCode, flightNumberInt,
+					plannedDepartureDay);
+			flightInstanceId = querier.getFlightInstanceId(airlineCode,
+					flightNumberInt, plannedDepartureDay);
+			System.out.println("Flight instance id=" + flightInstanceId);
+		}
+		return flightInstanceId;
 	}
 
 	@Override
@@ -117,9 +146,10 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public int addFlightInstance(String airlineCode, String flightNumber) {
+	public int addFlightInstance(String airlineCode, String flightNumber,
+			String flightDate) {
 		return inserter.addFlightInstance(airlineCode,
-				Integer.parseInt(flightNumber));
+				Integer.parseInt(flightNumber), flightDate);
 	}
 
 	@Override
@@ -130,15 +160,15 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public int addBaggage(String weight) {
-		return inserter.addBaggage(Double.parseDouble(weight));
+	public int addBaggage(String ownerId, String weight) {
+		return inserter.addBaggage(Integer.parseInt(ownerId),
+				Double.parseDouble(weight));
 	}
 
 	@Override
-	public int addBaggageForFlight(String passengerId, String flightId,
-			String baggageId) {
-		return inserter.addBaggageForFlight(Integer.parseInt(passengerId),
-				Integer.parseInt(flightId), Integer.parseInt(baggageId));
+	public int addBaggageForFlight(String flightId, String baggageId) {
+		return inserter.addBaggageForFlight(Integer.parseInt(flightId),
+				Integer.parseInt(baggageId));
 	}
 
 	@Override

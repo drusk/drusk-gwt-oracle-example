@@ -10,6 +10,8 @@ public class Baggage implements TableFields {
 
 	public static final String ID = "id";
 
+	public static final String OWNER_ID = "ownerId";
+
 	public static final String WEIGHT = "weight";
 
 	@Override
@@ -19,7 +21,7 @@ public class Baggage implements TableFields {
 
 	@Override
 	public String[] getFields() {
-		return new String[] { ID, WEIGHT };
+		return new String[] { ID, OWNER_ID, WEIGHT };
 	}
 
 	@Override

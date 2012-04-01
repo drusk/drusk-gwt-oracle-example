@@ -145,9 +145,9 @@ public class FlightDataQuerier extends DatabaseAccessor {
 	public Relation getBaggage(String passengerId, String flightId) {
 		baggageStmt = prepareStatement(
 				baggageStmt,
-				"SELECT Baggage.id, weight FROM FlightInventory JOIN Baggage ON Baggage.id=FlightInventory.baggageId WHERE passengerId=? AND flightId=?");
+				"SELECT Baggage.id, ownerId, weight FROM FlightInventory JOIN Baggage ON Baggage.id=FlightInventory.baggageId WHERE ownerId=? AND flightId=?");
 		setParameters(baggageStmt, passengerId, flightId);
-		return executeQuery(baggageStmt, new String[] { Baggage.ID,
+		return executeQuery(baggageStmt, new String[] { Baggage.ID, "ownerId",
 				Baggage.WEIGHT });
 	}
 
