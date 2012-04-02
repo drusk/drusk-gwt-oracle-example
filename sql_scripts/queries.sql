@@ -12,16 +12,10 @@ FROM Flights
 WHERE airlineCode=p1;
 
 -- 4. b) Given a place, find all the flights from and to that place.
--- Input: p1->the airport code of the place to find flights for
+-- Input: p1->the airport code of the place to find flights for (city names are not unique)
 SELECT airlineCode, flightNumber, source, destination 
 FROM Flights 
 WHERE source=p1 OR destination=p1;
-
--- NOTE: if you want to find flights for a city name like Toronto the query changes a bit.
--- This was not made the default since city names are not unique, but airport codes are.
--- Input: p1->city name of the place to find flights for
-SELECT airlineCode, flightNumber, source, destination
-FROM Flights JOIN Airports 
 
 -- 4. c) Given a time of the day find all the arrivals and departures around that time
 --         and print their status.
@@ -81,19 +75,28 @@ WHERE R1.destination=R2.source AND
 -- 5. b) Find all the passengers in transit.
 SELECT Passengers.id, Passengers.firstName, Passengers.lastName 
 FROM (
-  SELECT passengerId FROM 
-    FlightAttendance JOIN 
-      (SELECT id FROM FlightInstances JOIN Departures USING(id) 
-      LEFT OUTER JOIN Arrivals USING(id) 
-      WHERE departureDate IS NOT NULL AND arrivalDate IS NULL) R 
+  SELECT passengerId 
+  FROM FlightAttendance JOIN 
+    (SELECT id 
+     FROM FlightInstances JOIN Departures USING(id) 
+       LEFT OUTER JOIN Arrivals USING(id) 
+     WHERE departureDate IS NOT NULL AND arrivalDate IS NULL) R 
     ON FlightAttendance.flightId=R.id) S 
-    JOIN Passengers ON Passengers.id=S.passengerId;
+  JOIN Passengers ON Passengers.id=S.passengerId;
   
 -- 5. c) List the top 3 passengers with respect to the number of flights they 
 --         have taken.
 -- Input: p1->the number of passengers to show, i.e. top n.  Can specify 3 to 
 --              get the value requested in the problem.  
-    
+SELECT * 
+FROM (
+  SELECT passengerId, firstName, lastName, numberOfFlights 
+  FROM 
+    (SELECT passengerId, COUNT(flightId) AS numberOfFlights 
+       FROM FlightAttendance GROUP BY passengerId) R 
+    JOIN Passengers ON R.passengerId=Passengers.id 
+  ORDER BY numberOfFlights DESC) 
+WHERE ROWNUM <= p1;  
     
 -- 5. d) For each (from, to) route, find the airline with the most delays.
 CREATE VIEW DelayedFlights AS
