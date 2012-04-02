@@ -50,9 +50,9 @@ public class FlightDataQuerier extends DatabaseAccessor {
 	public Relation getIncomingAndOutgoingFlights(String airportCode) {
 		inOutFlightsStmt = prepareStatement(
 				inOutFlightsStmt,
-				"SELECT flightNumber, source, destination FROM Flights WHERE source=? OR destination=?");
+				"SELECT airlineCode, flightNumber, source, destination FROM Flights WHERE source=? OR destination=?");
 		setParameters(inOutFlightsStmt, airportCode, airportCode);
-		return executeQuery(inOutFlightsStmt, new String[] {
+		return executeQuery(inOutFlightsStmt, new String[] { "airlineCode",
 				Flights.FLIGHT_NUMBER, Flights.SOURCE, Flights.DESTINATION });
 	}
 
@@ -85,7 +85,7 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				+ "TO_TIMESTAMP_TZ('"
 				+ targetTime
 				+ "', 'MON DD, YYYY HH24:MI TZH:TZM')"
-				+ "BETWEEN (plannedDepartureTime - interval '"
+				+ " BETWEEN (plannedDepartureTime - interval '"
 				+ bufferMinutes
 				+ "' minute) AND "
 				+ "(plannedDepartureTime + interval '"
@@ -160,6 +160,7 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				+ airportCode
 				+ "' AND R2.plannedDepartureTime>R1.plannedArrivalTime AND R2.plannedDepartureTime<(R1.plannedArrivalTime + INTERVAL '"
 				+ maxWaitTimeMinutes + "' MINUTE)";
+		System.out.println(sql);
 		return executeQuery(sql);
 	}
 

@@ -11,5 +11,5 @@
 @data_insertion/passengers.sql;
 @data_insertion/passengerclasses.sql;
 @data_insertion/baggage.sql;
--- @data_insertion/flight_attendance.sql;
--- @data_insertion/flight_inventory.sql;
+@data_insertion/flightattendance.sql;
+@data_insertion/flightinventory.sql;
