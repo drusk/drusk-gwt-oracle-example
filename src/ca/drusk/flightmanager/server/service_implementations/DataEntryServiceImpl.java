@@ -77,12 +77,14 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public int addArrival(String airlineCode, String flightNumber,
-			String plannedDepartureDay, String gate, String airportCode,
-			String arrivalDay, String arrivalTime, String status)
-			throws ParseException {
+			String plannedDepartureDay, String gate, String arrivalDay,
+			String arrivalTime, String status) throws ParseException {
 
 		int flightInstanceId = getFlightInstanceId(airlineCode, flightNumber,
 				plannedDepartureDay);
+
+		String airportCode = querier.getArrivalAirport(airlineCode,
+				flightNumber);
 
 		String utcOffset = querier.getUtcOffset(airportCode);
 		String arrivalDate = TimeStampUtils.toTimeStampWithTimeZone(arrivalDay,
@@ -93,12 +95,14 @@ public class DataEntryServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public int addDeparture(String airlineCode, String flightNumber,
-			String plannedDepartureDay, String gate, String airportCode,
-			String departureDay, String departureTime, String status)
-			throws ParseException {
+			String plannedDepartureDay, String gate, String departureDay,
+			String departureTime, String status) throws ParseException {
 
 		int flightInstanceId = getFlightInstanceId(airlineCode, flightNumber,
 				plannedDepartureDay);
+
+		String airportCode = querier.getDepartureAirport(airlineCode,
+				flightNumber);
 
 		String utcOffset = querier.getUtcOffset(airportCode);
 		String departureDate = TimeStampUtils.toTimeStampWithTimeZone(

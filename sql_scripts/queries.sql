@@ -20,12 +20,16 @@ WHERE source=p1 OR destination=p1;
 -- 4. c) Given a time of the day find all the arrivals and departures around that time
 --         and print their status.
 
--- Inputs: p1->the airport code of the airport whose arrivals and departures will be searched
---         p2->the time of day to search around.  It gets specified in HH24:MI format, and 
---               a default day is used since Oracle does not have the TIME SQL type separate from DATE.
---               The time zone offset information is looked up from the Airports table since we have the airport code.
---         p3->the buffer time (in minutes) around the specified time in which results may be found.
---               This is needed because the specification was just 'around that time' which is not precise enough.
+-- Inputs: p1->the airport code of the airport whose arrivals and departures 
+--               will be searched
+--         p2->the time of day to search around.  It gets specified in HH24:MI 
+--               format, and a default day is used since Oracle does not have 
+--               the TIME SQL type separate from DATE.  The time zone offset 
+--               information is looked up from the Airports table since we 
+--               have the airport code.
+--         p3->the buffer time (in minutes) around the specified time in which
+--               results may be found.  This is needed because the specification 
+--               was just 'around that time' which is not precise enough.
 
 -- Done in two queries (one for arrivals, one for departures)
 -- Query for departures:
@@ -43,8 +47,8 @@ WHERE airportCode=p1 AND
   (plannedArrivalTime - interval p3 minute) AND (plannedArrivalTime + interval p3 minute);
   
 
--- 4. d) Given a departure or arrival find all the passengers recorded for it.  Print all the information
---         about these passengers.
+-- 4. d) Given a departure or arrival find all the passengers recorded for it.
+--       Print all the information about these passengers.
 -- Input: p1->the flight instance id for the departure or arrival of interest.
 SELECT Passengers.id, travelClass, firstName, lastName, citizenship, placeOfBirth, 
   TO_CHAR(dateOfBirth, 'MON DD, YYYY') AS dateOfBirth, dietaryRestrictions, 
@@ -62,15 +66,15 @@ WHERE ownerId=p1 AND flightId=p2;
 -- 5. a) List all the connecting flights, i.e. pairs (f1, f2) of incoming-outgoing
 --        flights such that the scheduled arrival time of f1 is not more than 
 --        3 hours earlier than the scheduled departure time of f2.
--- Inputs: p1->
---         p2->
+-- Inputs: p1->airport code at which the connection occurs
+--         p2->max wait time in minute between f1 arriving and f2 departing
 SELECT R1.airlineCode AS f1_airlineCode, R1.flightNumber AS f1_flightNumber, 
   R2.airlineCode AS f2_airlineCode, R2.flightNumber AS f2_flightNumber 
 FROM Flights R1, Flights R2 
 WHERE R1.destination=R2.source AND 
-  R1.destination='YYJ' AND 
+  R1.destination=p1 AND 
   R2.plannedDepartureTime>R1.plannedArrivalTime 
-  AND R2.plannedDepartureTime<(R1.plannedArrivalTime + INTERVAL '180' MINUTE);
+  AND R2.plannedDepartureTime<(R1.plannedArrivalTime + INTERVAL p2 MINUTE);
 
 -- 5. b) Find all the passengers in transit.
 SELECT Passengers.id, Passengers.firstName, Passengers.lastName 

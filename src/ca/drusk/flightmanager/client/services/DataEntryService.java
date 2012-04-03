@@ -29,14 +29,12 @@ public interface DataEntryService extends RemoteService {
 	int addGate(String gate, String airportCode);
 
 	int addArrival(String airlineCode, String flightNumber,
-			String plannedDepartureDay, String gate, String airportCode,
-			String arrivalDay, String arrivalTime, String status)
-			throws Exception;
+			String plannedDepartureDay, String gate, String arrivalDay,
+			String arrivalTime, String status) throws Exception;
 
 	int addDeparture(String airlineCode, String flightNumber,
-			String plannedDepartureDay, String gate, String airportCode,
-			String departureDay, String departureTime, String status)
-			throws Exception;
+			String plannedDepartureDay, String gate, String departureDay,
+			String departureTime, String status) throws Exception;
 
 	int addPassenger(String firstName, String lastName, String citizenship,
 			String placeOfBirth, String dateOfBirth,

@@ -29,14 +29,12 @@ public interface DataEntryServiceAsync {
 			AsyncCallback<Integer> callback);
 
 	void addArrival(String airlineCode, String flightNumber,
-			String plannedDepartureDate, String gate, String airportCode,
-			String arrivalDay, String arrivalTime, String status,
-			AsyncCallback<Integer> callback);
+			String plannedDepartureDate, String gate, String arrivalDay,
+			String arrivalTime, String status, AsyncCallback<Integer> callback);
 
 	void addDeparture(String airlineCode, String flightNumber,
-			String plannedDepartureDay, String gate, String airportCode,
-			String departureDay, String departureTime, String status,
-			AsyncCallback<Integer> callback);
+			String plannedDepartureDay, String gate, String departureDay,
+			String departureTime, String status, AsyncCallback<Integer> callback);
 
 	void addPassenger(String firstName, String lastName, String citizenship,
 			String placeOfBirth, String dateOfBirth,

@@ -22,12 +22,12 @@ public class ArrivalsDataEntryForm extends AbstractDataModificationForm {
 		this.dataEntryService = dataEntryService;
 		inputForm.addLabel(2,
 				"(should be in 'MON DD, YYYY' format, ex: 'Apr 4, 2012')");
-		inputForm.addLabel(5,
+		inputForm.addLabel(4,
 				"(should be in 'MON DD, YYYY' format, ex: 'Apr 4, 2012')");
-		inputForm.addLabel(6,
+		inputForm.addLabel(5,
 				"(should be in 24 hour clock, 'HH:MI' format.  Ex: 14:20");
 		inputForm
-				.addLabel(7,
+				.addLabel(6,
 						"(should be in the form 'arrived at xx:xx' or 'delayed to xx:xx')");
 	}
 
@@ -47,14 +47,13 @@ public class ArrivalsDataEntryForm extends AbstractDataModificationForm {
 				String flightNumber = inputForm.getEnteredText(1);
 				String plannedDepartureDate = inputForm.getEnteredText(2);
 				String gate = inputForm.getEnteredText(3);
-				String airportCode = inputForm.getEnteredText(4);
-				String arrivalDay = inputForm.getEnteredText(5);
-				String arrivalTime = inputForm.getEnteredText(6);
-				String status = inputForm.getEnteredText(7);
+				String arrivalDay = inputForm.getEnteredText(4);
+				String arrivalTime = inputForm.getEnteredText(5);
+				String status = inputForm.getEnteredText(6);
 
 				dataEntryService.addArrival(airlineCode, flightNumber,
-						plannedDepartureDate, gate, airportCode, arrivalDay,
-						arrivalTime, status, new LoggingCallback(
+						plannedDepartureDate, gate, arrivalDay, arrivalTime,
+						status, new LoggingCallback(
 								"Added arrival information for flight "
 										+ airlineCode + flightNumber + " on "
 										+ plannedDepartureDate));
@@ -68,8 +67,8 @@ public class ArrivalsDataEntryForm extends AbstractDataModificationForm {
 	@Override
 	protected String[] getInputFieldLabels() {
 		return new String[] { "Airline code", "Flight number",
-				"Planned departure date", "Gate", "Airport",
-				"Actual arrival day", "Actual arrival time", "Status" };
+				"Planned departure date", "Gate", "Actual arrival day",
+				"Actual arrival time", "Status" };
 	}
 
 }

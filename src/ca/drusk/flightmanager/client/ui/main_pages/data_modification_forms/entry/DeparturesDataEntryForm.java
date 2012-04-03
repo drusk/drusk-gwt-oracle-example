@@ -22,12 +22,12 @@ public class DeparturesDataEntryForm extends AbstractDataModificationForm {
 		this.dataEntryService = dataEntryService;
 		inputForm.addLabel(2,
 				"(should be in 'MON DD, YYYY' format, ex: 'Apr 4, 2012')");
-		inputForm.addLabel(5,
+		inputForm.addLabel(4,
 				"(should be in 'MON DD, YYYY' format, ex: 'Apr 4, 2012')");
-		inputForm.addLabel(6,
+		inputForm.addLabel(5,
 				"(should be in 24 hour clock, 'HH:MI' format.  Ex: 14:20");
 		inputForm
-				.addLabel(7,
+				.addLabel(6,
 						"(should be in the form 'departed at xx:xx' or 'delayed to xx:xx')");
 	}
 
@@ -47,14 +47,13 @@ public class DeparturesDataEntryForm extends AbstractDataModificationForm {
 				String flightNumber = inputForm.getEnteredText(1);
 				String plannedDepartureDay = inputForm.getEnteredText(2);
 				String gate = inputForm.getEnteredText(3);
-				String airportCode = inputForm.getEnteredText(4);
-				String departureDay = inputForm.getEnteredText(5);
-				String departureTime = inputForm.getEnteredText(6);
-				String status = inputForm.getEnteredText(7);
+				String departureDay = inputForm.getEnteredText(4);
+				String departureTime = inputForm.getEnteredText(5);
+				String status = inputForm.getEnteredText(6);
 
 				dataEntryService.addDeparture(airlineCode, flightNumber,
-						plannedDepartureDay, gate, airportCode, departureDay,
-						departureTime, status, new LoggingCallback(
+						plannedDepartureDay, gate, departureDay, departureTime,
+						status, new LoggingCallback(
 								"Added departure information for flight  "
 										+ airlineCode + flightNumber + " on "
 										+ plannedDepartureDay));
@@ -68,8 +67,8 @@ public class DeparturesDataEntryForm extends AbstractDataModificationForm {
 	@Override
 	protected String[] getInputFieldLabels() {
 		return new String[] { "Airline code", "Flight number",
-				"Planned departure day", "Gate", "Airport",
-				"Actual departure day", "Actual departure time", "Status" };
+				"Planned departure day", "Gate", "Actual departure day",
+				"Actual departure time", "Status" };
 	}
 
 }

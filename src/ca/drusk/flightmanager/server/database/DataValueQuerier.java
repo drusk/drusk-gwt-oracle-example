@@ -46,6 +46,50 @@ public class DataValueQuerier extends DatabaseAccessor {
 		return flightInstanceId;
 	}
 
+	public String getDepartureAirport(String airlineCode, String flightNumber) {
+		PreparedStatement stmt = null;
+		stmt = prepareStatement(stmt,
+				"SELECT source FROM Flights WHERE airlineCode=? AND flightNumber=?");
+		setParameters(stmt, airlineCode, flightNumber);
+
+		String departureAirport = null;
+		try {
+			ResultSet results = stmt.executeQuery();
+			/*
+			 * Only one value will be returned.
+			 */
+			results.next();
+			departureAirport = results.getString(1);
+
+			results.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return departureAirport;
+	}
+
+	public String getArrivalAirport(String airlineCode, String flightNumber) {
+		PreparedStatement stmt = null;
+		stmt = prepareStatement(stmt,
+				"SELECT destination FROM Flights WHERE airlineCode=? AND flightNumber=?");
+		setParameters(stmt, airlineCode, flightNumber);
+
+		String arrivalAirport = null;
+		try {
+			ResultSet results = stmt.executeQuery();
+			/*
+			 * Only one value will be returned.
+			 */
+			results.next();
+			arrivalAirport = results.getString(1);
+
+			results.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return arrivalAirport;
+	}
+
 	public String getUtcOffset(String airportCode) {
 		PreparedStatement airportUtcStmt = null;
 		airportUtcStmt = prepareStatement(airportUtcStmt,
