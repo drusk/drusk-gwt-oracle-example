@@ -3,18 +3,18 @@ package ca.drusk.flightmanager.server.database;
 import java.sql.PreparedStatement;
 
 import ca.drusk.flightmanager.client.data.Relation;
-import ca.drusk.flightmanager.client.table_data.Airlines;
-import ca.drusk.flightmanager.client.table_data.Airports;
-import ca.drusk.flightmanager.client.table_data.AllFlights;
-import ca.drusk.flightmanager.client.table_data.Arrivals;
-import ca.drusk.flightmanager.client.table_data.Baggage;
-import ca.drusk.flightmanager.client.table_data.Citizenships;
-import ca.drusk.flightmanager.client.table_data.Departures;
-import ca.drusk.flightmanager.client.table_data.FlightAttendance;
-import ca.drusk.flightmanager.client.table_data.FlightInventory;
-import ca.drusk.flightmanager.client.table_data.Gates;
-import ca.drusk.flightmanager.client.table_data.Passengers;
-import ca.drusk.flightmanager.client.table_data.PlaneModels;
+import ca.drusk.flightmanager.client.table_data.AirlinesFields;
+import ca.drusk.flightmanager.client.table_data.AirportsFields;
+import ca.drusk.flightmanager.client.table_data.AllFlightsFields;
+import ca.drusk.flightmanager.client.table_data.ArrivalsFields;
+import ca.drusk.flightmanager.client.table_data.BaggageFields;
+import ca.drusk.flightmanager.client.table_data.CitizenshipsFields;
+import ca.drusk.flightmanager.client.table_data.DeparturesFields;
+import ca.drusk.flightmanager.client.table_data.FlightAttendanceFields;
+import ca.drusk.flightmanager.client.table_data.FlightInventoryFields;
+import ca.drusk.flightmanager.client.table_data.GatesFields;
+import ca.drusk.flightmanager.client.table_data.PassengersFields;
+import ca.drusk.flightmanager.client.table_data.PlaneModelsFields;
 
 /**
  * Returns data from the database after running queries. These queries are for
@@ -58,57 +58,57 @@ public class FullRelationDataQuerier extends DatabaseAccessor {
 	public Relation getAirlineFullRelation() {
 		airlineStmt = prepareStatement(airlineStmt,
 				"SELECT name, code, website FROM Airlines");
-		return executeQuery(airlineStmt, new Airlines().getFields());
+		return executeQuery(airlineStmt, new AirlinesFields().getFields());
 	}
 
 	public Relation getCitizenshipsFullRelation() {
 		citizenshipStmt = prepareStatement(citizenshipStmt,
 				"SELECT citizenship FROM Citizenships");
-		return executeQuery(citizenshipStmt, new Citizenships().getFields());
+		return executeQuery(citizenshipStmt, new CitizenshipsFields().getFields());
 	}
 
 	public Relation getPlaneModelsFullRelation() {
 		planeModelStmt = prepareStatement(planeModelStmt,
 				"SELECT code, name, capacity FROM PlaneModels");
-		return executeQuery(planeModelStmt, new PlaneModels().getFields());
+		return executeQuery(planeModelStmt, new PlaneModelsFields().getFields());
 	}
 
 	public Relation getAirportsFullRelation() {
 		airportsStmt = prepareStatement(airportsStmt,
 				"SELECT airportCode, city, country, utcOffset FROM Airports");
-		return executeQuery(airportsStmt, new Airports().getFields());
+		return executeQuery(airportsStmt, new AirportsFields().getFields());
 	}
 
 	public Relation getFlightsFullRelation() {
 		flightsStmt = prepareStatement(
 				flightsStmt,
 				"SELECT airlineCode, flightNumber, source, destination, planeCode, TO_CHAR(plannedDepartureTime, 'HH24:MI TZH:TZM') AS plannedDepartureTime, TO_CHAR(plannedArrivalTime, 'HH24:MI TZH:TZM') AS plannedArrivalTime FROM Flights");
-		return executeQuery(flightsStmt, new AllFlights().getFields());
+		return executeQuery(flightsStmt, new AllFlightsFields().getFields());
 	}
 
 	public Relation getGatesFullRelation() {
 		gateStmt = prepareStatement(gateStmt,
 				"SELECT gate, airportCode FROM Gates");
-		return executeQuery(gateStmt, new Gates().getFields());
+		return executeQuery(gateStmt, new GatesFields().getFields());
 	}
 
 	public Relation getArrivalsFullRelation() {
 		arrivalStmt = prepareStatement(arrivalStmt,
 				"SELECT id, gate, airportCode, arrivalDate, status FROM Arrivals");
-		return executeQuery(arrivalStmt, new Arrivals().getFields());
+		return executeQuery(arrivalStmt, new ArrivalsFields().getFields());
 	}
 
 	public Relation getDepartureFullRelation() {
 		departureStmt = prepareStatement(departureStmt,
 				"SELECT id, gate, airportCode, departureDate, status FROM Departures");
-		return executeQuery(departureStmt, new Departures().getFields());
+		return executeQuery(departureStmt, new DeparturesFields().getFields());
 	}
 
 	public Relation getPassengersFullRelation() {
 		passengerStmt = prepareStatement(
 				passengerStmt,
 				"SELECT id, firstName, lastName, citizenship, placeOfBirth, TO_CHAR(dateOfBirth, 'MON DD, YYYY') AS dateOfBirth, dietaryRestrictions, medicalConsiderations, isAirlineEmployee, isDoctor, isInfant FROM Passengers");
-		return executeQuery(passengerStmt, new Passengers().getFields());
+		return executeQuery(passengerStmt, new PassengersFields().getFields());
 	}
 
 	public Relation getFlightInstances() {
@@ -122,20 +122,20 @@ public class FullRelationDataQuerier extends DatabaseAccessor {
 		flightAttendanceStmt = prepareStatement(flightAttendanceStmt,
 				"SELECT passengerId, flightId, travelClass FROM FlightAttendance");
 		return executeQuery(flightAttendanceStmt,
-				new FlightAttendance().getFields());
+				new FlightAttendanceFields().getFields());
 	}
 
 	public Relation getBaggageFullRelation() {
 		baggageStmt = prepareStatement(baggageStmt,
 				"SELECT id, ownerId, weight FROM Baggage");
-		return executeQuery(baggageStmt, new Baggage().getFields());
+		return executeQuery(baggageStmt, new BaggageFields().getFields());
 	}
 
 	public Relation getFlightInventoryFullRelation() {
 		flightInventoryStmt = prepareStatement(flightInventoryStmt,
 				"SELECT passengerId, flightId, baggageId FROM FlightInventory");
 		return executeQuery(flightInventoryStmt,
-				new FlightInventory().getFields());
+				new FlightInventoryFields().getFields());
 	}
 
 	public Relation getInfantsFullRelation() {

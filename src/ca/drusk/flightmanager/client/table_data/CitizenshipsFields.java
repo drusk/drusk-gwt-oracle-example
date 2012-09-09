@@ -1,27 +1,23 @@
 package ca.drusk.flightmanager.client.table_data;
 
 /**
- * Constants for the fields in the PlaneModels table
+ * Constants for the fields in the Citizenships table.
  * 
  * @author drusk
  * 
  */
-public final class PlaneModels implements TableFields {
+public final class CitizenshipsFields implements TableFields {
 
-	public static final String CODE = "Code";
-
-	public static final String NAME = "Name";
-
-	public static final String CAPACITY = "Capacity";
+	public static final String CITIZENSHIP = "Citizenship";
 
 	@Override
 	public String[] getPrimaryKeyAttributes() {
-		return new String[] { CODE };
+		return new String[] { CITIZENSHIP };
 	}
 
 	@Override
 	public String[] getFields() {
-		return new String[] { CODE, NAME, CAPACITY };
+		return new String[] { CITIZENSHIP };
 	}
 
 	@Override

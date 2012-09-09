@@ -6,7 +6,7 @@ package ca.drusk.flightmanager.client.table_data;
  * @author drusk
  * 
  */
-public class Arrivals implements TableFields {
+public class ArrivalsFields implements TableFields {
 
 	public static final String ARRIVAL_DATE = "arrivalDate";
 
@@ -18,19 +18,19 @@ public class Arrivals implements TableFields {
 
 	@Override
 	public String[] getPrimaryKeyAttributes() {
-		return new String[] { FlightInstances.ID };
+		return new String[] { FlightInstancesFields.ID };
 	}
 
 	@Override
 	public String[] getFields() {
-		return new String[] { FlightInstances.ID, Gates.GATE,
-				Airports.AIRPORT_CODE, ARRIVAL_DATE, STATUS };
+		return new String[] { FlightInstancesFields.ID, GatesFields.GATE,
+				AirportsFields.AIRPORT_CODE, ARRIVAL_DATE, STATUS };
 	}
 
 	@Override
 	public String[] getEntryFields() {
-		return new String[] { FlightInstances.ID, Gates.GATE,
-				Airports.AIRPORT_CODE, ARRIVAL_DAY, ARRIVAL_TIME, STATUS };
+		return new String[] { FlightInstancesFields.ID, GatesFields.GATE,
+				AirportsFields.AIRPORT_CODE, ARRIVAL_DAY, ARRIVAL_TIME, STATUS };
 	}
 
 	@Override

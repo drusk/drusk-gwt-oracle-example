@@ -40,6 +40,10 @@ public final class TableNames {
 
 	public static final String PASSENGER_CLASS = "Passenger Class";
 
+	/**
+	 * 
+	 * @return tables for which the UI allows data deletions
+	 */
 	public static final String[] getDeletionTables() {
 		return new String[] { AIRLINES, AIRPORTS, ARRIVALS, BAGGAGE,
 				CITIZENSHIPS, DEPARTURES, FLIGHTS, FLIGHT_ATTENDANCE,
@@ -47,6 +51,10 @@ public final class TableNames {
 				PASSENGER_CLASS, PLANE_MODELS };
 	}
 
+	/**
+	 * 
+	 * @return tables for which the UI allows data entry
+	 */
 	public static final String[] getEntryTables() {
 		return new String[] { AIRLINES, AIRPORTS, ARRIVALS, BAGGAGE,
 				CITIZENSHIPS, DEPARTURES, FLIGHTS, FLIGHT_ATTENDANCE,
@@ -54,6 +62,10 @@ public final class TableNames {
 				PLANE_MODELS };
 	}
 
+	/**
+	 * 
+	 * @return tables for which the UI allows data viewing
+	 */
 	public static final String[] getViewingTables() {
 		return new String[] { AIRLINES, AIRPORTS, ARRIVALS, BAGGAGE,
 				CITIZENSHIPS, DEPARTURES, FLIGHTS, FLIGHT_ATTENDANCE,

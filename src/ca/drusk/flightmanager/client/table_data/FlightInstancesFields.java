@@ -1,18 +1,14 @@
 package ca.drusk.flightmanager.client.table_data;
 
 /**
- * Constants for the fields in the Airports table.
+ * Constants for the fields in the FlightInstances table.
  * 
  * @author drusk
  * 
  */
-public class Baggage implements TableFields {
+public class FlightInstancesFields implements TableFields {
 
 	public static final String ID = "id";
-
-	public static final String OWNER_ID = "ownerId";
-
-	public static final String WEIGHT = "weight";
 
 	@Override
 	public String[] getPrimaryKeyAttributes() {
@@ -21,12 +17,12 @@ public class Baggage implements TableFields {
 
 	@Override
 	public String[] getFields() {
-		return new String[] { ID, OWNER_ID, WEIGHT };
+		return new String[] { ID, "airlineCode", FlightsFields.FLIGHT_NUMBER };
 	}
 
 	@Override
 	public String[] getEntryFields() {
-		return new String[] { WEIGHT };
+		return new String[] { FlightsFields.FLIGHT_NUMBER };
 	}
 
 	@Override

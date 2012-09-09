@@ -1,24 +1,23 @@
 package ca.drusk.flightmanager.client.table_data;
 
 /**
- * Constants for the fields in the Gates table.
+ * Constants for the fields in the IncomingFlights table.
  * 
  * @author drusk
  * 
  */
-public class Gates implements TableFields {
+public class IncomingFlightsFields implements TableFields {
 
-	public static final String GATE = "Gate";
+	public static final String PLANNED_ARRIVAL_TIME = "plannedArrivalTime";
 
 	@Override
 	public String[] getPrimaryKeyAttributes() {
-		// weak entity set
-		return new String[] { GATE, Airports.AIRPORT_CODE };
+		return new String[] { FlightsFields.FLIGHT_NUMBER };
 	}
 
 	@Override
 	public String[] getFields() {
-		return new String[] { GATE, Airports.AIRPORT_CODE };
+		return new String[] { FlightsFields.FLIGHT_NUMBER, PLANNED_ARRIVAL_TIME };
 	}
 
 	@Override

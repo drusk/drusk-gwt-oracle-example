@@ -3,11 +3,11 @@ package ca.drusk.flightmanager.server.database;
 import java.sql.PreparedStatement;
 
 import ca.drusk.flightmanager.client.data.Relation;
-import ca.drusk.flightmanager.client.table_data.Baggage;
-import ca.drusk.flightmanager.client.table_data.Citizenships;
-import ca.drusk.flightmanager.client.table_data.FlightAttendance;
-import ca.drusk.flightmanager.client.table_data.Flights;
-import ca.drusk.flightmanager.client.table_data.Passengers;
+import ca.drusk.flightmanager.client.table_data.BaggageFields;
+import ca.drusk.flightmanager.client.table_data.CitizenshipsFields;
+import ca.drusk.flightmanager.client.table_data.FlightAttendanceFields;
+import ca.drusk.flightmanager.client.table_data.FlightsFields;
+import ca.drusk.flightmanager.client.table_data.PassengersFields;
 
 /**
  * Queries the database for specialized information. These queries return
@@ -38,7 +38,7 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				"SELECT flightNumber, source, destination FROM Flights WHERE airlineCode=?");
 		setParameters(operatedFlightsStmt, airlineCode);
 		return executeQuery(operatedFlightsStmt, new String[] {
-				Flights.FLIGHT_NUMBER, Flights.SOURCE, Flights.DESTINATION });
+				FlightsFields.FLIGHT_NUMBER, FlightsFields.SOURCE, FlightsFields.DESTINATION });
 	}
 
 	public Relation getIncomingAndOutgoingFlights(String airportCode) {
@@ -47,7 +47,7 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				"SELECT airlineCode, flightNumber, source, destination FROM Flights WHERE source=? OR destination=?");
 		setParameters(inOutFlightsStmt, airportCode, airportCode);
 		return executeQuery(inOutFlightsStmt, new String[] { "airlineCode",
-				Flights.FLIGHT_NUMBER, Flights.SOURCE, Flights.DESTINATION });
+				FlightsFields.FLIGHT_NUMBER, FlightsFields.SOURCE, FlightsFields.DESTINATION });
 	}
 
 	public Relation getDeparturesAround(String airportCode, String targetTime,
@@ -97,13 +97,13 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				"SELECT Passengers.id, travelClass, firstName, lastName, citizenship, placeOfBirth, TO_CHAR(dateOfBirth, 'MON DD, YYYY') AS dateOfBirth, dietaryRestrictions, medicalConsiderations, isAirlineEmployee, isDoctor, isInfant FROM FlightAttendance JOIN Passengers ON FlightAttendance.passengerId=Passengers.id WHERE flightId=?");
 		setParameters(passengersForFlightStmt, flightInstanceId);
 		return executeQuery(passengersForFlightStmt, new String[] {
-				Passengers.ID, FlightAttendance.TRAVEL_CLASS,
-				Passengers.FIRST_NAME, Passengers.LAST_NAME,
-				Citizenships.CITIZENSHIP, Passengers.PLACE_OF_BIRTH,
-				Passengers.DATE_OF_BIRTH, Passengers.DIETARY_RESTRICTIONS,
-				Passengers.MEDICAL_CONSIDERATIONS,
-				Passengers.IS_AIRLINE_EMPLOYEE, Passengers.IS_DOCTOR,
-				Passengers.IS_INFANT });
+				PassengersFields.ID, FlightAttendanceFields.TRAVEL_CLASS,
+				PassengersFields.FIRST_NAME, PassengersFields.LAST_NAME,
+				CitizenshipsFields.CITIZENSHIP, PassengersFields.PLACE_OF_BIRTH,
+				PassengersFields.DATE_OF_BIRTH, PassengersFields.DIETARY_RESTRICTIONS,
+				PassengersFields.MEDICAL_CONSIDERATIONS,
+				PassengersFields.IS_AIRLINE_EMPLOYEE, PassengersFields.IS_DOCTOR,
+				PassengersFields.IS_INFANT });
 	}
 
 	public Relation getBaggage(String passengerId, String flightId) {
@@ -111,8 +111,8 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				baggageStmt,
 				"SELECT Baggage.id, ownerId, weight FROM FlightInventory JOIN Baggage ON Baggage.id=FlightInventory.baggageId WHERE ownerId=? AND flightId=?");
 		setParameters(baggageStmt, passengerId, flightId);
-		return executeQuery(baggageStmt, new String[] { Baggage.ID, "ownerId",
-				Baggage.WEIGHT });
+		return executeQuery(baggageStmt, new String[] { BaggageFields.ID, "ownerId",
+				BaggageFields.WEIGHT });
 	}
 
 	public Relation getConnectingFlights(String airportCode,
@@ -134,23 +134,23 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				"SELECT * FROM (SELECT passengerId, firstName, lastName, numberOfFlights FROM (SELECT passengerId, COUNT(flightId) AS numberOfFlights FROM FlightAttendance GROUP BY passengerId) R JOIN Passengers ON R.passengerId=Passengers.id ORDER BY numberOfFlights DESC) WHERE ROWNUM <= ?");
 		setParameters(frequentPassengerStmt, topN);
 		return executeQuery(frequentPassengerStmt,
-				FlightAttendance.PASSENGER_ID, Passengers.FIRST_NAME,
-				Passengers.LAST_NAME, "numberOfFlights");
+				FlightAttendanceFields.PASSENGER_ID, PassengersFields.FIRST_NAME,
+				PassengersFields.LAST_NAME, "numberOfFlights");
 	}
 
 	public Relation getPassengersInTransit() {
 		passengersInTransitStmt = prepareStatement(
 				passengersInTransitStmt,
 				"SELECT Passengers.id, Passengers.firstName, Passengers.lastName FROM (SELECT passengerId FROM FlightAttendance JOIN (SELECT id FROM FlightInstances JOIN Departures USING(id) LEFT OUTER JOIN Arrivals USING(id) WHERE departureDate IS NOT NULL AND arrivalDate IS NULL) R ON FlightAttendance.flightId=R.id) S JOIN Passengers ON Passengers.id=S.passengerId");
-		return executeQuery(passengersInTransitStmt, Passengers.ID,
-				Passengers.FIRST_NAME, Passengers.LAST_NAME);
+		return executeQuery(passengersInTransitStmt, PassengersFields.ID,
+				PassengersFields.FIRST_NAME, PassengersFields.LAST_NAME);
 	}
 
 	public Relation getMostDelayedAirlines() {
 		delaysStmt = prepareStatement(
 				delaysStmt,
 				"SELECT source, destination, airlineCode, numDelays FROM DelayedFlights R WHERE numDelays=(SELECT MAX(numDelays) FROM DelayedFlights S WHERE R.source=S.source AND R.destination=S.destination)");
-		return executeQuery(delaysStmt, Flights.SOURCE, Flights.DESTINATION,
-				Flights.AIRLINE_CODE, "numDelays");
+		return executeQuery(delaysStmt, FlightsFields.SOURCE, FlightsFields.DESTINATION,
+				FlightsFields.AIRLINE_CODE, "numDelays");
 	}
 }

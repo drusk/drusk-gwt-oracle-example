@@ -1,25 +1,23 @@
 package ca.drusk.flightmanager.client.table_data;
 
 /**
- * Constants for the fields in the FlightInventory table.
+ * Constants for the fields in the OutgoingFlights table.
  * 
  * @author drusk
  * 
  */
-public class FlightInventory implements TableFields {
+public class OutgoingFlightsFields implements TableFields {
 
-	public static final String FLIGHT_ID = "flightId";
-
-	public static final String BAGGAGE_ID = "baggageId";
+	public static final String PLANNED_DEPARTURE_TIME = "plannedDepartureTime";
 
 	@Override
 	public String[] getPrimaryKeyAttributes() {
-		return new String[] { FLIGHT_ID, BAGGAGE_ID };
+		return new String[] { FlightsFields.FLIGHT_NUMBER };
 	}
 
 	@Override
 	public String[] getFields() {
-		return new String[] { FLIGHT_ID, BAGGAGE_ID };
+		return new String[] { FlightsFields.FLIGHT_NUMBER, PLANNED_DEPARTURE_TIME };
 	}
 
 	@Override

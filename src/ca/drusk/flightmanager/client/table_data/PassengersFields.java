@@ -6,7 +6,7 @@ package ca.drusk.flightmanager.client.table_data;
  * @author drusk
  * 
  */
-public class Passengers implements TableFields {
+public class PassengersFields implements TableFields {
 
 	public static final String ID = "id";
 
@@ -38,14 +38,14 @@ public class Passengers implements TableFields {
 	@Override
 	public String[] getFields() {
 		return new String[] { ID, FIRST_NAME, LAST_NAME,
-				Citizenships.CITIZENSHIP, PLACE_OF_BIRTH, DATE_OF_BIRTH,
+				CitizenshipsFields.CITIZENSHIP, PLACE_OF_BIRTH, DATE_OF_BIRTH,
 				DIETARY_RESTRICTIONS, MEDICAL_CONSIDERATIONS,
 				IS_AIRLINE_EMPLOYEE, IS_DOCTOR, IS_INFANT };
 	}
 
 	@Override
 	public String[] getEntryFields() {
-		return new String[] { FIRST_NAME, LAST_NAME, Citizenships.CITIZENSHIP,
+		return new String[] { FIRST_NAME, LAST_NAME, CitizenshipsFields.CITIZENSHIP,
 				PLACE_OF_BIRTH, DATE_OF_BIRTH };
 	}
 

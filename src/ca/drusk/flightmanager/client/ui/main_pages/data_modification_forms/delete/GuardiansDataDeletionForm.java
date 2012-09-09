@@ -1,7 +1,7 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.delete;
 
 import ca.drusk.flightmanager.client.services.DataDeletionServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Guardians;
+import ca.drusk.flightmanager.client.table_data.GuardiansFields;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -37,8 +37,8 @@ public class GuardiansDataDeletionForm extends AbstractDataModificationForm {
 			@Override
 			public void onClick(ClickEvent event) {
 				String guardianId = inputForm
-						.getEnteredText(Guardians.GUARDIAN_ID);
-				String infantId = inputForm.getEnteredText(Guardians.INFANT_ID);
+						.getEnteredText(GuardiansFields.GUARDIAN_ID);
+				String infantId = inputForm.getEnteredText(GuardiansFields.INFANT_ID);
 				dataDeletionService.removeGuardian(guardianId, infantId,
 						new LoggingCallback("Deletion sent to server"));
 			}
@@ -50,7 +50,7 @@ public class GuardiansDataDeletionForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new Guardians().getPrimaryKeyAttributes();
+		return new GuardiansFields().getPrimaryKeyAttributes();
 	}
 
 }

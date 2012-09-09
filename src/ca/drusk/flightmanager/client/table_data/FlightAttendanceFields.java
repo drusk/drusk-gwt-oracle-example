@@ -6,7 +6,7 @@ package ca.drusk.flightmanager.client.table_data;
  * @author drusk
  * 
  */
-public class FlightAttendance implements TableFields {
+public class FlightAttendanceFields implements TableFields {
 
 	public static final String PASSENGER_ID = "passengerId";
 

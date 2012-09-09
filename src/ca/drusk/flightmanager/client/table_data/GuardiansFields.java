@@ -6,7 +6,7 @@ package ca.drusk.flightmanager.client.table_data;
  * @author drusk
  * 
  */
-public class Guardians implements TableFields {
+public class GuardiansFields implements TableFields {
 
 	public static final String GUARDIAN_ID = "guardianId";
 

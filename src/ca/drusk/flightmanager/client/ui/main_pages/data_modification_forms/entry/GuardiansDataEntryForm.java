@@ -1,7 +1,7 @@
 package ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.entry;
 
 import ca.drusk.flightmanager.client.services.DataEntryServiceAsync;
-import ca.drusk.flightmanager.client.table_data.Guardians;
+import ca.drusk.flightmanager.client.table_data.GuardiansFields;
 import ca.drusk.flightmanager.client.table_data.TableNames;
 import ca.drusk.flightmanager.client.ui.main_pages.data_modification_forms.AbstractDataModificationForm;
 
@@ -36,8 +36,8 @@ public class GuardiansDataEntryForm extends AbstractDataModificationForm {
 			@Override
 			public void onClick(ClickEvent event) {
 				String guardianId = inputForm
-						.getEnteredText(Guardians.GUARDIAN_ID);
-				String infantId = inputForm.getEnteredText(Guardians.INFANT_ID);
+						.getEnteredText(GuardiansFields.GUARDIAN_ID);
+				String infantId = inputForm.getEnteredText(GuardiansFields.INFANT_ID);
 				dataEntryService.addGuardian(guardianId, infantId,
 						new LoggingCallback(
 								"Data received successfully by server"));
@@ -50,7 +50,7 @@ public class GuardiansDataEntryForm extends AbstractDataModificationForm {
 
 	@Override
 	protected String[] getInputFieldLabels() {
-		return new Guardians().getEntryFields();
+		return new GuardiansFields().getEntryFields();
 	}
 
 }

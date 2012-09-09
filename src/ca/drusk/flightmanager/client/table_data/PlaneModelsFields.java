@@ -1,23 +1,27 @@
 package ca.drusk.flightmanager.client.table_data;
 
 /**
- * Constants for the fields in the IncomingFlights table.
+ * Constants for the fields in the PlaneModels table
  * 
  * @author drusk
  * 
  */
-public class IncomingFlights implements TableFields {
+public final class PlaneModelsFields implements TableFields {
 
-	public static final String PLANNED_ARRIVAL_TIME = "plannedArrivalTime";
+	public static final String CODE = "Code";
+
+	public static final String NAME = "Name";
+
+	public static final String CAPACITY = "Capacity";
 
 	@Override
 	public String[] getPrimaryKeyAttributes() {
-		return new String[] { Flights.FLIGHT_NUMBER };
+		return new String[] { CODE };
 	}
 
 	@Override
 	public String[] getFields() {
-		return new String[] { Flights.FLIGHT_NUMBER, PLANNED_ARRIVAL_TIME };
+		return new String[] { CODE, NAME, CAPACITY };
 	}
 
 	@Override
