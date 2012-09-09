@@ -15,3 +15,6 @@ part of the project specification.
 
 Database connection information, such as the database name, user name and 
 password are set in the DatabaseConnectionManager class.
+
+See the <a href="https://github.com/drusk/drusk-gwt-oracle-example/wiki">project wiki</a> 
+for instructions on how to setup a development environment.
