@@ -1,3 +1,11 @@
+-- David Rusk
+-- V00662179
+-- CSC 370
+-- Project
+
+-- This script deletes the existing database, recreates the tables and views,
+-- then populates them with example data.
+
 @dropDB.sql;
 @createDB.sql;
 @data_insertion/airlines.sql;
