@@ -14,9 +14,9 @@ import java.util.Stack;
 public class DatabaseConnectionManager {
 
 	// TODO: read from properties file
-	private static final String PASSWORD = "tlotr123";
+	private static final String PASSWORD = "testpassword";
 
-	private static final String USER_NAME = "drusk";
+	private static final String USER_NAME = "testuser";
 
 	private static final String PORT = "1521";
 
