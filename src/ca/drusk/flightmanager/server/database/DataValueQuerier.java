@@ -12,8 +12,6 @@ import java.sql.SQLException;
  */
 public class DataValueQuerier extends DatabaseAccessor {
 
-	// private PreparedStatement airportUtcStmt = null;
-
 	private PreparedStatement passengerIdStmt = null;
 
 	private PreparedStatement infantStmt = null;

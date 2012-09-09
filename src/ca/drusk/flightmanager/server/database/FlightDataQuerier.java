@@ -23,15 +23,9 @@ public class FlightDataQuerier extends DatabaseAccessor {
 
 	private PreparedStatement inOutFlightsStmt = null;
 
-	private PreparedStatement depTimeStmt = null;
-
-	private PreparedStatement arrTimeStmt = null;
-
 	private PreparedStatement passengersForFlightStmt = null;
 
 	private PreparedStatement baggageStmt = null;
-
-	private PreparedStatement connectingFlightsStmt = null;
 
 	private PreparedStatement frequentPassengerStmt = null;
 
@@ -56,29 +50,12 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				Flights.FLIGHT_NUMBER, Flights.SOURCE, Flights.DESTINATION });
 	}
 
-	// @SuppressWarnings("unchecked")
-	// public Relation getDeparturesAround(Time targetTime, int bufferMinutes) {
-	// /*
-	// * Subtracting dates in Oracle returns the number of days difference as
-	// * a float. This can be multiplied by the number of minutes in a day
-	// * (1440) to get the difference between the dates in minutes.
-	// */
-	// depTimeStmt = prepareStatement(
-	// depTimeStmt,
-	// "SELECT flightNumber, TO_CHAR(plannedDepartureTime, 'HH:MI') AS scheduledDeparture, departureDate, status FROM OutgoingFlights JOIN FlightInstances USING(flightNumber) JOIN Departures USING(id) WHERE ? < ABS(plannedDepartureTime-?)*1440");
-	// setParameters(depTimeStmt, bufferMinutes, targetTime);
-	// return executeQuery(depTimeStmt, Flights.FLIGHT_NUMBER,
-	// "scheduledDeparture", Departures.DEPARTURE_DATE,
-	// Departures.STATUS);
-	// }
-
-	@SuppressWarnings("unchecked")
 	public Relation getDeparturesAround(String airportCode, String targetTime,
 			int bufferMinutes) {
 		/*
-		 * XXX having trouble setting interval value with prepared statement
+		 * XXX having trouble setting interval value with prepared statement, so
+		 * using regular statement.
 		 */
-		System.out.println("Target time " + targetTime);
 		String sql = "SELECT flightNumber, TO_CHAR(plannedDepartureTime, 'HH24:MI') AS scheduledDeparture, departureDate, status FROM Flights JOIN FlightInstances USING(flightNumber) JOIN Departures USING(id) WHERE airportCode='"
 				+ airportCode
 				+ "' AND "
@@ -92,21 +69,14 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				+ bufferMinutes + "' minute)";
 		System.out.println(sql);
 		return executeQuery(sql);
-		// depTimeStmt = prepareStatement(depTimeStmt, sql);
-		// setParameters(depTimeStmt, airportCode, targetTime, bufferMinutes,
-		// bufferMinutes);
-		// return executeQuery(depTimeStmt, Flights.FLIGHT_NUMBER,
-		// "scheduledDeparture", Departures.DEPARTURE_DATE,
-		// Departures.STATUS);
 	}
 
-	@SuppressWarnings("unchecked")
 	public Relation getArrivalsAround(String airportCode, String targetTime,
 			int bufferMinutes) {
 		/*
-		 * XXX having trouble setting interval value with prepared statement
+		 * XXX having trouble setting interval value with prepared statement, so
+		 * using regular statement.
 		 */
-		System.out.println("Target time " + targetTime);
 		String sql = "SELECT flightNumber, TO_CHAR(plannedArrivalTime, 'HH24:MI') AS scheduledArrival, arrivalDate, status FROM Flights JOIN FlightInstances USING(flightNumber) JOIN Arrivals USING(id) WHERE airportCode='"
 				+ airportCode
 				+ "' AND "
@@ -118,13 +88,7 @@ public class FlightDataQuerier extends DatabaseAccessor {
 				+ "' minute) AND "
 				+ "(plannedArrivalTime + interval '"
 				+ bufferMinutes + "' minute)";
-		System.out.println(sql);
 		return executeQuery(sql);
-		// arrTimeStmt = prepareStatement(arrTimeStmt, sql);
-		// setParameters(arrTimeStmt, airportCode, targetTime, bufferMinutes,
-		// bufferMinutes);
-		// return executeQuery(arrTimeStmt, Flights.FLIGHT_NUMBER,
-		// "scheduledArrival", Arrivals.ARRIVAL_DATE, Arrivals.STATUS);
 	}
 
 	public Relation getPassengers(String flightInstanceId) {
@@ -154,13 +118,13 @@ public class FlightDataQuerier extends DatabaseAccessor {
 	public Relation getConnectingFlights(String airportCode,
 			int maxWaitTimeMinutes) {
 		/*
-		 * XXX having trouble setting interval value with prepared statement
+		 * XXX having trouble setting interval value with prepared statement, so
+		 * using regular statement.
 		 */
 		String sql = "SELECT R1.airlineCode AS f1_airlineCode, R1.flightNumber AS f1_flightNumber, R2.airlineCode AS f2_airlineCode, R2.flightNumber AS f2_flightNumber FROM Flights R1, Flights R2 WHERE R1.destination=R2.source AND R1.destination='"
 				+ airportCode
 				+ "' AND R2.plannedDepartureTime>R1.plannedArrivalTime AND R2.plannedDepartureTime<(R1.plannedArrivalTime + INTERVAL '"
 				+ maxWaitTimeMinutes + "' MINUTE)";
-		System.out.println(sql);
 		return executeQuery(sql);
 	}
 
