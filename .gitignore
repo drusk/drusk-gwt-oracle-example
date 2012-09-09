@@ -1,2 +1,3 @@
-/bin
-/gwt-unitCache
+bin/
+gwt-unitCache/
+test-classes/
